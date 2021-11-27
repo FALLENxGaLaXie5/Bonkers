@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6054298383761831204}
   - component: {fileID: 6054298383761831207}
   - component: {fileID: 6054298383761831202}
-  - component: {fileID: 6054298383761831205}
   - component: {fileID: 1010637017852036886}
   m_Layer: 0
   m_Name: GridTile
@@ -99,18 +98,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isExplored: 0
   exploredFrom: {fileID: 0}
---- !u!114 &6054298383761831205
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6054298383761831206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 30cfd3bf2b3925d4b9b8ef8ff826b7f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1010637017852036886
 MonoBehaviour:
   m_ObjectHideFlags: 0

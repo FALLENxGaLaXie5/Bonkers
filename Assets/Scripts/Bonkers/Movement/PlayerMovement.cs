@@ -2,22 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Bonkers.Control;
+using Sirenix.OdinInspector;
 
 namespace Bonkers.Movement
 {
     [DisallowMultipleComponent]
     public class PlayerMovement : MonoBehaviour
     {
+        #region Events/Delegates
+        public event Action ClearInputBuffers;
+        public event Action StopBoostEffect;
+        #endregion
+
         #region InspectorVariables
-        [Header("General")]
-        [Tooltip("How fast player should move.")][Range(2f, 10f)][SerializeField] float moveSpeed = 5f;
+        [Title("General")]
+        /*[Tooltip("How fast player should move.")][Range(2f, 10f)][SerializeField]*/ float speed = 5f;
         [SerializeField] float moverCheckDistance = 0.02f;
         public LayerMask whatStopsMovement;
+        
 
         [Space(5)]
 
-        [Header("Boost Variables")]
+        [Title("Boost Variables")]
         [Tooltip("Added maximum boost effect speed when it is fully charged.")] [Range(1f, 10f)] [SerializeField] float boostEffectSpeed = 3f;
         [Tooltip("How far offset from player on the Y Axis Boost Bar will be.")][SerializeField] [Range(0.1f, 3f)] float boostBarYOffset = 1f;
         [SerializeField] [Range(0.001f, 0.1f)] float boostCoolInterval = 0.005f;
@@ -26,10 +32,12 @@ namespace Bonkers.Movement
         [SerializeField] float speedDepreciationTime = 0.05f;
         [SerializeField] BoostBar boostBar;
 
+        public event Action<Vector3> onFacingDirectionChanged;
+
         [Space(5)]
         
-        [Header("Debugging")]
-        public Vector3 facingDir = Vector3.down;
+        [Title("Debugging")]
+        Vector3 facingDir = Vector3.down;
 
         #endregion
 
@@ -38,7 +46,6 @@ namespace Bonkers.Movement
         float boostAvailable;
         float baseSpeed;
         Transform movePoint;
-        PlayerControl playerControl;
 
         IEnumerator slowDownCoroutine;
         IEnumerator coolBoostCoroutine;
@@ -46,17 +53,20 @@ namespace Bonkers.Movement
 
         #region Unity Event Functions
 
-        void Start()
+        void Awake()
         {
-            baseSpeed = moveSpeed;
-            boostAvailable = boostEffectSpeed;
             movePoint = transform.Find("MovePoint");
             movePoint.parent = null;
-            playerControl = GetComponent<PlayerControl>();
+        }
+
+        void Start()
+        {
+            baseSpeed = speed;
+            boostAvailable = boostEffectSpeed;
             slowDownCoroutine = SlowDown();
             coolBoostCoroutine = CoolBoost();
             boostBar.SetMaxBoost(boostEffectSpeed);
-            boostBar.transform.parent.transform.parent = null;
+            boostBar.transform.parent.transform.SetParent(null);
         }
 
         void Update()
@@ -70,7 +80,8 @@ namespace Bonkers.Movement
 
         public bool MovePointHorizontal(float inputHorizontal)
         {
-            playerControl.ClearInputBuffers();
+
+            ClearInputBuffers?.Invoke();
             Collider2D collider = Physics2D.OverlapCircle(movePoint.position + new Vector3(inputHorizontal, 0f, 0f), 0.2f, whatStopsMovement);
             if (CanMove(collider))
             {
@@ -82,7 +93,7 @@ namespace Bonkers.Movement
 
         public bool MovePointVertical(float inputVertical)
         {
-            playerControl.ClearInputBuffers();
+            ClearInputBuffers?.Invoke();
             Collider2D collider = Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, inputVertical, 0f), 0.2f, whatStopsMovement);
             if (CanMove(collider))
             {
@@ -141,17 +152,18 @@ namespace Bonkers.Movement
 
         public void SetFacingDir(Vector3 newFacingDir)
         {
-            this.facingDir = newFacingDir;
+            onFacingDirectionChanged?.Invoke(newFacingDir);
+            facingDir = newFacingDir;
         }
 
         public float GetMoveSpeed()
         {
-            return moveSpeed;
+            return speed;
         }        
 
         public void SetMoveSpeed(float newSpeed)
         {
-            moveSpeed = Mathf.Clamp(newSpeed, baseSpeed, baseSpeed + boostEffectSpeed);
+            speed = Mathf.Clamp(newSpeed, 0, baseSpeed + boostEffectSpeed);
         }
 
         public float GetBoostSpeed()
@@ -161,22 +173,22 @@ namespace Bonkers.Movement
 
         public void ResetMoveSpeed()
         {
-            this.moveSpeed = this.baseSpeed;
+            speed = baseSpeed;
         }
 
         public Transform GetMovePoint()
         {
-            return this.movePoint;
+            return movePoint;
         }
 
         public float GetCheckDistance()
         {
-            return this.moverCheckDistance;
+            return moverCheckDistance;
         }
 
         public void StartBoostEffect()
         {
-            SetMoveSpeed(moveSpeed + boostAvailable);
+            SetMoveSpeed(speed + boostAvailable);
 
             StopCoroutine(slowDownCoroutine);
             StopCoroutine(coolBoostCoroutine);
@@ -199,12 +211,12 @@ namespace Bonkers.Movement
 
         IEnumerator SlowDown()
         {
-            while (moveSpeed > baseSpeed)
+            while (speed > baseSpeed)
             {
                 yield return new WaitForSeconds(speedDepreciationTime);
-                SetMoveSpeed(moveSpeed - speedDepreciation);
-            }            
-            playerControl.StopBoostEffect();
+                SetMoveSpeed(speed - speedDepreciation);
+            }
+            StopBoostEffect?.Invoke();
         }
 
         IEnumerator CoolBoost()
@@ -218,9 +230,7 @@ namespace Bonkers.Movement
                 boostBar.SetBoost(boostAvailable);
             }            
         }
-
         
-
         #endregion
     }
 }

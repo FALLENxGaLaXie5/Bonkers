@@ -82,7 +82,7 @@ namespace Bonkers.Control
             isGhosted = !isGhosted;
             if (isGhosted)
             {
-                spriteRenderer.DOFade(ghostlyAlpha, ghostTransitionTime);
+                spriteRenderer.DOFade(ghostlyAlpha, ghostTransitionTime);   
                 //Need to make it so ghost can walk through walls now
                 moverSingleSpace.cannotPatrolMask = cannotPatrolMaskGhost;
             }

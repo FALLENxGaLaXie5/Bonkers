@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Bonkers.SceneManagement;
 
 namespace Bonkers.Combat
 {
@@ -12,6 +12,7 @@ namespace Bonkers.Combat
 
         [SerializeField] bool invincible = false;
         public int health = 5;
+        public event Action onPlayerDeath;
 
         #endregion
 
@@ -53,7 +54,8 @@ namespace Bonkers.Combat
             Destroy(audioSource.transform.gameObject, 2f);
             if (playersParentTransform.childCount <= 0)
             {
-                FindObjectOfType<Portal>().StartTransition(0);
+                onPlayerDeath?.Invoke();
+                //FindObjectOfType<Portal>().StartTransition(0);
             }
             Destroy(this.gameObject);
         }

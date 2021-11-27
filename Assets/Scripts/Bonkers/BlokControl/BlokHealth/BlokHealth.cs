@@ -1,14 +1,17 @@
-﻿using Bonkers.Combat;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Bonkers.Combat;
 
 namespace Bonkers.BlokControl
 {
-    public class BlokHealth : MonoBehaviour
+    public abstract class BlokHealth : MonoBehaviour
     {
         protected ExplodeOnOrder explosionOrder;
         protected IBlokControl blokControl;
+        public event Action onDestroyBlok;
+
         protected void Start()
         {
             explosionOrder = GetComponent<ExplodeOnOrder>();
@@ -16,7 +19,7 @@ namespace Bonkers.BlokControl
         }
         public virtual void DestroyBlok()
         {
-            blokControl.PlaySound();
+            onDestroyBlok?.Invoke();
             explosionOrder.ExplodeBlok();
         }
     }

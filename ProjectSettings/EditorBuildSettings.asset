@@ -5,13 +5,20 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 213e04713ab3545469d5269d8134edfb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Level_InfiniteWaveSpawn.unity
     guid: 3ab1088ce654c4e47a7febc5485f6fc3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Bonkers_TwoPlayer.unity
     guid: e3f0f3f9a7f431a47ba57c05faa2f908
-  m_configObjects: {}
+  - enabled: 1
+    path: Assets/Scenes/LocalMultiplayerSetup.unity
+    guid: b9c599bd5b3053a4e96f8ca161ce203b
+  - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 699cb0836821cdb4b93269c1de54b34e
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 12b40637c4ed2c94d86d05e58487d1d4, type: 2}

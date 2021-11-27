@@ -12,7 +12,7 @@ namespace Bonkers.Movement
         [SerializeField][Range(1, 90)][Tooltip("This will be the percentage chance that the AI will change movement directions when moving forward and no objects encountered.")]
         float percentChanceChangeDir = 25f;
         [SerializeField][Range(0f, 10f)][Tooltip("Movement speed for space by space AI")]
-        float moveSpeed = 3f;
+        float speed = 3f;
         [SerializeField][Range(0.05f, 0.5f)][Tooltip("How much time it will take to rotate AI")]
         float rotationTime = 0.2f;
         [SerializeField][Range(0.005f, 0.05f)][Tooltip("Distance to check if at new space")]
@@ -59,7 +59,7 @@ namespace Bonkers.Movement
             //If movement is disabled, don't move at all
             if (movementDisabled) return;
 
-            transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, movePoint.position, speed * Time.deltaTime);
             if (Vector3.Distance(transform.position, movePoint.position) <= checkDistance)
             {
                 //If we need to change directions, it will pick a new direction and then set the movepoint ahead in that direction

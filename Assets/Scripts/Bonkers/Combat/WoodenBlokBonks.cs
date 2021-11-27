@@ -13,25 +13,17 @@ namespace Bonkers.Combat
         #endregion
 
         #region Class Variables
+
         int numTimesBonked = 0;
 
         #endregion
 
         #region Class Functions
-        public int GetNumTimesBonked()
-        {
-            return this.numTimesBonked;
-        }
 
-        public void IncrementNumTimesBonked()
-        {
-            this.numTimesBonked++;
-        }
+        public int NumTimesBonked => numTimesBonked;
+        public void IncrementNumTimesBonked() => numTimesBonked++;
+        public int NumberBonksToBreak => numBonksToBreak;
 
-        public int GetNumBonksToBreak()
-        {
-            return this.numBonksToBreak;
-        }
         #endregion
     }
 }

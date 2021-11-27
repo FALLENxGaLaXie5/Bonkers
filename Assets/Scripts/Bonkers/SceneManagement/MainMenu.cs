@@ -15,6 +15,7 @@ namespace Bonkers.SceneManagement
         {
             portal = FindObjectOfType<Portal>();
         }
+
         public void PlayGameSinglePlayer()
         {
             portal.StartTransition(singlePlayerSceneIndex);

@@ -1,8 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Bonkers.Movement;
-using Bonkers.Control;
 using DG.Tweening;
 using Pathfinding;
 
@@ -19,7 +18,10 @@ namespace Bonkers.Combat
         [SerializeField][Range(0.1f, 5f)] float timeBetweenHits = 1f;
         [SerializeField] [Range(0.01f, 2f)] float pauseBeforeDestroy = 0.2f;
         [SerializeField] float dissolveSpeed = 2f;
-        
+
+
+        public event Action onDisableFunctionality;
+
         #endregion
 
         #region Private/Class Variables
@@ -28,9 +30,7 @@ namespace Bonkers.Combat
         float dissolveModifierValue = 1f;
         Tween dissolveTween = null;
         Material spriteMaterial;
-        IEnemyCombat combat;
-        AIControl control;
-        IAIMovement movement;
+        
         Rigidbody2D rigidBody;
         #endregion
 
@@ -39,16 +39,13 @@ namespace Bonkers.Combat
         void Awake()
         {
             spriteMaterial = GetComponentInChildren<SpriteRenderer>().material;
-            combat = GetComponent<IEnemyCombat>();
-            control = GetComponent<AIControl>();
-            movement = GetComponent<IAIMovement>();
             rigidBody = GetComponent<Rigidbody2D>();
         }
 
         void Update()
         {
             //if dissolveTween has started
-            if (dissolveTween != null && dissolveTween.IsPlaying())
+            if (dissolveTween != null && dissolveTween.IsActive() && dissolveTween.IsPlaying())
             {
                 if (!spriteMaterial) return;
                 //if sprite material is set, need to set fade value
@@ -76,7 +73,7 @@ namespace Bonkers.Combat
         public void Die()
         {
             //dissolve enemy - need to actually set shader fade in update
-            dissolveTween = DOTween.To(() => dissolveModifierValue, x => dissolveModifierValue = x, 0f, dissolveSpeed);
+            dissolveTween = DOTween.To(() => dissolveModifierValue, x => dissolveModifierValue = x, 0f, dissolveSpeed).SetLink(gameObject);
 
             //this will disable the control, combat, and movement classes and disable any kind of AI Functionality
             DisableAllAIFunctionality();
@@ -85,13 +82,14 @@ namespace Bonkers.Combat
             StartCoroutine(DestroyEnemyObject(dissolveTween));
 
             //increment corresponding score
-            GameObject scoreTextObject = Instantiate(scoreObject, this.transform.position + new Vector3(0f, scoreObjectSpawnOffset, 0f), Quaternion.identity);
-            scoreTextObject.GetComponentInChildren<TextMesh>().text = this.scoreValue.ToString();
+            GameObject scoreTextObject = Instantiate(scoreObject, transform.position + new Vector3(0f, scoreObjectSpawnOffset, 0f), Quaternion.identity);
+            scoreTextObject.GetComponentInChildren<TextMesh>().text = scoreValue.ToString();
             
             //set this flag so that Die can't be called multiple times
             canBeHit = false;
 
             //play then destroy explosion particle effect
+            if (!slimeExplosion) return;
             slimeExplosion.transform.parent = null;
             slimeExplosion.Play();
             Destroy(slimeExplosion.gameObject, pauseBeforeDestroy);            
@@ -99,9 +97,7 @@ namespace Bonkers.Combat
 
         void DisableAllAIFunctionality()
         {
-            combat.DisableCombat();
-            control.DisableControl();
-            movement.DisableMovement();
+            onDisableFunctionality?.Invoke();
 
             //this will disable any forces acting on rigidBody (blok's exploding were exuding force on it on death)
             rigidBody.isKinematic = true;
@@ -110,20 +106,17 @@ namespace Bonkers.Combat
         IEnumerator DestroyEnemyObject(Tween dissolveTween)
         {
             yield return dissolveTween.WaitForCompletion();            
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         IEnumerator PauseHittable()
         {
-            this.canBeHit = false;
+            canBeHit = false;
             yield return new WaitForSeconds(timeBetweenHits);
-            this.canBeHit = true;
+            canBeHit = true;
         }
 
-        public int GetHealth()
-        {
-            return this.health;
-        }
+        public int GetHealth() => health;
 
         public void SetHealth(int newHealth)
         {
@@ -132,7 +125,7 @@ namespace Bonkers.Combat
 
         public int GetScoreValue()
         {
-            return this.scoreValue;
+            return scoreValue;
         }
 
         #endregion

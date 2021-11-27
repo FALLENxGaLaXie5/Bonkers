@@ -371,7 +371,7 @@ namespace Delaunay
 		public float x {
 			get { return _coord.x;}
 		}
-		internal float y {
+		public float y {
 			get { return _coord.y;}
 		}
 		

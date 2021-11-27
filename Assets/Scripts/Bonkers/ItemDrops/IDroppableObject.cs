@@ -2,7 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDroppableObject
+/// <summary>
+/// Designed to be applied to any scriptable object droppable objects (food, powerups, etc.)
+/// - NOT THE ACTUAL PREFABS
+/// </summary>
+namespace Bonkers.Drops
 {
-    void Spawn(Vector3 position);
+    public interface IDroppableObject
+    {
+        void Spawn(Vector3 position);
+    }
 }

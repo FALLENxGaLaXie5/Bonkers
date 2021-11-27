@@ -119,6 +119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1309284504229914603}
   - component: {fileID: 1309284504229914596}
+  - component: {fileID: 8309291014700923096}
   m_Layer: 0
   m_Name: ToxicSlimos
   m_TagString: Untagged
@@ -152,6 +153,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34adc9d0e8224544979983c002c2f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toxicSlimoPrefab: {fileID: 4093535004827596593, guid: 326a764d73662c04782c5a68d824972f, type: 3}
+--- !u!114 &8309291014700923096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1309284504229914602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3abd5448201be84bbfebeb55d9d9f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 731333bc369a563489d5d6b30bd7fe7a, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1309284504229914596}
+        m_TargetAssemblyTypeName: Bonkers.Core.ToxicSlimoHolder, Bonkers.Core
+        m_MethodName: AttemptSpawn
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1309284504255523303
 GameObject:
   m_ObjectHideFlags: 0

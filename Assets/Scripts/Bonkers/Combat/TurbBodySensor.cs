@@ -21,7 +21,17 @@ public class TurbBodySensor : MonoBehaviour
         //sense if enemy hit the player
         if (collision.tag == "Player" && isEnabled)
         {
-            turbCombat.HitPlayer(collision.transform);
+            if (!turbCombat)
+            {
+                if(transform.parent.TryGetComponent<TurbCombat>(out TurbCombat combat))
+                    combat.HitPlayer(collision.transform);
+                else
+                    turbCombat.HitPlayer(collision.transform);
+            }
+            else
+            {
+                turbCombat.HitPlayer(collision.transform);
+            }
         }
         if (collision.tag == "Food")
         {

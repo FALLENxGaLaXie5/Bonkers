@@ -64,7 +64,7 @@ namespace Delaunay
 			for (int j=0; j<n; j++) {
 				done [j] = false;
 			}
-			List<Edge> newEdges = new List<Edge> (); // TODO: Switch to Deque if performance is a concern
+			List<Edge> newEdges = new List<Edge> ();
 			
 			i = 0;
 			edge = origEdges [i];
@@ -98,7 +98,7 @@ namespace Delaunay
 						done [i] = true;
 					} else if (rightPoint == firstPoint) {
 						firstPoint = leftPoint;
-						_edgeOrientations.Insert (0, Side.LEFT); // TODO: Change datastructure if this is slow
+						_edgeOrientations.Insert (0, Side.LEFT);
 						newEdges.Insert (0, edge);
 						done [i] = true;
 					} else if (leftPoint == firstPoint) {

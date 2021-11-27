@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Bonkers.Movement;
-using Bonkers.BlokControl;
+﻿using UnityEngine;
 using System;
+using Bonkers.Score;
 
 namespace Bonkers.Combat
 {
@@ -12,150 +9,77 @@ namespace Bonkers.Combat
     {
         #region Inspector Variables
         public LayerMask bonkableLayers;
-        [SerializeField] [Range(0.02f, 0.4f)] float checkRadius = 0.1f;
         [SerializeField] [Range(1.0f, 2.0f)] float bonkableDistance = 1.2f;
+        #endregion
+
+        #region Events/Delegates
+
+        public event Action<int> onHitScoreableObject;
+
         #endregion
 
         #region Class Variables
 
-        PlayerMovement playerMovement;
+        Vector3 facingDirection = Vector3.down;
+
         #endregion
 
-        #region Unity Event Functions
-        // Start is called before the first frame update
-        void Start()
-        {
-            playerMovement = GetComponent<PlayerMovement>();
-        }
+        #region Class Functions
 
-        public void BonkBlok()
+        public Vector3 FacingDirection => facingDirection;
+        public void SetFacingDirection(Vector3 facingDirection) => this.facingDirection = facingDirection;
+
+        public void AttemptBonkBlok()
         {
-            Collider2D blokCollider = Physics2D.OverlapCircle(transform.position + playerMovement.GetFacingDir(), 0.2f, bonkableLayers);
+            Collider2D blokCollider = Physics2D.OverlapCircle(transform.position + facingDirection, 0.2f, bonkableLayers);
 
             //if no hit, return
             if (!blokCollider) return;
             //if not in range of blok that was hit, return
             if (Vector3.Distance(transform.position, blokCollider.transform.position) > bonkableDistance) return;
 
-
-            switch (blokCollider.transform.tag)
+            if (blokCollider.transform.TryGetComponent<IBlokInteraction>(out IBlokInteraction blokInteraction))
             {
-                case "BasicBlok":
-                    BonkBasicBlok(blokCollider);
-                    break;
-                case "GlassBlok":
-                    BonkGlassBlok(blokCollider);
-                    break;
-                case "WoodenBlok":
-                    BonkWoodenBlok(blokCollider);
-                    break;
-                case "IceBlok":
-                    BonkIceBlok(blokCollider);
-                    break;
-                case "BombBlok":
-                    BonkBombBlok(blokCollider);
-                    break;
-                case "SkullBlok":
-                    break;
-                default:
-                    break;
+                blokInteraction.BlokHit(facingDirection);
+                WaitForScoreCallback(blokCollider);
             }
         }
 
-        
-
+        void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<IBlokInteraction>(out IBlokInteraction blokInteraction))
+            {
+                blokInteraction.BlokBumped(facingDirection, transform.position);
+            }
+        }
 
         #endregion
 
         #region Class Functions
 
         /// <summary>
-        /// 
+        /// When the player "bonks" a moveable blok, this function will look for a "BlokScorer" component on it.
+        /// If there is a Blok Scorer component on the blok we hit, then send it a callback delegate that will be invoked if that blok hits something
+        ///     (an enemy in this case) that warrants a score.
         /// </summary>
         /// <param name="blokCollider"></param>
-        void BonkBasicBlok(Collider2D blokCollider)
+        void WaitForScoreCallback(Collider2D blokCollider)
         {
-            Collider2D nextOverBlokCollider = Physics2D.OverlapCircle(transform.position + (playerMovement.GetFacingDir() * 2), checkRadius, bonkableLayers);
-            if (nextOverBlokCollider)
+            if (blokCollider.transform.TryGetComponent<BlokHitTracker>(out BlokHitTracker blokHitTracker))
             {
-                blokCollider.transform.GetComponent<IBlokControl>().PlaySound();
-                Transform audioSourceTransform = blokCollider.transform.GetComponentInChildren<AudioSource>().transform;
-                audioSourceTransform.parent = null;
-                Destroy(audioSourceTransform.gameObject, 1f);
-                blokCollider.transform.GetComponent<ExplodeOnOrder>().ExplodeBlok();
+                blokHitTracker.SetHitCallback(NotifyHitScoreableObject);
             }
-            else
-            {
-                blokCollider.transform.GetComponent<IBlokControl>().SetMoving(true, playerMovement.GetFacingDir());
-            }
-            UpdateHitBy(blokCollider);
-        }
-
-        
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="blokCollider"></param>
-        void BonkGlassBlok(Collider2D blokCollider)
-        {
-            Collider2D nextOverBlokCollider = Physics2D.OverlapCircle(transform.position + (playerMovement.GetFacingDir() * 2), checkRadius, bonkableLayers);
-            if (nextOverBlokCollider)
-            {
-                blokCollider.transform.GetComponent<BlokHealth>().DestroyBlok();
-            }
-            else
-            {
-                blokCollider.transform.GetComponent<IBlokControl>().SetMoving(true, playerMovement.GetFacingDir());
-            }
-            UpdateHitBy(blokCollider);
         }
 
         /// <summary>
-        /// 
+        /// Notifies any listeners that we have hit a scoreable object. (ex: we bonked a blok that then hit an enemy)
         /// </summary>
-        /// <param name="blokCollider"></param>
-        void BonkWoodenBlok(Collider2D blokCollider)
+        /// <param name="enemyHitScoreValue"></param>
+        void NotifyHitScoreableObject(int enemyHitScoreValue)
         {
-            WoodenBlokBonks bonksInstance = blokCollider.transform.GetComponent<WoodenBlokBonks>();
-            bonksInstance.IncrementNumTimesBonked();
-            if (bonksInstance.GetNumTimesBonked() >= bonksInstance.GetNumBonksToBreak())
-            {
-                blokCollider.transform.GetComponent<WoodBlokHealth>().DestroyBlok();
-            }
-            UpdateHitBy(blokCollider);
-        }
-
-        /// <summary>
-        /// Bonk Bomb Blok - just set moving, and if it is right adjacent to another blok, will automatically detect that and explode
-        /// </summary>
-        /// <param name="blokCollider"></param>
-        void BonkBombBlok(Collider2D blokCollider)
-        {
-            blokCollider.transform.GetComponent<IBlokControl>().SetMoving(true, playerMovement.GetFacingDir());
-            UpdateHitBy(blokCollider);
-        }
-
-        void BonkIceBlok(Collider2D blokCollider)
-        {
-            Collider2D nextOverBlokCollider = Physics2D.OverlapCircle(transform.position + (playerMovement.GetFacingDir() * 2), checkRadius, bonkableLayers);
-            if (nextOverBlokCollider)
-            {
-                blokCollider.transform.GetComponent<BlokHealth>().DestroyBlok();                
-            }
-            else
-            {
-                blokCollider.transform.GetComponent<IBlokControl>().SetMoving(true, playerMovement.GetFacingDir());
-            }
-            UpdateHitBy(blokCollider);
-        }
-
-        private void UpdateHitBy(Collider2D blokCollider)
-        {
-            blokCollider.transform.GetComponent<HitBy>().entityHitBy = this.transform;
+            onHitScoreableObject?.Invoke(enemyHitScoreValue);
         }
 
         #endregion
     }
 }
-

@@ -28,9 +28,6 @@ namespace Delaunay
 		private List<Triangle> _triangles;
 		private List<Edge> _edges;
 
-		
-		// TODO generalize this so it doesn't have to be a rectangle;
-		// then we can make the fractal voronois-within-voronois
 		private Rect _plotBounds;
 		public Rect plotBounds {
 			get { return _plotBounds;}
@@ -114,7 +111,6 @@ namespace Delaunay
             return _sites;
         }
 
-		// TODO: bug: if you call this before you call region(), something goes wrong :(
 		public List<Vector2> NeighborSitesForSite (Vector2 coord)
 		{
 			List<Vector2> points = new List<Vector2> ();

@@ -1,11 +1,9 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Bonkers.Movement;
 
 namespace Bonkers.Drops
 {
-    public class TarPuddleBehavior : MonoBehaviour
+    public class TarPuddleBehavior : MonoBehaviour, IEnvironmentEffector
     {
         #region Inspector/Public Variables
 
@@ -20,28 +18,8 @@ namespace Bonkers.Drops
         #endregion
 
         #region Unity Events 
-        void Start()
-        {
-            animator = GetComponent<Animator>();
-        }
-
-        void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.transform.tag == "Player")
-            {
-                PlayerMovement playerMovement = collision.transform.GetComponent<PlayerMovement>();
-                playerMovement.SetMoveSpeed(playerMovement.GetMoveSpeed() - puddle.GetEffect());
-            }
-        }
-
-        void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.transform.tag == "Player")
-            {
-                PlayerMovement playerMovement = collision.transform.GetComponent<PlayerMovement>();
-                playerMovement.ResetMoveSpeed();
-            }
-        }
+        
+        void Start() => animator = GetComponent<Animator>();
 
         #endregion
 
@@ -65,8 +43,9 @@ namespace Bonkers.Drops
         {
             Destroy(gameObject);    
         }
+        
+        public ScriptableObject AttemptGetEffector() => puddle;
 
         #endregion
     }
 }
-

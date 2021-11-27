@@ -45,32 +45,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turbPrefab: {fileID: 4093535004827596593, guid: 48891236e7459e14fb1cde9c8e00f98a, type: 3}
-  turbAllianceTransform: {fileID: 5522406726305397914}
-  spawnTurbs: 1
+  spawnTurbs: 0
   maxTurbs: 6
   minTurbSpawnWait: 15
   maxTurbSpawnWait: 30
   grubberPrefab: {fileID: 4093535004827596593, guid: fd36fbe1d94a82d4f9e1ea800659b7aa, type: 3}
-  grubberAllianceTransform: {fileID: 5522406726166472478}
-  spawnGrubbers: 1
-  maxGrubbers: 2
-  minGrubberSpawnWait: 15
-  maxGrubberSpawnWait: 30
+  spawnGrubbers: 0
+  maxGrubbers: 3
+  minGrubberSpawnWait: 5
+  maxGrubberSpawnWait: 10
   tarSlimePrefab: {fileID: 4093535004827596593, guid: c291d341e57380b4d8704e9fbcba0340, type: 3}
-  tarAllianceTransform: {fileID: 5522406727415154526}
   spawnTarSlimos: 1
   maxTarSlimos: 3
-  minTarSlimoSpawnWait: 15
-  maxTarSlimoSpawnWait: 30
+  minTarSlimoSpawnWait: 5
+  maxTarSlimoSpawnWait: 10
   toxicSlimePrefab: {fileID: 4093535004827596593, guid: 326a764d73662c04782c5a68d824972f, type: 3}
-  toxicAllianceTransform: {fileID: 5522406726634878241}
   spawnToxicSlimos: 1
-  maxToxicSlimos: 10
-  minToxicSlimoSpawnWait: 20
-  maxToxicSlimoSpawnWait: 100
+  maxToxicSlimos: 3
+  minToxicSlimoSpawnWait: 5
+  maxToxicSlimoSpawnWait: 10
   ghostlyGrubberPrefab: {fileID: 4093535004827596593, guid: 0cfb55fbc59a37d469ca5fa0080339b2, type: 3}
-  ghostlyGrubberAllianceTransform: {fileID: 5522406726610090794}
-  spawnGhostlyGrubbers: 1
+  spawnGhostlyGrubbers: 0
   maxGhostlyGrubbers: 10
   minGhostlyGrubberSpawnWait: 5
   maxGhostlyGrubberdSpawnWait: 50
@@ -137,30 +132,5 @@ PrefabInstance:
 --- !u!4 &5522406726898614326 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1309284503965242108, guid: 67d2d4f78bd3bf74f9e92074466dd082, type: 3}
-  m_PrefabInstance: {fileID: 6811699905883574986}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5522406726305397914 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1309284504563199568, guid: 67d2d4f78bd3bf74f9e92074466dd082, type: 3}
-  m_PrefabInstance: {fileID: 6811699905883574986}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5522406727415154526 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1309284503449916820, guid: 67d2d4f78bd3bf74f9e92074466dd082, type: 3}
-  m_PrefabInstance: {fileID: 6811699905883574986}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5522406726166472478 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1309284504432670164, guid: 67d2d4f78bd3bf74f9e92074466dd082, type: 3}
-  m_PrefabInstance: {fileID: 6811699905883574986}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5522406726634878241 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1309284504229914603, guid: 67d2d4f78bd3bf74f9e92074466dd082, type: 3}
-  m_PrefabInstance: {fileID: 6811699905883574986}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &5522406726610090794 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1309284504255523296, guid: 67d2d4f78bd3bf74f9e92074466dd082, type: 3}
   m_PrefabInstance: {fileID: 6811699905883574986}
   m_PrefabAsset: {fileID: 0}

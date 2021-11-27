@@ -2,50 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bonkers.Movement;
+using Sirenix.OdinInspector;
 
 namespace Bonkers.Core
 {
     public class SpawnSystem : MonoBehaviour
     {
         #region Inspector and Public Variables
-        [Header("The Turb Alliance")]
-        [SerializeField] GameObject turbPrefab;
-        [SerializeField] bool spawnTurbs = true;
-        [SerializeField] int maxTurbs = 10;
-        [SerializeField] float minTurbSpawnWait = 5f;
-        [SerializeField] float maxTurbSpawnWait = 50f;
-        [Space(10)]
-        
-        [Header("The Grubber Alliance")]
-        [SerializeField] GameObject grubberPrefab;
-        [SerializeField] bool spawnGrubbers = true;
-        [SerializeField] int maxGrubbers = 10;
-        [SerializeField] float minGrubberSpawnWait = 5f;
-        [SerializeField] float maxGrubberSpawnWait = 50f;
+        [TitleGroup("The Turb Alliance", Alignment = TitleAlignments.Left)]
+        [HorizontalGroup("The Turb Alliance/Base", LabelWidth = 80)]
+        [SerializeField][Required][PreviewField(60, Alignment = ObjectFieldAlignment.Left)][BoxGroup("The Turb Alliance/Base/Left", false)][LabelWidth(140)] GameObject turbPrefab;
+        [SerializeField] [BoxGroup("The Turb Alliance/Base/Configuration")][LabelWidth(140)] bool spawnTurbs = true;
+        [SerializeField] [BoxGroup("The Turb Alliance/Base/Configuration")] [LabelWidth(140)] int maxTurbs = 10;
+        [SerializeField] [BoxGroup("The Turb Alliance/Base/Configuration")] [LabelWidth(140)] float minTurbSpawnWait = 5f;
+        [SerializeField] [BoxGroup("The Turb Alliance/Base/Configuration")] [LabelWidth(140)] float maxTurbSpawnWait = 50f;
         [Space(10)]
 
-        [Header("The Tar Alliance")]
-        [SerializeField] GameObject tarSlimePrefab;
-        [SerializeField] bool spawnTarSlimos = true;
-        [SerializeField] int maxTarSlimos = 10;
-        [SerializeField] float minTarSlimoSpawnWait = 5f;
-        [SerializeField] float maxTarSlimoSpawnWait = 50f;
+        [TitleGroup("The Grubber Alliance", Alignment = TitleAlignments.Left)]
+        [HorizontalGroup("The Grubber Alliance/Base", LabelWidth = 80)]
+        [SerializeField] [Required] [PreviewField(60, Alignment = ObjectFieldAlignment.Left)] [BoxGroup("The Grubber Alliance/Base/Left", false)] [LabelWidth(140)] GameObject grubberPrefab;
+        [SerializeField] [BoxGroup("The Grubber Alliance/Base/Configuration")] [LabelWidth(140)] bool spawnGrubbers = true;
+        [SerializeField] [BoxGroup("The Grubber Alliance/Base/Configuration")] [LabelWidth(140)] int maxGrubbers = 10;
+        [SerializeField] [BoxGroup("The Grubber Alliance/Base/Configuration")] [LabelWidth(140)] float minGrubberSpawnWait = 5f;
+        [SerializeField] [BoxGroup("The Grubber Alliance/Base/Configuration")] [LabelWidth(140)] float maxGrubberSpawnWait = 50f;
         [Space(10)]
 
-        [Header("The Toxic Alliance")]
-        [SerializeField] GameObject toxicSlimePrefab;
-        [SerializeField] bool spawnToxicSlimos = true;
-        [SerializeField] int maxToxicSlimos = 10;
-        [SerializeField] float minToxicSlimoSpawnWait = 5f;
-        [SerializeField] float maxToxicSlimoSpawnWait = 50f;
+        [TitleGroup("The Tar Alliance", Alignment = TitleAlignments.Left)]
+        [HorizontalGroup("The Tar Alliance/Base", LabelWidth = 80)]
+        [SerializeField] [Required] [PreviewField(60, Alignment = ObjectFieldAlignment.Left)] [BoxGroup("The Tar Alliance/Base/Left", false)] [LabelWidth(140)] GameObject tarSlimePrefab;
+        [SerializeField] [BoxGroup("The Tar Alliance/Base/Configuration")] [LabelWidth(140)] bool spawnTarSlimos = true;
+        [SerializeField] [BoxGroup("The Tar Alliance/Base/Configuration")] [LabelWidth(140)] int maxTarSlimos = 10;
+        [SerializeField] [BoxGroup("The Tar Alliance/Base/Configuration")] [LabelWidth(140)] float minTarSlimoSpawnWait = 5f;
+        [SerializeField] [BoxGroup("The Tar Alliance/Base/Configuration")] [LabelWidth(140)] float maxTarSlimoSpawnWait = 50f;
         [Space(10)]
 
-        [Header("The Ghostly Grubber Alliance")]
-        [SerializeField] GameObject ghostlyGrubberPrefab;
-        [SerializeField] bool spawnGhostlyGrubbers = true;
-        [SerializeField] int maxGhostlyGrubbers = 10;
-        [SerializeField] float minGhostlyGrubberSpawnWait = 5f;
-        [SerializeField] float maxGhostlyGrubberdSpawnWait = 50f;
+        [TitleGroup("The Toxic Alliance", Alignment = TitleAlignments.Left)]
+        [HorizontalGroup("The Toxic Alliance/Base", LabelWidth = 80)]
+        [SerializeField] [Required] [PreviewField(60, Alignment = ObjectFieldAlignment.Left)] [BoxGroup("The Toxic Alliance/Base/Left", false)] [LabelWidth(140)] GameObject toxicSlimePrefab;
+        [SerializeField] [BoxGroup("The Toxic Alliance/Base/Configuration")] [LabelWidth(140)] bool spawnToxicSlimos = true;
+        [SerializeField] [BoxGroup("The Toxic Alliance/Base/Configuration")] [LabelWidth(140)] int maxToxicSlimos = 10;
+        [SerializeField] [BoxGroup("The Toxic Alliance/Base/Configuration")] [LabelWidth(140)] float minToxicSlimoSpawnWait = 5f;
+        [SerializeField] [BoxGroup("The Toxic Alliance/Base/Configuration")] [LabelWidth(140)] float maxToxicSlimoSpawnWait = 50f;
+        [Space(10)]
+
+        [TitleGroup("The Ghostly Grubber Alliance", Alignment = TitleAlignments.Left)]
+        [HorizontalGroup("The Ghostly Grubber Alliance/Base", LabelWidth = 80)]
+        [SerializeField] [Required] [PreviewField(60, Alignment = ObjectFieldAlignment.Left)] [BoxGroup("The Ghostly Grubber Alliance/Base/Left", false)] [LabelWidth(140)] GameObject ghostlyGrubberPrefab;
+        [SerializeField] [BoxGroup("The Ghostly Grubber Alliance/Base/Configuration")] [LabelWidth(140)] bool spawnGhostlyGrubbers = true;
+        [SerializeField] [BoxGroup("The Ghostly Grubber Alliance/Base/Configuration")] [LabelWidth(140)] int maxGhostlyGrubbers = 10;
+        [SerializeField] [BoxGroup("The Ghostly Grubber Alliance/Base/Configuration")] [LabelWidth(140)] float minGhostlyGrubberSpawnWait = 5f;
+        [SerializeField] [BoxGroup("The Ghostly Grubber Alliance/Base/Configuration")] [LabelWidth(140)] float maxGhostlyGrubberdSpawnWait = 50f;
         [Space(10)]
 
         [SerializeField] LayerMask cannotSpawnMask = new LayerMask();
@@ -78,18 +84,18 @@ namespace Bonkers.Core
         void Start()
         {
             CacheSpawnPoints();
-            if (spawnTurbs) StartCoroutine(SpawnTurbs());
-            if (spawnGrubbers) StartCoroutine(SpawnGrubbers());
-            if (spawnTarSlimos) StartCoroutine(SpawnTarSlimos());
-            if (spawnToxicSlimos) StartCoroutine(SpawnToxicSlimos());
-            if (spawnGhostlyGrubbers) StartCoroutine(SpawnGhostlyGrubbers());
+            if (spawnTurbs) StartCoroutine(SpawnLifeforms(turbPrefab, minTurbSpawnWait, maxTurbSpawnWait, maxTurbs, turbAllianceTransform));
+            if (spawnGrubbers) StartCoroutine(SpawnLifeforms(grubberPrefab, minGrubberSpawnWait, maxGrubberSpawnWait, maxGrubbers, grubberAllianceTransform));
+            if (spawnTarSlimos) StartCoroutine(SpawnLifeforms(tarSlimePrefab, minTarSlimoSpawnWait, maxTarSlimoSpawnWait, maxTarSlimos, tarAllianceTransform));
+            if (spawnToxicSlimos) StartCoroutine(SpawnLifeforms(toxicSlimePrefab, minToxicSlimoSpawnWait, maxToxicSlimoSpawnWait, maxToxicSlimos, toxicAllianceTransform));
+            if (spawnGhostlyGrubbers) StartCoroutine(SpawnLifeforms(ghostlyGrubberPrefab, minGhostlyGrubberSpawnWait, maxGhostlyGrubberdSpawnWait, maxGhostlyGrubbers, ghostlyGrubberAllianceTransform));
         }
 
         #endregion
 
         #region Class Functions
 
-        private void CacheSpawnPoints()
+        void CacheSpawnPoints()
         {
             spawnPoints = GameObject.FindGameObjectWithTag("Grid").transform.GetComponent<PatrolPoints>();
             if (!spawnPoints) Debug.LogError("PATROL POINTS WAS NOT FOUND IN SCENE: NEED TO ENSURE GRID OBJECT TAGGED AS 'Grid' IS IN SCENE");
@@ -99,39 +105,13 @@ namespace Bonkers.Core
         /// Coroutine to spawn turbs on random interval between "minTurbSpawnWait" and "maxTurbSpawnWait". Spawns at random locations on map.
         /// </summary>
         /// <returns></returns>
-        IEnumerator SpawnTurbs()
+        IEnumerator SpawnLifeforms(GameObject prefab, float minSpawnWait, float maxSpawnWait, float maxLifeforms, Transform objectHolder)
         {
             while(true)
             {
-                yield return new WaitForSeconds(Random.Range(minTurbSpawnWait, maxTurbSpawnWait));
+                yield return new WaitForSeconds(Random.Range(minSpawnWait, maxSpawnWait));
 
-                if (turbAllianceTransform.childCount >= maxTurbs) continue;
-
-                Transform possibleSpawnLocation = null;
-                if (spawnPoints)
-                {
-                    possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    while (Physics2D.OverlapCircle(possibleSpawnLocation.position, 0.2f, cannotSpawnMask))
-                    {
-                        possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    }
-                    GameObject newTurb = Instantiate(turbPrefab, possibleSpawnLocation.position, Quaternion.identity);
-                    newTurb.transform.parent = turbAllianceTransform;
-                }
-                else
-                {
-                    Debug.LogError("WHERE IS PATROL POINTS OBJECT? NEED GRID OBJECT TAGGED 'Grid' WITH Patrol Points SCRIPT ON IT!");
-                }
-            }
-        }
-
-        IEnumerator SpawnGrubbers()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(Random.Range(minGrubberSpawnWait, maxGrubberSpawnWait));
-
-                if (grubberAllianceTransform.childCount >= maxGrubbers) continue;
+                if (objectHolder.childCount >= maxLifeforms) continue;
 
                 Transform possibleSpawnLocation = null;
                 if (spawnPoints)
@@ -141,86 +121,8 @@ namespace Bonkers.Core
                     {
                         possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
                     }
-                    GameObject newGrubber = Instantiate(grubberPrefab, possibleSpawnLocation.position, Quaternion.identity);
-                    newGrubber.transform.parent = grubberAllianceTransform;
-                }
-                else
-                {
-                    Debug.LogError("WHERE IS PATROL POINTS OBJECT? NEED GRID OBJECT TAGGED 'Grid' WITH Patrol Points SCRIPT ON IT!");
-                }
-            }
-        }
-
-        IEnumerator SpawnTarSlimos()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(Random.Range(minTarSlimoSpawnWait, maxTarSlimoSpawnWait));
-
-                if (tarAllianceTransform.childCount >= maxTarSlimos) continue;
-
-                Transform possibleSpawnLocation = null;
-                if (spawnPoints)
-                {
-                    possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    while (Physics2D.OverlapCircle(possibleSpawnLocation.position, 0.2f, cannotSpawnMask))
-                    {
-                        possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    }
-                    GameObject newTarSlimo = Instantiate(tarSlimePrefab, possibleSpawnLocation.position, Quaternion.identity);
-                    newTarSlimo.transform.parent = tarAllianceTransform;
-                }
-                else
-                {
-                    Debug.LogError("WHERE IS PATROL POINTS OBJECT? NEED GRID OBJECT TAGGED 'Grid' WITH Patrol Points SCRIPT ON IT!");
-                }
-            }
-        }
-
-        IEnumerator SpawnToxicSlimos()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(Random.Range(minToxicSlimoSpawnWait, maxToxicSlimoSpawnWait));
-
-                if (toxicAllianceTransform.childCount >= maxToxicSlimos) continue;
-
-                Transform possibleSpawnLocation = null;
-                if (spawnPoints)
-                {
-                    possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    while (Physics2D.OverlapCircle(possibleSpawnLocation.position, 0.2f, cannotSpawnMask))
-                    {
-                        possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    }
-                    GameObject newToxicSlimo = Instantiate(toxicSlimePrefab, possibleSpawnLocation.position, Quaternion.identity);
-                    newToxicSlimo.transform.parent = toxicAllianceTransform;
-                }
-                else
-                {
-                    Debug.LogError("WHERE IS PATROL POINTS OBJECT? NEED GRID OBJECT TAGGED 'Grid' WITH Patrol Points SCRIPT ON IT!");
-                }
-            }
-        }
-
-        IEnumerator SpawnGhostlyGrubbers()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(Random.Range(minGhostlyGrubberSpawnWait, maxGhostlyGrubberdSpawnWait));
-
-                if (ghostlyGrubberAllianceTransform.childCount >= maxGhostlyGrubbers) continue;
-
-                Transform possibleSpawnLocation = null;
-                if (spawnPoints)
-                {
-                    possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    while (Physics2D.OverlapCircle(possibleSpawnLocation.position, 0.2f, cannotSpawnMask))
-                    {
-                        possibleSpawnLocation = spawnPoints.patrolPoints[UnityEngine.Random.Range(0, spawnPoints.patrolPoints.Count)];
-                    }
-                    GameObject newGhostlyGrubber = Instantiate(ghostlyGrubberPrefab, possibleSpawnLocation.position, Quaternion.identity);
-                    newGhostlyGrubber.transform.parent = ghostlyGrubberAllianceTransform;
+                    GameObject newLifeform = Instantiate(prefab, possibleSpawnLocation.position, Quaternion.identity);
+                    newLifeform.transform.parent = objectHolder;
                 }
                 else
                 {

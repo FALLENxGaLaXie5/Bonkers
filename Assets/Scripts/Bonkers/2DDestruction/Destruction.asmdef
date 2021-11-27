@@ -1,0 +1,16 @@
+{
+    "name": "Destruction",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f9fc9b99caf958b4f9da2475ba6aea47"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

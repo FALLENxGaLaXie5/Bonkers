@@ -1,50 +1,59 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Bonkers.Core;
+﻿using UnityEngine;
 using Bonkers.Combat;
+using Bonkers.Drops;
+using Bonkers.Effects;
 
 namespace Bonkers.BlokControl
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(IBlokInteraction))]
-    public class WoodenBoxControl : MonoBehaviour, IBlokControl
+    public class WoodenBoxControl : BlokControl
     {
-        [SerializeField] float moveSpeed = 0f;
-        bool isMoving = false;
-        Vector3 moveDir = Vector3.zero;
         AudioSource breakingSound;
+        WoodenBlokBonks bonksInstance;
+        BlokDroppable blokDroppable;
 
-        void Start()
+        protected  override void Awake()
         {
+            base.Awake();
             breakingSound = GetComponent<AudioSource>();
+            bonksInstance = GetComponent<WoodenBlokBonks>();
+            blokDroppable = GetComponent<BlokDroppable>();
         }
 
-        public void SetMoving(bool newIsMoving, Vector3 movementDir)
+        protected override void OnEnable()
         {
-            this.isMoving = newIsMoving;
-            this.moveDir = movementDir;
+            base.OnEnable();
+            blokInteraction.onBlokHit += WoodenBlokHit;
+            blokInteraction.onBlokHit += AttemptHitEffect;
         }
 
-        public bool IsMoving()
+        protected override void OnDisable()
         {
-            return this.isMoving;
+            base.OnDisable();
+            blokInteraction.onBlokHit -= WoodenBlokHit;
+            blokInteraction.onBlokHit -= AttemptHitEffect;
         }
 
-        public void PlaySound()
+        protected override void PlaySound()
         {
             breakingSound.Play();
         }
 
-        public void HitEnemy(Transform enemyTransform)
+        void WoodenBlokHit()
         {
-
+            bonksInstance.IncrementNumTimesBonked();
+            if (bonksInstance.NumTimesBonked >= bonksInstance.NumberBonksToBreak)
+            {
+                blokDroppable.SpawnDrop();
+                health.DestroyBlok();
+            }
         }
-
-        public float GetCurrentSpeed()
+        
+        void AttemptHitEffect()
         {
-            return this.moveSpeed;
+            if (bonksInstance.NumTimesBonked < bonksInstance.NumberBonksToBreak)
+                blokEffects.ExecuteImpactEffects(transform, BlokEffects.TypeEffects.Primary);
         }
-
     }
 }

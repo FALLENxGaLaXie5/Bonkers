@@ -37,7 +37,7 @@ namespace Bonkers.Control
             HandleMovement();
             if (canBonk && Input.GetKeyDown(KeyCode.Return))
             {
-                combat.BonkBlok();
+                combat.AttemptBonkBlok();
                 StartCoroutine(WaitForBonk());
             }
         }

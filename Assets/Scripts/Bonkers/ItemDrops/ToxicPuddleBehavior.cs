@@ -1,20 +1,19 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Bonkers.Movement;
-using Bonkers.Core;
-using System;
+using UnityEngine.Events;
+using Bonkers.Events;
 
 namespace Bonkers.Drops
 {
-    public class ToxicPuddleBehavior : MonoBehaviour
+    public class ToxicPuddleBehavior : MonoBehaviour, IEnvironmentEffector
     {
         #region Inspector/Public Variables
 
-        [SerializeField] GameObject toxicSlimoPrefab;
         [SerializeField] PuddleDrop puddle = null;
         [SerializeField] float chanceOfPuddleSpawn = 20f;
 
+        [SerializeField] UnityEvent<Vector3> AttemptSpawnEvent; 
+        //[SerializeField] GameEventWithVector3 AttemptSpawnEvent;
         #endregion
 
         #region Class/Private Variables
@@ -24,28 +23,7 @@ namespace Bonkers.Drops
         #endregion
 
         #region Unity Events 
-        void Start()
-        {
-            animator = GetComponent<Animator>();
-        }
-
-        void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.transform.tag == "Player")
-            {
-                PlayerMovement playerMovement = collision.transform.GetComponent<PlayerMovement>();
-                playerMovement.SetMoveSpeed(playerMovement.GetMoveSpeed() - puddle.GetEffect());
-            }
-        }
-
-        void OnTriggerExit2D(Collider2D collision)
-        {
-            if (collision.transform.tag == "Player")
-            {
-                PlayerMovement playerMovement = collision.transform.GetComponent<PlayerMovement>();
-                playerMovement.ResetMoveSpeed();
-            }
-        }
+        void Start() => animator = GetComponent<Animator>();
 
         #endregion
 
@@ -64,12 +42,7 @@ namespace Bonkers.Drops
             //if random generator does not favor spawning one, return
             if (UnityEngine.Random.Range(0, 100) >= chanceOfPuddleSpawn) return;
 
-            Transform toxicAllianceTransform = FindObjectOfType<ToxicSlimoHolder>().transform;
-            //only spawn one if we are not at max toxic slimos yet
-            if (toxicAllianceTransform.childCount >= FindObjectOfType<SpawnSystem>().GetMaxToxicSlimos() + 5) return;
-
-            GameObject newToxicSlimo = Instantiate(toxicSlimoPrefab, transform.position, Quaternion.identity);
-            newToxicSlimo.transform.parent = toxicAllianceTransform;
+            AttemptSpawnEvent?.Invoke(transform.position);
         }
 
         //animation event
@@ -83,6 +56,8 @@ namespace Bonkers.Drops
         {
             Destroy(gameObject);
         }
+        
+        public ScriptableObject AttemptGetEffector() => puddle;
 
         #endregion
     }

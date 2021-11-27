@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Bonkers.Drops;
 
 namespace Bonkers.BlokControl
 {
@@ -14,7 +13,6 @@ namespace Bonkers.BlokControl
 
         public override void DestroyBlok()
         {
-            blokControl.PlaySound();
             Transform audioSourceTransform = transform.GetComponentInChildren<AudioSource>().transform;
             audioSourceTransform.parent = null;
             Destroy(audioSourceTransform.gameObject, 1f);

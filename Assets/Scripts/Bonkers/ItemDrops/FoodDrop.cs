@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 namespace Bonkers.Drops
 {
     [CreateAssetMenu(fileName = "FoodDrop", menuName = "Drops/Make New Droppable Food", order = 0)]
     public class FoodDrop : ScriptableObject, IDroppableObject
     {
-        [SerializeField] GameObject foodPrefab = null;
+        [Title("Assets only")]
+        [AssetsOnly][SerializeField] GameObject foodPrefab = null;
+
+        [Title("Class Data")]
         [SerializeField] int priority = 100;
 
         public void Spawn(Vector3 position)
