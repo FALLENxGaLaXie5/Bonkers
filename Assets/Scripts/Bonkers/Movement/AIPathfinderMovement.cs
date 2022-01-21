@@ -18,8 +18,7 @@ namespace Bonkers.Movement
         [SerializeField] float endOfPathDistance = 0.05f;
 
         public LayerMask cannotPatrolMask = new LayerMask();
-
-
+        
         #endregion
 
         #region Private/Class Variables

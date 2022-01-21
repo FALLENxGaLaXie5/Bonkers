@@ -35,7 +35,7 @@ namespace Bonkers.Control
             //Top parent object will be tagged as "Enemy", and the child body sensor will have the TurbBodySensor component on it (not tagged as enemy so other tag uses don't conflict)
             if (collision.transform.tag == "Enemy" || collision.transform.GetComponent<TurbBodySensor>())
             {               
-                transform.parent.GetComponent<IAIMovement>().BackTrackPath(GetCurrentFacingDirection());
+                //transform.parent.GetComponent<IAIMovement>().BackTrackPath(GetCurrentFacingDirection());
             }
         }
 

@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c66f9f88e53e9f489c80e7e2be73aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentChanceChangeDir: 10
+  percentChanceChangeDir: 20
   speed: 0.8
   rotationTime: 0.3
   checkDistance: 0.02
@@ -582,7 +582,7 @@ MonoBehaviour:
   validTransitionCheckRadius: 0.4
   cannotPatrolMaskGhost:
     serializedVersion: 2
-    m_Bits: 4096
+    m_Bits: 4608
   validTransitionMask:
     serializedVersion: 2
     m_Bits: 4608

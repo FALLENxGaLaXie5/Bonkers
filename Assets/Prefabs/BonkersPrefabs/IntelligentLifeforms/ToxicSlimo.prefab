@@ -533,7 +533,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c66f9f88e53e9f489c80e7e2be73aa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentChanceChangeDir: 10
+  percentChanceChangeDir: 30
   speed: 1.3
   rotationTime: 0.3
   checkDistance: 0.02
@@ -543,7 +543,7 @@ MonoBehaviour:
   movePoint: {fileID: 2708714909575192237}
   cannotPatrolMask:
     serializedVersion: 2
-    m_Bits: 5632
+    m_Bits: 4608
 --- !u!114 &3714864105774469258
 MonoBehaviour:
   m_ObjectHideFlags: 0
