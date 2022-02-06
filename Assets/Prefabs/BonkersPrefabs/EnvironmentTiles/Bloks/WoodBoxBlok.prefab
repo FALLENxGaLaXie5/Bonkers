@@ -304,7 +304,6 @@ MonoBehaviour:
   wallBonkMask:
     serializedVersion: 2
     m_Bits: 4608
-  moveSpeed: 0
 --- !u!114 &708631366
 MonoBehaviour:
   m_ObjectHideFlags: 0

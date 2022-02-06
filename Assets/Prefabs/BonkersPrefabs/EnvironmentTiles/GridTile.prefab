@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6054298383761831207}
   - component: {fileID: 6054298383761831202}
   - component: {fileID: 1010637017852036886}
+  - component: {fileID: 6147548566386933485}
   m_Layer: 0
   m_Name: GridTile
   m_TagString: Untagged
@@ -110,4 +111,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2bb908ed775daa469ff30cb6d86ed21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityHitBy: {fileID: 0}
+--- !u!114 &6147548566386933485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054298383761831206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 678589b7ea0749c3b1cfd97a971de3fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

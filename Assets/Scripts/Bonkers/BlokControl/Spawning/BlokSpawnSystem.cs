@@ -44,6 +44,7 @@ namespace Bonkers.BlokControl
             Collider2D enemyCheck = Physics2D.OverlapCircle(randomPosition, 0.7f, enemyLayers);
             
             GameObject blok = Instantiate(spawnableBloks[Random.Range(0, spawnableBloks.Count)], spawnPosition, Quaternion.identity);
+            //AttemptGenerateFragments(blok);
             
             if (enemyCheck && enemyCheck.transform.tag == "Enemy")
             {
@@ -54,6 +55,16 @@ namespace Bonkers.BlokControl
             }
             
             if (tweenEffect) tweenEffect.ExecuteEffect(blok.transform);
+        }
+
+        private void AttemptGenerateFragments(GameObject blok)
+        {
+            Explodable explodableComponent = blok.GetComponent<Explodable>();
+            
+            if (explodableComponent)
+                explodableComponent.ConfigureFragments();
+            else
+                Debug.LogError("No explodable component on this blok!");
         }
     }
 }

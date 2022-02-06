@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Explodable : MonoBehaviour
@@ -50,8 +51,12 @@ public class Explodable : MonoBehaviour
             {
                 fragment.transform.GetComponent<Rigidbody2D>().gravityScale = 0f;
                 fragment.transform.GetComponent<Rigidbody2D>().drag = dragCoefficient;
-                fragment.AddComponent<AnimateFragmentOut>();
-                fragment.GetComponent<AnimateFragmentOut>().AssignRenderer();
+                AnimateFragmentOut animateFragmentOut = fragment.GetComponent<AnimateFragmentOut>();
+                if (!animateFragmentOut)
+                {
+                    animateFragmentOut = fragment.AddComponent<AnimateFragmentOut>();
+                }
+                animateFragmentOut.AssignRenderer();
             }
         }        
     }

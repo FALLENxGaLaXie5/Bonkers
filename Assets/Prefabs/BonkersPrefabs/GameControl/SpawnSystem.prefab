@@ -47,20 +47,20 @@ MonoBehaviour:
   turbPrefab: {fileID: 4093535004827596593, guid: 48891236e7459e14fb1cde9c8e00f98a, type: 3}
   spawnTurbs: 0
   maxTurbs: 6
-  minTurbSpawnWait: 15
+  minTurbSpawnWait: 5
   maxTurbSpawnWait: 30
   grubberPrefab: {fileID: 4093535004827596593, guid: fd36fbe1d94a82d4f9e1ea800659b7aa, type: 3}
   spawnGrubbers: 0
-  maxGrubbers: 3
+  maxGrubbers: 5
   minGrubberSpawnWait: 5
   maxGrubberSpawnWait: 10
   tarSlimePrefab: {fileID: 4093535004827596593, guid: c291d341e57380b4d8704e9fbcba0340, type: 3}
-  spawnTarSlimos: 1
+  spawnTarSlimos: 0
   maxTarSlimos: 3
   minTarSlimoSpawnWait: 5
   maxTarSlimoSpawnWait: 10
   toxicSlimePrefab: {fileID: 4093535004827596593, guid: 326a764d73662c04782c5a68d824972f, type: 3}
-  spawnToxicSlimos: 1
+  spawnToxicSlimos: 0
   maxToxicSlimos: 3
   minToxicSlimoSpawnWait: 5
   maxToxicSlimoSpawnWait: 10
