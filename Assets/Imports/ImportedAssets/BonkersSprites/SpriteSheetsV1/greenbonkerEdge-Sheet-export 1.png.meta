@@ -69,6 +69,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -78,11 +79,11 @@ TextureImporter:
   textureSettings:
     serializedVersion: 2
     filterMode: 0
-    aniso: -1
-    mipBias: -100
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -486,6 +487,22 @@ TextureImporter:
     secondaryTextures:
     - texture: {fileID: 2800000, guid: e3f6ca4049f064340b1083a6890b345e, type: 3}
       name: _Emission
+    nameFileIdTable:
+      greenbonkerEdge-Sheet-export 1_8: 7793700349663932015
+      greenbonkerEdge-Sheet-export 1_11: 4843466710777107107
+      greenbonkerEdge-Sheet-export 1_0: 4830244526762806797
+      greenbonkerEdge-Sheet-export 1_1: 4082207196813880843
+      greenbonkerEdge-Sheet-export 1_10: 5451435934099837084
+      greenbonkerEdge-Sheet-export 1_5: -942489183017290452
+      greenbonkerEdge-Sheet-export 1_3: -7967601289572895675
+      greenbonkerEdge-Sheet-export 1_9: 6710871714548226045
+      greenbonkerEdge-Sheet-export 1_14: 8235133992461443845
+      greenbonkerEdge-Sheet-export 1_6: -3253719098145550087
+      greenbonkerEdge-Sheet-export 1_2: 1161569191341617101
+      greenbonkerEdge-Sheet-export 1_13: 4149187965037367405
+      greenbonkerEdge-Sheet-export 1_12: -7245885075099757348
+      greenbonkerEdge-Sheet-export 1_7: -5527456224366793473
+      greenbonkerEdge-Sheet-export 1_4: -6526855884918967759
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
