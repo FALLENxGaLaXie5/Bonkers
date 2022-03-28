@@ -31,6 +31,14 @@ namespace Bonkers.BlokControl
                 //Intantiate new prefab and set it's parent to it's appropriate pool
                 GameObject blok = Instantiate(blokPoolingGenerationData.IndividualBlokPoolingData.Prefab);
                 blok.transform.parent = blokPool.BlokPools[blokPoolingGenerationData.IndividualBlokPoolingData].transform;
+                Explodable explodable = blok.GetComponent<Explodable>();
+                if (!explodable)
+                {
+                    Debug.Log("No explodable component attached!");
+                    continue;
+                }
+                explodable.ConfigureFragments();
+                blok.SetActive(false);
             }
         }
     }
