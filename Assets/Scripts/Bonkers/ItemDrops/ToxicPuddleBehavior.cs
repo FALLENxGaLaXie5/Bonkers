@@ -13,7 +13,6 @@ namespace Bonkers.Drops
         [SerializeField] float chanceOfPuddleSpawn = 20f;
 
         [SerializeField] UnityEvent<Vector3> AttemptSpawnEvent; 
-        //[SerializeField] GameEventWithVector3 AttemptSpawnEvent;
         #endregion
 
         #region Class/Private Variables

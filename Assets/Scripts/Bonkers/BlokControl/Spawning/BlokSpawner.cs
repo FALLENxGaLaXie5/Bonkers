@@ -6,9 +6,17 @@ using Random = UnityEngine.Random;
 
 namespace  Bonkers.BlokControl
 {
+    [RequireComponent(typeof(BlokPool))]
     public class BlokSpawner : MonoBehaviour
     {
         [SerializeField] private BlokSpawnSystem spawnSystem;
+
+        private BlokPool blokPool;
+        
+        private void Awake()
+        {
+            blokPool = GetComponent<BlokPool>();
+        }
 
         private void Start()
         {
@@ -20,7 +28,11 @@ namespace  Bonkers.BlokControl
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(spawnSystem.MinTimeBetweenSpawns, spawnSystem.MaxTimeBetweenSpawns));
-                StartCoroutine(spawnSystem.SpawnRandomBlok());
+
+                GameObject blokToSpawn = blokPool.GetPooledBlokToSpawn(null);
+                if(!blokToSpawn) continue;
+                
+                StartCoroutine(spawnSystem.SpawnBlok(blokToSpawn));
             }
         }
     }

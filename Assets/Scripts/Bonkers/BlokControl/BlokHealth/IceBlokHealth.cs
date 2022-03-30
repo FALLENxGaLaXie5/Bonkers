@@ -6,11 +6,6 @@ namespace Bonkers.BlokControl
 {
     public class IceBlokHealth : BlokHealth
     {
-        new void Start()
-        {
-            base.Start();
-        }
-
         public override void DestroyBlok()
         {
             Transform audioSourceTransform = transform.GetComponentInChildren<AudioSource>().transform;

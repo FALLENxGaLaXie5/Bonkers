@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Bonkers._2DDestruction;
 using UnityEngine;
 
 public class AnimateFragmentOut : MonoBehaviour
@@ -33,7 +34,19 @@ public class AnimateFragmentOut : MonoBehaviour
             yield return null;
         }
 
-        Destroy(this.gameObject);
+        //Reset the fragment under it's parent when completely faded
+        FragmentDataStorage fragmentDataStorage = GetComponent<FragmentDataStorage>();
+        if (!fragmentDataStorage)
+        {
+            Debug.LogError("A fragment data storage didn't get added to this fragment! Wtf!");
+            yield return null;
+        }
+        transform.parent = fragmentDataStorage.parent;
+        transform.localPosition = fragmentDataStorage.localPosition;
+        transform.gameObject.SetActive(false);
+        
+        //TODO: Take out comment if this works
+        //Destroy(gameObject);
     }
     #endregion
 }

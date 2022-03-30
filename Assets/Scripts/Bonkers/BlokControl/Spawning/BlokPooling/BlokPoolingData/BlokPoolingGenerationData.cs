@@ -10,7 +10,7 @@ namespace Bonkers.BlokControl
         [SerializeField] private IndividualBlokPoolingData individualBlokPoolingData;
         public IndividualBlokPoolingData IndividualBlokPoolingData => individualBlokPoolingData;
         
-        [ShowInInspector, PropertyRange(1, 100)]
+        [ShowInInspector, PropertyRange(0, 100)]
         public int numberToGenerate { get; set; }
     }
 }

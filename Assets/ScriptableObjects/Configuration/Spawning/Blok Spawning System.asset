@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7aa3bd114537a45b83dca83a83a1cb, type: 3}
   m_Name: Blok Spawning System
   m_EditorClassIdentifier: 
-  spawnableBloks:
-  - {fileID: 5281905855193505451, guid: 4de6c62daddbe3d4ebc452f2218b4674, type: 3}
+  possibleBloksToSpawn:
+  - {fileID: 11400000, guid: 238f40ee2ede0d4439d5144fef9abb73, type: 2}
+  - {fileID: 11400000, guid: 58b12860a8dc7264f8bdfc3348aa8545, type: 2}
+  - {fileID: 11400000, guid: ddef615572c49b84491f4838d1532793, type: 2}
+  - {fileID: 11400000, guid: 433fb158d7aa0c145b58080522eb165d, type: 2}
+  - {fileID: 11400000, guid: 1ae51d8b52a0bdf4dafcc259425c0c33, type: 2}
   minPosition: {x: 72, y: 31}
   maxPosition: {x: 92, y: 47}
   minTimeBetweenSpawn: 0.1

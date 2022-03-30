@@ -10,36 +10,39 @@ namespace Bonkers.BlokControl
     [RequireComponent(typeof(BlokPool))]
     public class BlokPoolingGeneration : MonoBehaviour
     {
-        [SerializeField] private BlokPoolingGenerationData blokPoolingGenerationData;
-
+        [SerializeField] private List<BlokPoolingGenerationData> blokPoolingGenerationDatas;
         private BlokPool blokPool;
 
         void OnEnable() => blokPool = GetComponent<BlokPool>();
 
-        [Button("Pool Data")]
+        [Button("Pool Individual Blocks")]
         public void PoolData()
         {
             if (!blokPool) blokPool = GetComponent<BlokPool>();
-            if (!blokPoolingGenerationData)
+            if (blokPoolingGenerationDatas == null || blokPoolingGenerationDatas.Count < 1)
             {
-                Debug.LogError("No blok pool generation data referenced!");
+                Debug.LogError("Nothing in the block pool generation datas!");
                 return;
             }
 
-            for (int i = 0; i < blokPoolingGenerationData.numberToGenerate; i++)
+            foreach (BlokPoolingGenerationData blokPoolGenerationData in blokPoolingGenerationDatas)
             {
-                //Intantiate new prefab and set it's parent to it's appropriate pool
-                GameObject blok = Instantiate(blokPoolingGenerationData.IndividualBlokPoolingData.Prefab);
-                blok.transform.parent = blokPool.BlokPools[blokPoolingGenerationData.IndividualBlokPoolingData].transform;
-                Explodable explodable = blok.GetComponent<Explodable>();
-                if (!explodable)
+                for (int i = 0; i < blokPoolGenerationData.numberToGenerate; i++)
                 {
-                    Debug.Log("No explodable component attached!");
-                    continue;
+                    //Intantiate new prefab and set it's parent to it's appropriate pool
+                    GameObject blok = Instantiate(blokPoolGenerationData.IndividualBlokPoolingData.Prefab);
+                    blok.transform.parent = blokPool.BlokPools[blokPoolGenerationData.IndividualBlokPoolingData].transform;
+                    Explodable explodable = blok.GetComponent<Explodable>();
+                    if (!explodable)
+                    {
+                        Debug.Log("No explodable component attached!");
+                        continue;
+                    }
+                    explodable.ConfigureFragments();
+                    blok.SetActive(false);
                 }
-                explodable.ConfigureFragments();
-                blok.SetActive(false);
             }
+            
         }
     }
 }

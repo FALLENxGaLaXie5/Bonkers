@@ -12,7 +12,7 @@ public class ExplodeOnOrder : MonoBehaviour
     void Awake()
     {
         _explodable = GetComponent<Explodable>();
-        ef = GameObject.FindObjectOfType<ExplosionForce>();
+        ef = FindObjectOfType<ExplosionForce>();
     }
 
     public void ExplodeBlok()

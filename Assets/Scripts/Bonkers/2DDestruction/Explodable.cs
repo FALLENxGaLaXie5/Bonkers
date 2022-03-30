@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Bonkers._2DDestruction;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -57,8 +58,18 @@ public class Explodable : MonoBehaviour
                     animateFragmentOut = fragment.AddComponent<AnimateFragmentOut>();
                 }
                 animateFragmentOut.AssignRenderer();
+                
+                StoreFragmentData(fragment);
             }
         }        
+    }
+
+    private void StoreFragmentData(GameObject fragment)
+    {
+        //store original local position and fragment parent so it can be put back together later
+        FragmentDataStorage fragmentDataStorage = fragment.AddComponent<FragmentDataStorage>();
+        fragmentDataStorage.StoreOriginalParent(transform);
+        fragmentDataStorage.StoreOriginalLocalPosition(transform.localPosition);
     }
 
     public void FadeAndDestroyFragments(float fadeTime)
@@ -89,7 +100,9 @@ public class Explodable : MonoBehaviour
         //if fragments exist destroy the original
         if (fragments.Count > 0)
         {
-            Destroy(gameObject);
+            //TODO: Take out commented out code if works, just setting this as inactive for now
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
     }
 

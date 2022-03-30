@@ -8,11 +8,8 @@ namespace Bonkers.BlokControl
     public class WoodBlokHealth : BlokHealth
     {
         BlokDroppable droppable;
-        new void Start()
-        {
-            base.Start();
-            droppable = GetComponent<BlokDroppable>();
-        }
+
+        protected override void Awake() => droppable = GetComponent<BlokDroppable>();
 
         new public void DestroyBlok()
         {

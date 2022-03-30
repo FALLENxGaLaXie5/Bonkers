@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6054298383761831202}
   - component: {fileID: 1010637017852036886}
   - component: {fileID: 6147548566386933485}
+  - component: {fileID: 3416473901729645176}
   m_Layer: 0
   m_Name: GridTile
   m_TagString: Untagged
@@ -30,6 +31,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.99, y: 1.99, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,6 +47,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
@@ -123,3 +126,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 678589b7ea0749c3b1cfd97a971de3fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3416473901729645176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054298383761831206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0411abd33eb4d34a517cf97c32dd772, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolingData: {fileID: 0}
+  AttemptSendBlokToPoolEvent:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: 061f932aa576b1e438f6b9dbfe761901, type: 2}
+        m_TargetAssemblyTypeName: Bonkers.Events.GameEventWithGameObject, Bonkers.Events
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

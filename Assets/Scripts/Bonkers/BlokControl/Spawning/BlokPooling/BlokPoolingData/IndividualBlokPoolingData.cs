@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Bonkers.BlokControl
 {
@@ -7,5 +8,6 @@ namespace Bonkers.BlokControl
     {
         [SerializeField] private GameObject prefab;
         public GameObject Prefab => prefab;
+        
     }
 }
