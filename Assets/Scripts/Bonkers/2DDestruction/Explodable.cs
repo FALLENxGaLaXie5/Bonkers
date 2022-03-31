@@ -58,7 +58,6 @@ public class Explodable : MonoBehaviour
                     animateFragmentOut = fragment.AddComponent<AnimateFragmentOut>();
                 }
                 animateFragmentOut.AssignRenderer();
-                
                 StoreFragmentData(fragment);
             }
         }        
@@ -66,10 +65,11 @@ public class Explodable : MonoBehaviour
 
     private void StoreFragmentData(GameObject fragment)
     {
+        if (fragment.GetComponent<FragmentDataStorage>()) return;
         //store original local position and fragment parent so it can be put back together later
         FragmentDataStorage fragmentDataStorage = fragment.AddComponent<FragmentDataStorage>();
         fragmentDataStorage.StoreOriginalParent(transform);
-        fragmentDataStorage.StoreOriginalLocalPosition(transform.localPosition);
+        fragmentDataStorage.StoreOriginalLocalPosition(fragment.transform.localPosition);
     }
 
     public void FadeAndDestroyFragments(float fadeTime)
