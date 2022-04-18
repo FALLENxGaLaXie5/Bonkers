@@ -16,7 +16,7 @@ namespace Bonkers.Combat
 
         public void BlokHit(Vector3 playerFacingDirection)
         {
-            onBlokHit?.Invoke();
+            OnBlokHit?.Invoke();
             bonksInstance.IncrementNumTimesBonked();
             if (bonksInstance.NumTimesBonked >= bonksInstance.NumberBonksToBreak)
             {

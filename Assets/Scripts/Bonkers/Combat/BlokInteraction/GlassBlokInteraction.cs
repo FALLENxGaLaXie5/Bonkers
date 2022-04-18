@@ -12,7 +12,9 @@ namespace Bonkers.Combat
         {
             Collider2D nextOverBlokCollider = Physics2D.OverlapCircle(transform.position + playerFacingDirection, checkRadius, bonkableLayers);
             if (nextOverBlokCollider)
-                onBlokHit?.Invoke();
+            {
+                OnBlokHit?.Invoke();
+            }
             else
             {
                 SetMoving(true, playerFacingDirection);
@@ -21,7 +23,7 @@ namespace Bonkers.Combat
 
         public void SetMoving(bool shouldMove, Vector3 playerFacingDirection)
         {
-            onSetMoving?.Invoke(shouldMove, playerFacingDirection);
+            OnSetMoving?.Invoke(shouldMove, playerFacingDirection);
         }
 
         public void BlokBumped(Vector3 playerFacingDirection, Vector3 currentPlayerPosition)

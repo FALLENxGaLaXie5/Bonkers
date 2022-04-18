@@ -97,13 +97,8 @@ public class Explodable : MonoBehaviour
             frag.SetActive(true);
         }
         
-        //if fragments exist destroy the original
-        if (fragments.Count > 0)
-        {
-            //TODO: Take out commented out code if works, just setting this as inactive for now
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
-        }
+        //if fragments exist, throw object outside of play area so it can finish any processing
+        if (fragments.Count > 0) transform.position = new Vector3(-100, -100, 0);
     }
 
     /// <summary>

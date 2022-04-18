@@ -10,7 +10,8 @@ namespace  Bonkers.BlokControl
     public class BlokSpawner : MonoBehaviour
     {
         [SerializeField] private BlokSpawnSystem spawnSystem;
-
+        [SerializeField] private Transform activeBloksParent;
+        
         private BlokPool blokPool;
         
         private void Awake()
@@ -32,7 +33,7 @@ namespace  Bonkers.BlokControl
                 GameObject blokToSpawn = blokPool.GetPooledBlokToSpawn(null);
                 if(!blokToSpawn) continue;
                 
-                StartCoroutine(spawnSystem.SpawnBlok(blokToSpawn));
+                StartCoroutine(spawnSystem.SpawnBlok(blokToSpawn, activeBloksParent));
             }
         }
     }

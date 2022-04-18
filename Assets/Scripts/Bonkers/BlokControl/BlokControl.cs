@@ -68,20 +68,24 @@ namespace Bonkers.BlokControl
 
         protected virtual void OnEnable()
         {
-            blokInteraction.onSetMoving += SetMoving;
-            blokInteraction.onBlokHit += PlaySound;
-            health.onDestroyBlok += PlaySound;
-            blokInteraction.onBlokBumped += BlokBumped;
-            blokInteraction.onBlokImpact += OnBlokImpact;
+            blokInteraction.OnSetMoving += SetMoving;
+            blokInteraction.OnBlokHit += PlaySound;
+            health.OnDestroyBlok += PlayDestroySound;
+            health.OnRespawnBlok += ResetMovePoint;
+            blokInteraction.OnBlokBumped += BlokBumped;
+            blokInteraction.OnBlokImpact += OnBlokImpact;
+            blokInteraction.OnBlokDestroyInImpact += DestroyBlok;
         }
 
         protected virtual void OnDisable()
         {
-            blokInteraction.onSetMoving -= SetMoving;
-            blokInteraction.onBlokHit -= PlaySound;
-            health.onDestroyBlok -= PlaySound;
-            blokInteraction.onBlokBumped -= BlokBumped;
-            blokInteraction.onBlokImpact -= OnBlokImpact;
+            blokInteraction.OnSetMoving -= SetMoving;
+            blokInteraction.OnBlokHit -= PlaySound;
+            health.OnDestroyBlok -= PlayDestroySound;
+            health.OnRespawnBlok -= ResetMovePoint;
+            blokInteraction.OnBlokBumped -= BlokBumped;
+            blokInteraction.OnBlokImpact -= OnBlokImpact;
+            blokInteraction.OnBlokDestroyInImpact -= DestroyBlok;
         }
 
         #endregion
@@ -99,6 +103,11 @@ namespace Bonkers.BlokControl
             
         }
 
+        protected virtual void ResetMovePoint()
+        {
+            movePoint.position = transform.position;
+        }
+        
         void SetMovePointParent()
         {
             if (wallMovePointsParent)
@@ -114,10 +123,30 @@ namespace Bonkers.BlokControl
         }
 
         public float CurrentSpeed => moveSpeed;
+        
+        /// <summary>
+        /// Play generic blok hitting sound
+        /// </summary>
+        /// <param name="waitTime"></param>
         protected virtual void PlaySound()
         {
             if (!hitSound.isActiveAndEnabled) return;
             hitSound.Play();
+        }
+        
+        /// <summary>
+        /// Play sound for destroying blok (can use wait time specified, but likely just want to play immediately)
+        /// </summary>
+        /// <param name="waitTime"></param>
+        protected virtual void PlayDestroySound(float waitTime)
+        {
+            if (!hitSound.isActiveAndEnabled) return;
+            hitSound.Play();
+        }
+
+        protected virtual void DestroyBlok()
+        {
+            health.DestroyBlok();
         }
 
         public virtual void HitEnemy(Transform enemyTransform)

@@ -37,17 +37,22 @@ namespace Bonkers.BlokControl
         /// <returns></returns>
         public GameObject GetPooledBlokToSpawn(Transform newParent)
         {
+            //Get all available possible individual blok pooling datas, store in list
             Dictionary<IndividualBlokPoolingData, GameObject>.KeyCollection keys = BlokPools.Keys;
             List<IndividualBlokPoolingData> possibleIndividualBlokPoolingDatas = new List<IndividualBlokPoolingData>();
             foreach (var key in keys) possibleIndividualBlokPoolingDatas.Add(key);
 
+            //Gets random possible blok index, and checks if there are bloks in that pool- if not, remove that possible blok from list of bloks to pull from
+            //Tries to grab another blok from the next random pool
             int randomBlokIndex = Random.Range(0, possibleIndividualBlokPoolingDatas.Count);
-            while (BlokPools[possibleIndividualBlokPoolingDatas[randomBlokIndex]].transform.childCount < 1 && possibleIndividualBlokPoolingDatas.Count > 0)
+            while (possibleIndividualBlokPoolingDatas.Count > 0 && BlokPools[possibleIndividualBlokPoolingDatas[randomBlokIndex]].transform.childCount < 1)
             {
                 possibleIndividualBlokPoolingDatas.RemoveAt(randomBlokIndex);
                 randomBlokIndex = Random.Range(0, possibleIndividualBlokPoolingDatas.Count);
             }
 
+            //The random blok index is in the possible blok datas, and that possible blok data exists, and there are bloks in it
+            //  return the first possible blok from that pool
             if (possibleIndividualBlokPoolingDatas.Count > 0 && randomBlokIndex < possibleIndividualBlokPoolingDatas.Count)
             {
                 IndividualBlokPoolingData blokData = possibleIndividualBlokPoolingDatas[randomBlokIndex];
@@ -55,11 +60,10 @@ namespace Bonkers.BlokControl
                 pooledObject.transform.SetParent(newParent);
                 return pooledObject;
             }
-            else
-            {
-                Debug.LogError("All pools are empty!");
-                return null;
-            }
+
+            //return null if all the blok pools are empty
+            Debug.LogWarning("All pools are empty!");
+            return null;
         }
 
         public void AttemptToPoolBlok(GameObject obj)
@@ -81,6 +85,7 @@ namespace Bonkers.BlokControl
                 Debug.LogError("Blok pools do not contain a pool for that blok data!");
                 return;
             }
+            
             obj.transform.parent = BlokPools[blokPoolingData].transform;
         }
     }

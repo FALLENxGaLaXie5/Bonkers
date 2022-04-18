@@ -12,12 +12,9 @@ namespace Bonkers.Combat
             
             if (nextOverBlokCollider)
             {
-                onBlokHit?.Invoke();
-                Collider2D blokCollider = GetComponent<Collider2D>();                
-                Transform audioSourceTransform = GetComponentInChildren<AudioSource>().transform;
-                audioSourceTransform.parent = null;
-                Destroy(audioSourceTransform.gameObject, 1f);
-                blokCollider.transform.GetComponent<ExplodeOnOrder>().ExplodeBlok();
+                OnBlokHit?.Invoke();
+                //Invokes our event for destroying the blok, so any listeners can run their logic
+                InvokeOnBlokDestroyInImpact();
             }
             else
             {
@@ -27,7 +24,7 @@ namespace Bonkers.Combat
 
         public void SetMoving(bool shouldMove, Vector3 playerFacingDirection)
         {
-            onSetMoving?.Invoke(shouldMove, playerFacingDirection);
+            OnSetMoving?.Invoke(shouldMove, playerFacingDirection);
         }
 
         public void BlokBumped(Vector3 playerFacingDirection, Vector3 currentPlayerPosition)

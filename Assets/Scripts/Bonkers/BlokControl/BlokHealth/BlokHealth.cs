@@ -13,7 +13,8 @@ namespace Bonkers.BlokControl
         protected IBlokControl blokControl;
         protected BlokDestroyIntoPoolHelper blokDestroyIntoPoolHelper;
 
-        public event Action onDestroyBlok;
+        public event Action<float> OnDestroyBlok;
+        public event Action OnRespawnBlok;
 
         protected virtual void Awake()
         {
@@ -22,13 +23,18 @@ namespace Bonkers.BlokControl
             blokDestroyIntoPoolHelper = GetComponent<BlokDestroyIntoPoolHelper>();
         }
 
-        protected virtual void OnEnable() => onDestroyBlok += blokDestroyIntoPoolHelper.AttemptSendBlokToPool;
-        protected virtual void OnDisable() => onDestroyBlok -= blokDestroyIntoPoolHelper.AttemptSendBlokToPool;
+        protected virtual void OnEnable() => OnDestroyBlok += blokDestroyIntoPoolHelper.AttemptSendBlokToPool;
+        protected virtual void OnDisable() => OnDestroyBlok -= blokDestroyIntoPoolHelper.AttemptSendBlokToPool;
 
         public virtual void DestroyBlok()
         {
-            onDestroyBlok?.Invoke();
+            OnDestroyBlok?.Invoke(explosionOrder.FadeTime);
             explosionOrder.ExplodeBlok();
+        }
+
+        public virtual void InvokeRespawnBlok()
+        {
+            OnRespawnBlok?.Invoke();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Bonkers.Combat
             Collider2D nextOverBlokCollider = Physics2D.OverlapCircle(transform.position + playerFacingDirection, checkRadius, bonkableLayers);
             if (nextOverBlokCollider)
             {
-                onBlokHit?.Invoke();
+                OnBlokHit?.Invoke();
                 Collider2D blokCollider = GetComponent<Collider2D>();
                 Transform audioSourceTransform = GetComponentInChildren<AudioSource>().transform;
                 audioSourceTransform.parent = null;
@@ -26,12 +26,12 @@ namespace Bonkers.Combat
 
         public void SetMoving(bool shouldMove, Vector3 playerFacingDirection)
         {
-            onSetMoving?.Invoke(shouldMove, playerFacingDirection);
+            OnSetMoving?.Invoke(shouldMove, playerFacingDirection);
         }
 
         public void BlokBumped(Vector3 playerFacingDirection, Vector3 currentPlayerPosition)
         {
-            onBlokBumped?.Invoke(playerFacingDirection, currentPlayerPosition);
+            OnBlokBumped?.Invoke(playerFacingDirection, currentPlayerPosition);
         }
     }
 }

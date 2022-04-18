@@ -27,7 +27,7 @@ namespace Bonkers.BlokControl
         public float MaxTimeBetweenSpawns => maxTimeBetweenSpawn;
         public List<IndividualBlokPoolingData> PossibleBloksToSpawn => possibleBloksToSpawn;
 
-        public IEnumerator SpawnBlok(GameObject blokToSpawn)
+        public IEnumerator SpawnBlok(GameObject blokToSpawn, Transform parent)
         {
             Vector2Int randomPosition;
             Collider2D blokCollider;
@@ -43,6 +43,7 @@ namespace Bonkers.BlokControl
 
             blokToSpawn.transform.position = spawnPosition;
             blokToSpawn.transform.rotation = Quaternion.identity;
+            blokToSpawn.transform.parent = parent;
             blokToSpawn.SetActive(true);
             
             if (enemyCheck && enemyCheck.transform.tag == "Enemy")
@@ -52,6 +53,9 @@ namespace Bonkers.BlokControl
                     blokControl.HitEnemy(enemyCheck.transform);
                 }
             }
+            
+            //Notify any listeners on blok that it is respawning
+            blokToSpawn.GetComponent<BlokHealth>().InvokeRespawnBlok();
             
             if (tweenEffect) tweenEffect.ExecuteEffect(blokToSpawn.transform);
         }

@@ -9,6 +9,10 @@ public class ExplodeOnOrder : MonoBehaviour
     private Explodable _explodable;
     private ExplosionForce ef;
 
+    #region Properties
+    public float FadeTime => fadeTime;
+    #endregion
+    
     void Awake()
     {
         _explodable = GetComponent<Explodable>();

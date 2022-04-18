@@ -16,15 +16,15 @@ namespace Bonkers.BlokControl
         protected override void OnEnable()
         {
             base.OnEnable();
-            blokInteraction.onBlokHit += Destroy;
-            blokInteraction.onSetMoving += SetMoving;
+            blokInteraction.OnBlokHit += Destroy;
+            blokInteraction.OnSetMoving += SetMoving;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            blokInteraction.onBlokHit -= Destroy;
-            blokInteraction.onSetMoving -= SetMoving;
+            blokInteraction.OnBlokHit -= Destroy;
+            blokInteraction.OnSetMoving -= SetMoving;
         }
 
         // Update is called once per frame

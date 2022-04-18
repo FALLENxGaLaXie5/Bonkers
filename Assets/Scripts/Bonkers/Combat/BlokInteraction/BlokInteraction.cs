@@ -16,14 +16,20 @@ namespace Bonkers.Combat
         // TODO: Figure out a way to set default bonkableLayers in code so it does not need to be set in inspector on different prefabs
         [SerializeField] protected LayerMask bonkableLayers;
 
-        public Action<bool, Vector3> onSetMoving;
-        public Action onBlokHit;
-        public Action<Vector3, Vector3> onBlokBumped;
-        public event Action onBlokImpact;
+        public Action<bool, Vector3> OnSetMoving;
+        public Action OnBlokHit;
+        public Action<Vector3, Vector3> OnBlokBumped;
+        public event Action OnBlokImpact;
+        public event Action OnBlokDestroyInImpact;
 
         public void TriggerBlokImpact()
         {
-            onBlokImpact?.Invoke();
+            OnBlokImpact?.Invoke();
+        }
+
+        protected virtual void InvokeOnBlokDestroyInImpact()
+        {
+            OnBlokDestroyInImpact?.Invoke();
         }
     }
 }

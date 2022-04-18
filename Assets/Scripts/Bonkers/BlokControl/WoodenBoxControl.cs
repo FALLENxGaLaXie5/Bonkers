@@ -24,15 +24,15 @@ namespace Bonkers.BlokControl
         protected override void OnEnable()
         {
             base.OnEnable();
-            blokInteraction.onBlokHit += WoodenBlokHit;
-            blokInteraction.onBlokHit += AttemptHitEffect;
+            blokInteraction.OnBlokHit += WoodenBlokHit;
+            blokInteraction.OnBlokHit += AttemptHitEffect;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            blokInteraction.onBlokHit -= WoodenBlokHit;
-            blokInteraction.onBlokHit -= AttemptHitEffect;
+            blokInteraction.OnBlokHit -= WoodenBlokHit;
+            blokInteraction.OnBlokHit -= AttemptHitEffect;
         }
 
         protected override void PlaySound()
