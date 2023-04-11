@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac7aa3bd114537a45b83dca83a83a1cb, type: 3}
+  m_Name: Default Blok Spawning System
+  m_EditorClassIdentifier: 
+  possibleBloksToSpawn:
+  - {fileID: 11400000, guid: 238f40ee2ede0d4439d5144fef9abb73, type: 2}
+  - {fileID: 11400000, guid: 58b12860a8dc7264f8bdfc3348aa8545, type: 2}
+  - {fileID: 11400000, guid: ddef615572c49b84491f4838d1532793, type: 2}
+  - {fileID: 11400000, guid: 433fb158d7aa0c145b58080522eb165d, type: 2}
+  - {fileID: 11400000, guid: 1ae51d8b52a0bdf4dafcc259425c0c33, type: 2}
+  minPosition: {x: 1, y: 1}
+  maxPosition: {x: 20, y: 20}
+  minTimeBetweenSpawn: 3
+  maxTimeBetweenSpawn: 4
+  wallLayers:
+    serializedVersion: 2
+    m_Bits: 6656
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 1024
+  tweenEffect: {fileID: 11400000, guid: fb0987d2474eef841b2d5342052ab85f, type: 2}

@@ -1,0 +1,16 @@
+{
+    "name": "Bonkers.Drops",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d8e7d1dfbb2b06e478720988a37207b8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

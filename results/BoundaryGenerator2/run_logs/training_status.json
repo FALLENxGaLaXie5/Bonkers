@@ -1,0 +1,29 @@
+{
+    "ContentGenerator": {
+        "checkpoints": [
+            {
+                "steps": 5172,
+                "file_path": "results\\BoundaryGenerator2\\ContentGenerator\\ContentGenerator-5172.onnx",
+                "reward": null,
+                "creation_time": 1664240109.687118,
+                "auxillary_file_paths": [
+                    "results\\BoundaryGenerator2\\ContentGenerator\\ContentGenerator-5172.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 5172,
+            "file_path": "results\\BoundaryGenerator2\\ContentGenerator.onnx",
+            "reward": null,
+            "creation_time": 1664240109.687118,
+            "auxillary_file_paths": [
+                "results\\BoundaryGenerator2\\ContentGenerator\\ContentGenerator-5172.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.12.1+cu116"
+    }
+}

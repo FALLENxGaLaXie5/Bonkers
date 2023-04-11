@@ -1,0 +1,18 @@
+{
+    "name": "Bonkers.Movement",
+    "rootNamespace": "",
+    "references": [
+        "GUID:efa45043feb7e4147a305b73b5cea642",
+        "GUID:84dcb3bf8a87060469542b4e63acf01a",
+        "GUID:d68bbcd79cbaf7346aca86aa15797f9a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

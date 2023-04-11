@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7666051136945945180
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1151031105375975985, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: agent
+      value: 
+      objectReference: {fileID: 5418979811893165888}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975988, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975990, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: ee942c8e2d8268546ab4616a2b937f94, type: 3}
+    - target: {fileID: 1151031105375975990, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_BehaviorType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975990, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_BrainParameters.VectorObservationSize
+      value: 47
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975990, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_BrainParameters.VectorActionSize.Array.data[1]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975990, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[1]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151031105375975995, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+      propertyPath: m_Name
+      value: Content Generator Eight Directional Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 1151031105375975991, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+--- !u!1 &7321164510909710439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1151031105375975995, guid: 3e55f8ba072bcb64b98937db13c1d35d, type: 3}
+  m_PrefabInstance: {fileID: 7666051136945945180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5418979811893165888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7321164510909710439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1274f312152c4c9f8c11d49ca616c834, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 5000
+  contentGeneratorData: {fileID: 11400000, guid: 2c26088f7de4bda45a587373c2145fa5, type: 2}
+  generatedDataSystem: {fileID: 11400000, guid: 4398910e4ca0aed45b59d6e582d8bfe3, type: 2}
+  contentLevelMapping:
+    immovableBlokMappings: []
+    basicBlokPositionMappings: []
+    bombBlokPositionMappings: []
+    glassBlokPositionMappings: []
+    iceBlokPositionMappings: []
+    woodBlokPositionMappings: []
+  currentMapSize: 0

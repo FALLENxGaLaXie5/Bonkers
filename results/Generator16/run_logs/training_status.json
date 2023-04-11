@@ -1,0 +1,56 @@
+{
+    "ContentGenerator": {
+        "checkpoints": [
+            {
+                "steps": 499994,
+                "file_path": "results\\Generator16\\ContentGenerator\\ContentGenerator-499994.onnx",
+                "reward": -0.39571423530578614,
+                "creation_time": 1663877542.060761,
+                "auxillary_file_paths": [
+                    "results\\Generator16\\ContentGenerator\\ContentGenerator-499994.pt"
+                ]
+            },
+            {
+                "steps": 999995,
+                "file_path": "results\\Generator16\\ContentGenerator\\ContentGenerator-999995.onnx",
+                "reward": -0.0035713687539100647,
+                "creation_time": 1663880448.2782726,
+                "auxillary_file_paths": [
+                    "results\\Generator16\\ContentGenerator\\ContentGenerator-999995.pt"
+                ]
+            },
+            {
+                "steps": 1499997,
+                "file_path": "results\\Generator16\\ContentGenerator\\ContentGenerator-1499997.onnx",
+                "reward": null,
+                "creation_time": 1663883416.2152987,
+                "auxillary_file_paths": [
+                    "results\\Generator16\\ContentGenerator\\ContentGenerator-1499997.pt"
+                ]
+            },
+            {
+                "steps": 1898685,
+                "file_path": "results\\Generator16\\ContentGenerator\\ContentGenerator-1898685.onnx",
+                "reward": null,
+                "creation_time": 1663886379.9138901,
+                "auxillary_file_paths": [
+                    "results\\Generator16\\ContentGenerator\\ContentGenerator-1898685.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1898685,
+            "file_path": "results\\Generator16\\ContentGenerator.onnx",
+            "reward": null,
+            "creation_time": 1663886379.9138901,
+            "auxillary_file_paths": [
+                "results\\Generator16\\ContentGenerator\\ContentGenerator-1898685.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.12.1+cu116"
+    }
+}

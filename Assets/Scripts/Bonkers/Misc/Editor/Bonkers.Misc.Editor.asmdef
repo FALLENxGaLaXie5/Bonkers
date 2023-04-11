@@ -1,0 +1,18 @@
+{
+    "name": "Bonkers.Misc.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cc362d16054263449a691c8be4f4c86d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

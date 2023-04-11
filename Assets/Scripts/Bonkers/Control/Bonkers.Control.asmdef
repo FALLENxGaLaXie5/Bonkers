@@ -1,0 +1,27 @@
+{
+    "name": "Bonkers.Control",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1fa8bb9ba07e31445bdba722bc4e069d",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:715000906c3b0a84d9fa7e1f263e3565",
+        "GUID:21a52011c3c6e014d9ebae0cae05982c",
+        "GUID:d3c2c3445c74e2d499e525b26678392e",
+        "GUID:8a5aeeef99fce334696d2ebddb557c3a",
+        "GUID:4811ce3633a630548964348f9a10ea32",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:a0446ecfede17ce45bb18d1186dc2078",
+        "GUID:78489e48c2c78af4696faaa75734021f",
+        "GUID:f4c2e7affeee79c4a949c7378a6e8887",
+        "GUID:d8e7d1dfbb2b06e478720988a37207b8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

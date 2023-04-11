@@ -1,0 +1,47 @@
+{
+    "ContentGenerator": {
+        "checkpoints": [
+            {
+                "steps": 499979,
+                "file_path": "results\\Generator13\\ContentGenerator\\ContentGenerator-499979.onnx",
+                "reward": null,
+                "creation_time": 1663814895.8793206,
+                "auxillary_file_paths": [
+                    "results\\Generator13\\ContentGenerator\\ContentGenerator-499979.pt"
+                ]
+            },
+            {
+                "steps": 999997,
+                "file_path": "results\\Generator13\\ContentGenerator\\ContentGenerator-999997.onnx",
+                "reward": -112.33333333333333,
+                "creation_time": 1663820731.5271347,
+                "auxillary_file_paths": [
+                    "results\\Generator13\\ContentGenerator\\ContentGenerator-999997.pt"
+                ]
+            },
+            {
+                "steps": 1291568,
+                "file_path": "results\\Generator13\\ContentGenerator\\ContentGenerator-1291568.onnx",
+                "reward": null,
+                "creation_time": 1663824379.334041,
+                "auxillary_file_paths": [
+                    "results\\Generator13\\ContentGenerator\\ContentGenerator-1291568.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1291568,
+            "file_path": "results\\Generator13\\ContentGenerator.onnx",
+            "reward": null,
+            "creation_time": 1663824379.334041,
+            "auxillary_file_paths": [
+                "results\\Generator13\\ContentGenerator\\ContentGenerator-1291568.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.12.1+cu116"
+    }
+}

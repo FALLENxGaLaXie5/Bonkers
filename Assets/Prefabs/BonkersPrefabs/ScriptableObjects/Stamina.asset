@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6f96cae3284e914fa59dfba9e80b3e8, type: 3}
+  m_Name: Stamina
+  m_EditorClassIdentifier: 
+  type: 1
+  powerupPrefab: {fileID: 767999593582052875, guid: 9e530ebe5e0c61c4b9370892e208b850, type: 3}
+  life: 10
+  modifier: 0.03
+  powerupColor: {r: 0, g: 0.6603774, b: 0.45417115, a: 1}

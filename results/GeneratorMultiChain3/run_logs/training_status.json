@@ -1,0 +1,65 @@
+{
+    "ContentGenerator": {
+        "checkpoints": [
+            {
+                "steps": 8499922,
+                "file_path": "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-8499922.onnx",
+                "reward": null,
+                "creation_time": 1667138101.7324626,
+                "auxillary_file_paths": [
+                    "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-8499922.pt"
+                ]
+            },
+            {
+                "steps": 8999936,
+                "file_path": "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-8999936.onnx",
+                "reward": null,
+                "creation_time": 1667139384.889982,
+                "auxillary_file_paths": [
+                    "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-8999936.pt"
+                ]
+            },
+            {
+                "steps": 9499999,
+                "file_path": "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-9499999.onnx",
+                "reward": null,
+                "creation_time": 1667140668.5669208,
+                "auxillary_file_paths": [
+                    "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-9499999.pt"
+                ]
+            },
+            {
+                "steps": 9999977,
+                "file_path": "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-9999977.onnx",
+                "reward": null,
+                "creation_time": 1667141950.7063506,
+                "auxillary_file_paths": [
+                    "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-9999977.pt"
+                ]
+            },
+            {
+                "steps": 10000035,
+                "file_path": "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-10000035.onnx",
+                "reward": 0.533057689666748,
+                "creation_time": 1667141950.8665853,
+                "auxillary_file_paths": [
+                    "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-10000035.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 10000035,
+            "file_path": "results\\GeneratorMultiChain3\\ContentGenerator.onnx",
+            "reward": 0.533057689666748,
+            "creation_time": 1667141950.8665853,
+            "auxillary_file_paths": [
+                "results\\GeneratorMultiChain3\\ContentGenerator\\ContentGenerator-10000035.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.12.1+cu116"
+    }
+}

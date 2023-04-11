@@ -1,0 +1,26 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using Bonkers.Combat;
+
+namespace Bonkers.Control
+{
+    public class ActivateDumbAIBrain : MonoBehaviour
+    {
+        TurbBodySensor bodySensorComponent;
+        void Start()
+        {
+            bodySensorComponent = transform.parent.GetComponentInChildren<TurbBodySensor>();
+        }
+
+        //Animation Event
+        void ActivateAI()
+        {
+            transform.parent.GetComponent<AIControl>().enabled = true;
+            transform.parent.GetComponent<TurbCombat>().enabled = true;
+            bodySensorComponent.isEnabled = true;
+            if (TryGetComponent<Animator>(out Animator animator)) animator.enabled = false;
+        }
+    }
+
+}

@@ -1,0 +1,26 @@
+{
+    "name": "Bonkers.Core",
+    "rootNamespace": "",
+    "references": [
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:4811ce3633a630548964348f9a10ea32",
+        "GUID:21a52011c3c6e014d9ebae0cae05982c",
+        "GUID:c3d68bed88f64fe41943f3bdd312d913",
+        "GUID:f4c2e7affeee79c4a949c7378a6e8887",
+        "GUID:efa45043feb7e4147a305b73b5cea642",
+        "GUID:d68bbcd79cbaf7346aca86aa15797f9a",
+        "GUID:84dcb3bf8a87060469542b4e63acf01a",
+        "GUID:d8e7d1dfbb2b06e478720988a37207b8",
+        "GUID:715000906c3b0a84d9fa7e1f263e3565"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

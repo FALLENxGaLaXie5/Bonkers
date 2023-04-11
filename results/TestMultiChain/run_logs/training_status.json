@@ -1,0 +1,47 @@
+{
+    "ContentGenerator": {
+        "checkpoints": [
+            {
+                "steps": 499978,
+                "file_path": "results\\TestMultiChain\\ContentGenerator\\ContentGenerator-499978.onnx",
+                "reward": null,
+                "creation_time": 1667099061.7370286,
+                "auxillary_file_paths": [
+                    "results\\TestMultiChain\\ContentGenerator\\ContentGenerator-499978.pt"
+                ]
+            },
+            {
+                "steps": 999980,
+                "file_path": "results\\TestMultiChain\\ContentGenerator\\ContentGenerator-999980.onnx",
+                "reward": null,
+                "creation_time": 1667100354.558732,
+                "auxillary_file_paths": [
+                    "results\\TestMultiChain\\ContentGenerator\\ContentGenerator-999980.pt"
+                ]
+            },
+            {
+                "steps": 1000038,
+                "file_path": "results\\TestMultiChain\\ContentGenerator\\ContentGenerator-1000038.onnx",
+                "reward": -0.36464083194732666,
+                "creation_time": 1667100354.7089853,
+                "auxillary_file_paths": [
+                    "results\\TestMultiChain\\ContentGenerator\\ContentGenerator-1000038.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000038,
+            "file_path": "results\\TestMultiChain\\ContentGenerator.onnx",
+            "reward": -0.36464083194732666,
+            "creation_time": 1667100354.7089853,
+            "auxillary_file_paths": [
+                "results\\TestMultiChain\\ContentGenerator\\ContentGenerator-1000038.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.29.0",
+        "torch_version": "1.12.1+cu116"
+    }
+}

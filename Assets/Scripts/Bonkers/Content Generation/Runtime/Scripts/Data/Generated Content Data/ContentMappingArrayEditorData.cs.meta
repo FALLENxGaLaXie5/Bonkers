@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 3b9bb8fcde224acbbdf30bd21d44081e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - spawnerBlokData: {fileID: 11400000, guid: 38b1b5a0661be364293b36a8ac21c2bf, type: 2}
+  - noneBlokData: {fileID: 11400000, guid: 68bc5a1255dd88a4b900e332df9885bf, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

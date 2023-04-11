@@ -1,0 +1,24 @@
+{
+    "name": "Bonkers.BlokControl",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1fa8bb9ba07e31445bdba722bc4e069d",
+        "GUID:d3c2c3445c74e2d499e525b26678392e",
+        "GUID:a0446ecfede17ce45bb18d1186dc2078",
+        "GUID:c3d68bed88f64fe41943f3bdd312d913",
+        "GUID:a91c7a2dcc8f61341b632dfd4c26db55",
+        "GUID:cc362d16054263449a691c8be4f4c86d",
+        "GUID:c50ef2b0dc4d53945888d48cc87ae8ac",
+        "GUID:78489e48c2c78af4696faaa75734021f",
+        "GUID:d8e7d1dfbb2b06e478720988a37207b8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

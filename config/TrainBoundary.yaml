@@ -1,0 +1,32 @@
+behaviors:
+  ContentGenerator:
+    trainer_type: sac
+    hyperparameters:
+      batch_size: 128
+      buffer_size: 500000
+      buffer_init_steps: 0
+      tau: 0.005
+      steps_per_update: 20.0
+      learning_rate: 0.0003
+      learning_rate_schedule: constant
+      init_entcoef: 0.95
+    network_settings:
+      normalize: false
+      hidden_units: 256
+      num_layers: 2
+      vis_encode_type: simple
+    reward_signals:
+      extrinsic:
+        gamma: 0.99
+        strength: 0.05
+      gail:
+        strength: 0.05
+        gamma: 0.99
+        demo_path: Demos/BoundaryDemo1.demo
+    behavioral_cloning:
+      strength: 1.0
+      gamma: 0.99
+      demo_path: Demos/BoundaryDemo1.demo
+    max_steps: 50000
+    time_horizon: 128
+    summary_freq: 20000

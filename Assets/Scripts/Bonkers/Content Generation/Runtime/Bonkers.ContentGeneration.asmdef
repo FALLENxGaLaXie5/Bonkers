@@ -1,0 +1,24 @@
+{
+    "name": "Bonkers.ContentGeneration",
+    "rootNamespace": "",
+    "references": [
+        "GUID:85e0054f8e64b47309646d35f8851f81",
+        "GUID:84dcb3bf8a87060469542b4e63acf01a",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:78489e48c2c78af4696faaa75734021f",
+        "GUID:8a5aeeef99fce334696d2ebddb557c3a",
+        "GUID:434562cea5dd64d47844ef96c2197512",
+        "GUID:c3d68bed88f64fe41943f3bdd312d913",
+        "GUID:efa45043feb7e4147a305b73b5cea642",
+        "GUID:a91c7a2dcc8f61341b632dfd4c26db55"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

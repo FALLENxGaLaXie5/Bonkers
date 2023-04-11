@@ -1,0 +1,19 @@
+{
+    "name": "Bonkers.ContentGenerationEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:fd40b45a17edf0c45bd87ff653007f56",
+        "GUID:78489e48c2c78af4696faaa75734021f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

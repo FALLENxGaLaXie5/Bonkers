@@ -1,0 +1,20 @@
+install the package using package manager
+drag and drop the material in the package on the gameobject You want (Make sure it has a sprite and Sprite renderer)
+you can change the color of the material just by clicking and expanding the material options and selecting the required color from "MainColor" propertie's color pallet
+.
+.
+.
+.
+Changing color through code at runtime
+
+public SpriteRenderer _ColorChange;   (put any name u like for the rendered reference)
+       
+then call this function on the rendered reference to change the color of the material
+
+ _ColorChange.material.SetColor("_MainColor",Color.red);
+
+note("_MainColor") is important because it is a property of the shader that chages the color of the material make sure you spell it exactly as typed here
+
+Also if you just want to change the Sprite color instead of the material use the Below given method
+
+ _ColorChange.color = Color.red; (or any other colore reference u want to do as float or any other format)

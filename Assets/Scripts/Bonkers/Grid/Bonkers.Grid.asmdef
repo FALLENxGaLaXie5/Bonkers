@@ -1,0 +1,16 @@
+{
+    "name": "Bonkers.Grid",
+    "rootNamespace": "",
+    "references": [
+        "GUID:df331fa3c927f534da3397d43652a383"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
