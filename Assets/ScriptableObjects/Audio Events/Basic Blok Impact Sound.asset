@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c896e31a92548ffa9afccca358e52f9, type: 3}
+  m_Name: Basic Blok Impact Sound
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 34b722ffc09ef4831a89b6502cd42f7e, type: 3}
+  - {fileID: 8300000, guid: 2876e7fa4419a4a7096b8bb38641daa3, type: 3}
+  volume:
+    minValue: 0.12967472
+    maxValue: 0.908923
+  pitch:
+    minValue: 0
+    maxValue: 2

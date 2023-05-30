@@ -8,17 +8,10 @@ namespace Bonkers.SceneManagement
     {
         CanvasGroup canvasGroup;
 
-        void Start()
-        {
-            canvasGroup = GetComponent<CanvasGroup>();
-
-        }
+        void Start() => canvasGroup = GetComponent<CanvasGroup>();
 
 
-        public void FadeOutImmediate()
-        {
-            canvasGroup.alpha = 1f;
-        }
+        public void FadeOutImmediate() => canvasGroup.alpha = 1f;
 
         public IEnumerator FadeOutIn()
         {
@@ -44,5 +37,4 @@ namespace Bonkers.SceneManagement
             }
         }
     }
-
 }
