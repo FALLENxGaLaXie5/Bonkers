@@ -42,8 +42,6 @@ namespace Bonkers.BlokControl
                 }
                 else
                 {
-                    //SetMoving(false, Vector3.zero);
-                    PlaySound();
                     //explode!!
                     Destroy();
                 }

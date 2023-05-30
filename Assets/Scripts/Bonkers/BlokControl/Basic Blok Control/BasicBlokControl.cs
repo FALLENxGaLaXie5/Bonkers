@@ -23,7 +23,6 @@ namespace Bonkers.BlokControl
                 }
                 else
                 {
-                    PlaySound();
                     SetMoving(false, Vector3.zero);
                     blokInteraction.TriggerBlokImpact();
                 }

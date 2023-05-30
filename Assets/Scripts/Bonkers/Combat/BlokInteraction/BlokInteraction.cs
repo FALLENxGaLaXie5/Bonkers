@@ -21,6 +21,7 @@ namespace Bonkers.Combat
         //This will be connected JUST to the blok being hit, not destroying logic
         public Action OnBlokHit;
         public Action<Vector3, Vector3> OnBlokBumped;
+        public Action OnTriggerBonkAudio;
         public event Action OnBlokImpact;
         //This will be connected to actually destroying the blok
         public event Action OnBlokDestroyInImpact;

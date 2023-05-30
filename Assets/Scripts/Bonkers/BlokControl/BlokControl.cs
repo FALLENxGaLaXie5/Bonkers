@@ -1,58 +1,41 @@
-﻿using UnityEngine;
+﻿using Bonkers.Audio.Runtime;
+using Bonkers.Combat;
+using UnityEngine;
 using Bonkers.Effects;
 
 namespace Bonkers.BlokControl
 {
     [RequireComponent(typeof(BlokHealth))]
     [RequireComponent(typeof(BlokEffects))]
-    [RequireComponent(typeof(AudioSource))]
-
+    [RequireComponent(typeof(BlokInteraction))]
+    [RequireComponent(typeof(BlokAudio))]
     public class BlokControl : MonoBehaviour
     {
         protected BlokHealth health;
         protected BlokEffects blokEffects;
-        protected AudioSource hitSound;
+        protected BlokInteraction blokInteraction;
+
+        private BlokAudio blokAudio;
 
         protected virtual void Awake()
         {
             health = GetComponent<BlokHealth>();
             blokEffects = GetComponent<BlokEffects>();
-            hitSound = GetComponentInChildren<AudioSource>();
+            blokInteraction = GetComponent<BlokInteraction>();
+            blokAudio = GetComponent<BlokAudio>();
         }
 
         protected virtual void OnEnable()
         {
-            health.OnBreakBlok += PlayBreakSound;
+            blokInteraction.OnTriggerBonkAudio += blokAudio.PlayBonkSound;
         }
 
         protected virtual void OnDisable()
         {
-            health.OnBreakBlok -= PlayBreakSound;
-        }
-        
-        /// <summary>
-        /// Play generic blok hitting sound
-        /// </summary>
-        /// <param name="waitTime"></param>
-        protected virtual void PlaySound()
-        {
-            if (!hitSound.isActiveAndEnabled) return;
-            hitSound.Play();
-        }
-        
-        /// <summary>
-        /// Play sound for destroying blok (can use wait time specified, but likely just want to play immediately)
-        /// </summary>
-        /// <param name="waitTime"></param>
-        protected virtual void PlayBreakSound(float waitTime)
-        {
-            if (!hitSound.isActiveAndEnabled) return;
-            hitSound.Play();
+            blokInteraction.OnTriggerBonkAudio -= blokAudio.PlayBonkSound;
         }
 
-        protected virtual void DestroyBlok()
-        {
-            health.BreakBlok();
-        }
+
+        protected virtual void DestroyBlok() => health.BreakBlok();
     }
 }

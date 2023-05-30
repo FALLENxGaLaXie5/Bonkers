@@ -526,3 +526,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 754cc3418d9f31243b69ce7b5abf5d45, type: 2}
   - {fileID: 11400000, guid: 27a1ef40d4f99ce4c90cc107e3125b94, type: 2}
   alternateImpactEffects: []
+--- !u!114 &7146729632324389328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6287915552659348626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c596bec9ed46ddb85acf3ddf0135bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 5989199668567464191}
+  bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}

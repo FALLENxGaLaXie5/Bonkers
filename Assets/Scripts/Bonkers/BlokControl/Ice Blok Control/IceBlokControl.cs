@@ -70,7 +70,6 @@ namespace Bonkers.BlokControl
                     else
                     {
                         IncrementCurrentHitsByTimer();
-                        PlaySound();
                         if (currentSpeed <= stoppingSpeed)
                         {
                             SetMoving(false, Vector3.zero);

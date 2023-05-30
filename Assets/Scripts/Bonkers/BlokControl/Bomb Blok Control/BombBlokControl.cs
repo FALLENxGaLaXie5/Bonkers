@@ -222,17 +222,7 @@ namespace Bonkers.BlokControl
         }
         */
 
-        protected override void PlaySound()
-        {
-            explosionAudio.enabled = true;
-            explosionAudio.Play();
-        }
-
-        protected override void PlayBreakSound(float waitTime)
-        {
-            explosionAudio.enabled = true;
-            explosionAudio.Play();
-        }
+        
         #endregion
     }
 }

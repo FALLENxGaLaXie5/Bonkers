@@ -27,7 +27,6 @@ namespace Bonkers.BlokControl
         protected bool isMoving = false;
         protected Vector3 moveDir = Vector3.zero;
         protected BlokHitTracker BlokHitTrackerClass;
-        protected BlokInteraction blokInteraction;
 
         #endregion
 
@@ -36,7 +35,6 @@ namespace Bonkers.BlokControl
         protected override void Awake()
         {
             base.Awake();
-            blokInteraction = GetComponent<BlokInteraction>();
             BlokHitTrackerClass = GetComponent<BlokHitTracker>();
         }
 
@@ -61,7 +59,6 @@ namespace Bonkers.BlokControl
         {
             base.OnEnable();
             blokInteraction.OnSetMoving += SetMoving;
-            blokInteraction.OnBlokHit += PlaySound;
             health.OnBreakBlok += SetNotMoving;
             health.OnRespawnBlok += ResetMovePoint;
             blokInteraction.OnBlokBumped += BlokBumped;
@@ -73,7 +70,6 @@ namespace Bonkers.BlokControl
         {
             base.OnDisable();
             blokInteraction.OnSetMoving -= SetMoving;
-            blokInteraction.OnBlokHit -= PlaySound;
             health.OnBreakBlok -= SetNotMoving;
             health.OnRespawnBlok -= ResetMovePoint;
             blokInteraction.OnBlokBumped -= BlokBumped;

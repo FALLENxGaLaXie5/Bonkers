@@ -37,11 +37,6 @@ namespace Bonkers.BlokControl
             health.OnRespawnBlok -= woodenBlokBonksComponent.ResetNumberTimesBonked;
         }
 
-        protected override void PlaySound()
-        {
-            breakingSound.Play();
-        }
-
         void WoodenBlokHit()
         {
             woodenBlokBonksComponent.IncrementNumTimesBonked();
