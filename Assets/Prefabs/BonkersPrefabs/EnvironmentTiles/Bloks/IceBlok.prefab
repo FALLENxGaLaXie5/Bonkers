@@ -352,7 +352,7 @@ PrefabInstance:
     - target: {fileID: 6054298383761831207, guid: 90a76f86e04ecbe49a701a6a1910da3b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: f36fe63f76d724747b7a53742a6c3b93, type: 3}
+      objectReference: {fileID: 21300000, guid: 78d624de72147f244aba0da724b9b88b, type: 3}
     - target: {fileID: 6054298383761831207, guid: 90a76f86e04ecbe49a701a6a1910da3b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -431,7 +431,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.96875, y: 0.96875}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -637,6 +637,20 @@ MonoBehaviour:
     UseConstant: 0
     ConstantValue: 5
     Variable: {fileID: 11400000, guid: 5eb3399360064ca4ca6788c357642229, type: 2}
+--- !u!114 &5340029668888834793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6287915552659348626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c596bec9ed46ddb85acf3ddf0135bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 1562147058044466751}
+  bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}
 --- !u!114 &7878891348534042624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,17 +667,3 @@ MonoBehaviour:
   bonkableLayers:
     serializedVersion: 2
     m_Bits: 4608
---- !u!114 &5340029668888834793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6287915552659348626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c596bec9ed46ddb85acf3ddf0135bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 1562147058044466751}
-  bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}

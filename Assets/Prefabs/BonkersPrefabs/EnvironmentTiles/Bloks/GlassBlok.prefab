@@ -241,7 +241,7 @@ PrefabInstance:
     - target: {fileID: 6054298383761831207, guid: 90a76f86e04ecbe49a701a6a1910da3b, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 513480955ac66384b97eb50ef45f1e78, type: 3}
+      objectReference: {fileID: 21300000, guid: 82d417df2837c9b4b811e9a9bc30a465, type: 3}
     - target: {fileID: 6054298383761831207, guid: 90a76f86e04ecbe49a701a6a1910da3b, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -501,20 +501,6 @@ MonoBehaviour:
   wallBonkMask:
     serializedVersion: 2
     m_Bits: 4608
---- !u!114 &6553734761554696326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6287915552659348626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1188b899c8740b41ba05d98bf946e7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  primaryImpactEffects: []
-  alternateImpactEffects: []
 --- !u!114 &5340029668888834793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -529,3 +515,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 3865127620358389403}
   bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}
+--- !u!114 &6553734761554696326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6287915552659348626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1188b899c8740b41ba05d98bf946e7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  primaryImpactEffects: []
+  alternateImpactEffects: []
