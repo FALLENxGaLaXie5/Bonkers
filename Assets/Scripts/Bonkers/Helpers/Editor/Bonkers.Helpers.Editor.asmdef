@@ -2,7 +2,8 @@
     "name": "Bonkers.Helpers.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:5e6c9aca51424204daf6c81d4e8603aa"
+        "GUID:5e6c9aca51424204daf6c81d4e8603aa",
+        "GUID:84dcb3bf8a87060469542b4e63acf01a"
     ],
     "includePlatforms": [
         "Editor"

@@ -292,6 +292,7 @@ GameObject:
   - component: {fileID: 4806654936112662255}
   - component: {fileID: 7615387662177757852}
   - component: {fileID: 7005897053337618826}
+  - component: {fileID: 1231819163086878082}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -445,6 +446,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f35c8c0d0141e2852ee6a65ebfa798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1231819163086878082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102938116164672527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71e4307f790948069bb5f3a91c85497a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _GameEvent: {fileID: 11400000, guid: cd750e7a3c876014aa17a554b207c98c, type: 2}
+  _UnityEventResponse:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &1244429222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -502,7 +519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7616026254847647068, guid: 8af3903f09ac014439ad9220b1b1da89, type: 3}
       propertyPath: guid
-      value: 9b478fa463f9239f-0c77bd762bd5d6be
+      value: 8b04c9506d8acc59-435d50c2ab6ea8b0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8af3903f09ac014439ad9220b1b1da89, type: 3}
