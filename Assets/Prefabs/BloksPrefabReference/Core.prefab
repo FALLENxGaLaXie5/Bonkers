@@ -293,6 +293,7 @@ GameObject:
   - component: {fileID: 7615387662177757852}
   - component: {fileID: 7005897053337618826}
   - component: {fileID: 1231819163086878082}
+  - component: {fileID: 8764750687499066573}
   m_Layer: 0
   m_Name: Core
   m_TagString: Untagged
@@ -461,7 +462,31 @@ MonoBehaviour:
   _GameEvent: {fileID: 11400000, guid: cd750e7a3c876014aa17a554b207c98c, type: 2}
   _UnityEventResponse:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8764750687499066573}
+        m_TargetAssemblyTypeName: Bonkers.Core.BloksConfigurationControl, Bonkers.Core
+        m_MethodName: ConfigureBloks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8764750687499066573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102938116164672527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3720960722b5470a9a5cc55d6544ddb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1244429222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -519,7 +544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7616026254847647068, guid: 8af3903f09ac014439ad9220b1b1da89, type: 3}
       propertyPath: guid
-      value: 8b04c9506d8acc59-435d50c2ab6ea8b0
+      value: 884623fb29461b8c-3dcb448aaaab0978
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8af3903f09ac014439ad9220b1b1da89, type: 3}

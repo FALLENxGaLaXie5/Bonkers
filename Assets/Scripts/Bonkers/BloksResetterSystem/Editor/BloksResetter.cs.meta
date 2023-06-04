@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 03979888b9fd462aa48dbda9d4987210
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_ViewDataDictionary: {instanceID: 0}
+  - inspectorTargetSerialized: {instanceID: 0}
+  - configureBlokFragmentsEvent: {fileID: 11400000, guid: cd750e7a3c876014aa17a554b207c98c, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

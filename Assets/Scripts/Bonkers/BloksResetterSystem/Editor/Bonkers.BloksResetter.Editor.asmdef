@@ -1,0 +1,16 @@
+{
+    "name": "BloksResetter",
+    "rootNamespace": "",
+    "references": ["GUID:84dcb3bf8a87060469542b4e63acf01a","GUID:8a5aeeef99fce334696d2ebddb557c3a","GUID:c3d68bed88f64fe41943f3bdd312d913","GUID:d8e7d1dfbb2b06e478720988a37207b8"],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

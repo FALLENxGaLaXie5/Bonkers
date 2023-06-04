@@ -1,11 +1,12 @@
 ﻿using Bonkers.BlokControl;
+using Bonkers.Events;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Bonkers.Helpers.Editor
+namespace Bonkers.BloksRestter.Editor
 {
     /// <summary>
     /// This editor is meant to take the prefab of the bloks in a level, saved in the individual blok data
@@ -15,6 +16,8 @@ namespace Bonkers.Helpers.Editor
     /// </summary>
     public class BloksResetter : OdinEditorWindow
     {
+        [SerializeField] private VoidEvent configureBlokFragmentsEvent;
+        
         [MenuItem("Bonkers Custom Editors/Blok Re-Prefabber")]
         private static void OpenWindow()
         {
@@ -25,9 +28,8 @@ namespace Bonkers.Helpers.Editor
         [Button(ButtonSizes.Large), GUIColor(0, 1, 0)]
         public void SetBloksToPrefabValues()
         {
-            Scene scene = SceneManager.GetActiveScene();
-            //
             BlokDestroyIntoPoolHelper[] poolHelperObjects = FindObjectsOfType<BlokDestroyIntoPoolHelper>();
+            
             foreach (var poolHelperObject in poolHelperObjects)
             {
                 GameObject newBlokObject = PrefabUtility.InstantiatePrefab(poolHelperObject.PoolingData.Prefab) as GameObject;
@@ -35,13 +37,10 @@ namespace Bonkers.Helpers.Editor
                 newBlokObject.transform.position = new Vector3(oldBlokPosition.x, oldBlokPosition.y, 0);
                 newBlokObject.transform.parent = poolHelperObject.transform.parent;
 
-                
-                //Blok fragment generation
-                //bloksObject.GetComponent<Configuration>().ConfigureExplodableBloks();
-                //bloksObject.GetComponent<BlokFragmentMaterialModificationHelper>().AssistMatchFragmentMaterials();
-                
+                DestroyImmediate(poolHelperObject.transform.gameObject); 
             }
             
+            configureBlokFragmentsEvent.Raise();
         }
     }
 }
