@@ -1,4 +1,6 @@
-﻿using Bonkers.BlokControl;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Bonkers.BlokControl;
 using Bonkers.Events;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
@@ -19,16 +21,14 @@ namespace Bonkers.BloksRestter.Editor
         [SerializeField] private VoidEvent configureBlokFragmentsEvent;
         
         [MenuItem("Bonkers Custom Editors/Blok Re-Prefabber")]
-        private static void OpenWindow()
-        {
-            GetWindow<BloksResetter>().Show();
-        }
+        private static void OpenWindow() => GetWindow<BloksResetter>().Show();
 
         [HorizontalGroup]
         [Button(ButtonSizes.Large), GUIColor(0, 1, 0)]
         public void SetBloksToPrefabValues()
         {
             BlokDestroyIntoPoolHelper[] poolHelperObjects = FindObjectsOfType<BlokDestroyIntoPoolHelper>();
+            //List<BlokDestroyIntoPoolHelper> poolHelpers = poolHelperObjects.ToList();
             
             foreach (var poolHelperObject in poolHelperObjects)
             {
