@@ -8,6 +8,7 @@ namespace Bonkers.Audio.Runtime
     {
         [SerializeField] private AudioSource audioSource;
         [InlineEditor][SerializeField] private AudioEvent bonkedAudioEvent;
+        [InlineEditor][SerializeField] private AudioEvent blokImpactAudioEvent;
 
         public void PlayBonkSound()
         {
@@ -31,7 +32,17 @@ namespace Bonkers.Audio.Runtime
 
         public void PlayImpactSound()
         {
-            
+            if (!blokImpactAudioEvent)
+            {
+                Debug.LogWarning("Blok impact audio event not set up!");
+                return;
+            }
+            if (!audioSource)
+            {
+                Debug.LogWarning("Audio source not set up!");
+                return;
+            }
+            blokImpactAudioEvent.Play(audioSource);
         }
     }
 }

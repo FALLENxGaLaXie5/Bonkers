@@ -193,6 +193,7 @@ namespace Bonkers.BlokControl
         
         protected override void OnBlokImpact()
         {
+            base.OnBlokImpact();
             if (moveDir == Vector3.left || moveDir == Vector3.right)
                 blokEffects.ExecuteImpactEffects(transform, BlokEffects.TypeEffects.Primary);
             if (moveDir == Vector3.up || moveDir == Vector3.down)

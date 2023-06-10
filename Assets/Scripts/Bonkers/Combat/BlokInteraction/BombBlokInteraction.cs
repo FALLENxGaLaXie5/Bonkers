@@ -8,6 +8,7 @@ namespace Bonkers.Combat
     {
         public void BlokHit(Vector3 playerFacingDirection)
         {
+            OnTriggerBonkAudio?.Invoke();
             SetMoving(true, playerFacingDirection);
         }
 

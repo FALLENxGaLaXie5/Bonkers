@@ -650,7 +650,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 1562147058044466751}
-  bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}
+  bonkedAudioEvent: {fileID: 11400000, guid: 6a0997eff07a3b44b8f5feda36e0935e, type: 2}
+  blokImpactAudioEvent: {fileID: 11400000, guid: 673f380789375df4e83af291b55e45bf, type: 2}
 --- !u!114 &7878891348534042624
 MonoBehaviour:
   m_ObjectHideFlags: 0

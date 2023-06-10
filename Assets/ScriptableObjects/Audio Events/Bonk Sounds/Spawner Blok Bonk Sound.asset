@@ -10,14 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c896e31a92548ffa9afccca358e52f9, type: 3}
-  m_Name: Basic Blok Bonk Sound
+  m_Name: Spawner Blok Bonk Sound
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 34b722ffc09ef4831a89b6502cd42f7e, type: 3}
-  - {fileID: 8300000, guid: 2876e7fa4419a4a7096b8bb38641daa3, type: 3}
+  - {fileID: 8300000, guid: 2a51a9af89490e0439951cd86047b927, type: 3}
+  - {fileID: 8300000, guid: 8fc76cc63384e9142ab644946cd0b3a9, type: 3}
+  - {fileID: 8300000, guid: 9e8a91bcdb8bdd148b808452bc4c7fc6, type: 3}
   volume:
-    minValue: 0.12967472
-    maxValue: 0.908923
+    minValue: 0.17457202
+    maxValue: 0.6515534
   pitch:
-    minValue: 0
+    minValue: 0.642317
     maxValue: 2

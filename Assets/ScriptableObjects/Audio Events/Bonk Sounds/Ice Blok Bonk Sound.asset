@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c896e31a92548ffa9afccca358e52f9, type: 3}
+  m_Name: Ice Blok Bonk Sound
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 2a51a9af89490e0439951cd86047b927, type: 3}
+  - {fileID: 8300000, guid: 8fc76cc63384e9142ab644946cd0b3a9, type: 3}
+  - {fileID: 8300000, guid: 9e8a91bcdb8bdd148b808452bc4c7fc6, type: 3}
+  volume:
+    minValue: 0.17457202
+    maxValue: 0.6515534
+  pitch:
+    minValue: 0.642317
+    maxValue: 2

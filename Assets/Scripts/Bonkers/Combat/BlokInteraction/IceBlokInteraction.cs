@@ -16,6 +16,7 @@ namespace Bonkers.Combat
             }
             else
             {
+                OnTriggerBonkAudio?.Invoke();
                 SetMoving(true, playerFacingDirection);        
             }
         }

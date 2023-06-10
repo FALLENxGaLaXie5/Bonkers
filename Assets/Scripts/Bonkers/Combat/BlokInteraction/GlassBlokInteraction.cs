@@ -6,8 +6,6 @@ namespace Bonkers.Combat
 {
     public class GlassBlokInteraction : BlokInteraction, IBlokInteraction
     {
-
-
         public void BlokHit(Vector3 playerFacingDirection)
         {
             Collider2D nextOverBlokCollider = Physics2D.OverlapCircle(transform.position + playerFacingDirection, checkRadius, bonkableLayers);
@@ -17,6 +15,7 @@ namespace Bonkers.Combat
             }
             else
             {
+                OnTriggerBonkAudio?.Invoke();
                 SetMoving(true, playerFacingDirection);
             }
         }

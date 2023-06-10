@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Basic Blok Impact Sound
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 34b722ffc09ef4831a89b6502cd42f7e, type: 3}
-  - {fileID: 8300000, guid: 2876e7fa4419a4a7096b8bb38641daa3, type: 3}
+  - {fileID: 8300000, guid: 7fddffe9b977fd948af1004cd05e7828, type: 3}
+  - {fileID: 8300000, guid: 5db295e86ef2a214dad1b43658dde5a5, type: 3}
   volume:
-    minValue: 0.12967472
-    maxValue: 0.908923
+    minValue: 0.5041269
+    maxValue: 1
   pitch:
-    minValue: 0
-    maxValue: 2
+    minValue: 0.3778336
+    maxValue: 1.445844

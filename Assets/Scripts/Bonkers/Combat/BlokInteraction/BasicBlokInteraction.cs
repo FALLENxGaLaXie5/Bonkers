@@ -9,8 +9,6 @@ namespace Bonkers.Combat
         public void BlokHit(Vector3 playerFacingDirection)
         {
             Collider2D nextOverBlokCollider = Physics2D.OverlapCircle(transform.position + playerFacingDirection, checkRadius, bonkableLayers);
-            Debug.Log("Basic blok hit!");
-            OnTriggerBonkAudio?.Invoke();
             if (nextOverBlokCollider)
             {
                 OnBlokHit?.Invoke();
@@ -19,6 +17,8 @@ namespace Bonkers.Combat
             }
             else
             {
+                //Play bonk audio if it starts moving
+                OnTriggerBonkAudio?.Invoke();
                 SetMoving(true, playerFacingDirection);
             }
         }

@@ -501,6 +501,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &5340029668888834793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6287915552659348626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26c596bec9ed46ddb85acf3ddf0135bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 5989199668567464191}
+  bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}
+  blokImpactAudioEvent: {fileID: 11400000, guid: 673f380789375df4e83af291b55e45bf, type: 2}
 --- !u!114 &5536662913521604984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,17 +629,3 @@ MonoBehaviour:
   bonkableLayers:
     serializedVersion: 2
     m_Bits: 4608
---- !u!114 &5340029668888834793
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6287915552659348626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26c596bec9ed46ddb85acf3ddf0135bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 5989199668567464191}
-  bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}

@@ -28,11 +28,13 @@ namespace Bonkers.BlokControl
         protected virtual void OnEnable()
         {
             blokInteraction.OnTriggerBonkAudio += blokAudio.PlayBonkSound;
+            blokInteraction.OnBlokImpact += blokAudio.PlayImpactSound;
         }
 
         protected virtual void OnDisable()
         {
             blokInteraction.OnTriggerBonkAudio -= blokAudio.PlayBonkSound;
+            blokInteraction.OnBlokImpact -= blokAudio.PlayImpactSound;
         }
 
 

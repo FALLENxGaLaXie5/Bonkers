@@ -31,6 +31,7 @@ namespace Bonkers.BlokControl
         
         protected override void OnBlokImpact()
         {
+            base.OnBlokImpact();
             blokEffects.ExecuteImpactEffects(transform, BlokEffects.TypeEffects.Primary);
         }
 
