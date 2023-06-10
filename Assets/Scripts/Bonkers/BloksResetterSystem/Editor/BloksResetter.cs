@@ -5,6 +5,7 @@ using Bonkers.Events;
 using Sirenix.OdinInspector;
 using Sirenix.OdinInspector.Editor;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,7 +47,11 @@ namespace Bonkers.BloksRestter.Editor
                 DestroyImmediate(poolHelperObject.transform.gameObject); 
             }
             
+            //This event is on the core object, and will configure all the new bloks to have fragments under the core object
             configureBlokFragmentsEvent.Raise();
+            //Mark current scene as having changes made, then automatically save it
+            EditorSceneManager.MarkSceneDirty(SceneManager.GetActiveScene());
+            EditorSceneManager.SaveScene(SceneManager.GetActiveScene());
         }
     }
 }

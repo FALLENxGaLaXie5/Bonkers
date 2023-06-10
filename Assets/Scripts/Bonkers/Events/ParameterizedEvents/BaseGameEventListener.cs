@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 namespace Bonkers.Events
 {
+    [ExecuteInEditMode]
     public abstract class BaseGameEventListener<T, GE, UER> : MonoBehaviour
         where GE : BaseGameEvent<T>
         where UER : UnityEvent<T>
