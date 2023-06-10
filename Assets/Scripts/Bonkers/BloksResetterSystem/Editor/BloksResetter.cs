@@ -23,6 +23,9 @@ namespace Bonkers.BloksRestter.Editor
         [MenuItem("Bonkers Custom Editors/Blok Re-Prefabber")]
         private static void OpenWindow() => GetWindow<BloksResetter>().Show();
 
+        /// <summary>
+        /// This button will trigger the blok reset - destroys old ones and creats new bloks with the new prefabs.
+        /// </summary>
         [HorizontalGroup]
         [Button(ButtonSizes.Large), GUIColor(0, 1, 0)]
         public void SetBloksToPrefabValues()
@@ -32,6 +35,9 @@ namespace Bonkers.BloksRestter.Editor
             
             foreach (var poolHelperObject in poolHelperObjects)
             {
+                //If no pooling data is set, skip over this one - we create the new bloks based off of this individual blok data
+                if (!poolHelperObject.PoolingData) continue;
+                
                 GameObject newBlokObject = PrefabUtility.InstantiatePrefab(poolHelperObject.PoolingData.Prefab) as GameObject;
                 var oldBlokPosition = poolHelperObject.transform.position;
                 newBlokObject.transform.position = new Vector3(oldBlokPosition.x, oldBlokPosition.y, 0);
