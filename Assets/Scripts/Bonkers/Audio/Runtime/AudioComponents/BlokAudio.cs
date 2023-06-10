@@ -9,7 +9,20 @@ namespace Bonkers.Audio.Runtime
         [SerializeField] private AudioSource audioSource;
         [InlineEditor][SerializeField] private AudioEvent bonkedAudioEvent;
 
-        public void PlayBonkSound() => bonkedAudioEvent.Play(audioSource);
+        public void PlayBonkSound()
+        {
+            if (!bonkedAudioEvent)
+            {
+                Debug.LogWarning("Bonked audio event not set up!");
+                return;
+            }
+            if (!audioSource)
+            {
+                Debug.LogWarning("Audio source not set up!");
+                return;
+            }
+            bonkedAudioEvent.Play(audioSource);
+        }
 
         public void PlayBreakSound()
         {
