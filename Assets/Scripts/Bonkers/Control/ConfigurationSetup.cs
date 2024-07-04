@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -7,8 +8,8 @@ namespace Bonkers.Control
     {
         [InlineEditor]
         [SerializeField] private PlayerConfigurationSystem playerConfigurationSystem;
-
-        void Awake() => playerConfigurationSystem.ClearPlayerConfigs();
+        
+        private void OnApplicationQuit() => playerConfigurationSystem.ClearPlayerConfigs();
 
         private void Start() => playerConfigurationSystem.Initialize();
     }
