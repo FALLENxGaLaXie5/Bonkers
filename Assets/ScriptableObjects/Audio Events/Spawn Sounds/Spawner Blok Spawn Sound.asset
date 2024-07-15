@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c896e31a92548ffa9afccca358e52f9, type: 3}
+  m_Name: Spawner Blok Spawn Sound
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 0633c3ce07dc3bb40835e1af2469e66a, type: 3}
+  - {fileID: 8300000, guid: 85e2df76830ef804e819eabca9720c4f, type: 3}
+  - {fileID: 8300000, guid: e09d54f7fc715dc429cf16db4b71f875, type: 3}
+  volume:
+    minValue: 0.16467495
+    maxValue: 0.32766616
+  pitch:
+    minValue: 0.9683202
+    maxValue: 1.0230265

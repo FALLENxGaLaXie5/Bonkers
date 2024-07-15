@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Basic Blok Bonk Sound
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: 2bce5adfb4635504e98f430fe633ed4d, type: 3}
-  - {fileID: 8300000, guid: 5386a405069eb8c4fb01a019b9146727, type: 3}
-  - {fileID: 8300000, guid: 1d482df6b223ee84eb86f35a4d783078, type: 3}
-  - {fileID: 8300000, guid: 33b0a2f3b1da2294faae5b978e96ff4b, type: 3}
-  - {fileID: 8300000, guid: f37b8aa56994bc84a9394c0843b27cbc, type: 3}
+  - {fileID: 8300000, guid: 89e2706ad092d984c8711207b3c66c19, type: 3}
+  - {fileID: 8300000, guid: 3319c9029cbef3148bf56ea2d98b230b, type: 3}
+  - {fileID: 8300000, guid: 2d44ba0f6e8252b4292b6b569e7f6a00, type: 3}
+  - {fileID: 8300000, guid: 5ba9ade3622c2484ab7a649192136f8b, type: 3}
+  - {fileID: 8300000, guid: 6ecf14c7afddac44b895a54c16887bb0, type: 3}
   volume:
-    minValue: 0.3447142
-    maxValue: 0.4454303
+    minValue: 0.13090688
+    maxValue: 0.32951063
   pitch:
     minValue: 0.9671694
     maxValue: 1.0771961

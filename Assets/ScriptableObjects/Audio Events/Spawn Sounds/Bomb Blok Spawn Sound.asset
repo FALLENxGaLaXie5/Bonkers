@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c896e31a92548ffa9afccca358e52f9, type: 3}
+  m_Name: Bomb Blok Spawn Sound
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 60d4be242ac1d8b42b27ad9f81a3b2fc, type: 3}
+  - {fileID: 8300000, guid: c681e74519ca6f54ca88fbaf65cc628b, type: 3}
+  - {fileID: 8300000, guid: 5d870a46db59a434caa72a27eb49ddab, type: 3}
+  - {fileID: 8300000, guid: 473a2a17848fc854992d9d0c0ad3c6a0, type: 3}
+  volume:
+    minValue: 0.16467495
+    maxValue: 0.32766616
+  pitch:
+    minValue: 0.9683202
+    maxValue: 1.0230265

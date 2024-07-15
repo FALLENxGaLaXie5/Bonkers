@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c896e31a92548ffa9afccca358e52f9, type: 3}
+  m_Name: Wood Blok Destroy Sound
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 414794b42b2628a43b728e8de65443e0, type: 3}
+  - {fileID: 8300000, guid: 9188e50870108fa43bd7129830fc5b66, type: 3}
+  - {fileID: 8300000, guid: 361dd4c8bb44da64fb17d2a3c528132d, type: 3}
+  - {fileID: 8300000, guid: fc575ed1621c07845a16291785805b81, type: 3}
+  - {fileID: 8300000, guid: 23949e878e06fa645b257ca3651b2d08, type: 3}
+  volume:
+    minValue: 0.28066337
+    maxValue: 0.7218618
+  pitch:
+    minValue: 0.9683202
+    maxValue: 1.0230265

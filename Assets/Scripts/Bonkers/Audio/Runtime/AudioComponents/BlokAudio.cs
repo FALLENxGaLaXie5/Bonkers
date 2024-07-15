@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Bonkers.Audio.Runtime
 {
@@ -7,12 +8,14 @@ namespace Bonkers.Audio.Runtime
     public class BlokAudio : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
-        [InlineEditor][SerializeField] private AudioEvent bonkedAudioEvent;
-        [InlineEditor][SerializeField] private AudioEvent blokImpactAudioEvent;
-
+        [InlineEditor][SerializeField] private AudioEvent _bonkedAudioEvent;
+        [InlineEditor][SerializeField] private AudioEvent _blokImpactAudioEvent;
+        [InlineEditor][SerializeField] private AudioEvent _blokDestroyedAudioEvent;
+        [InlineEditor][SerializeField] private AudioEvent _blokSpawnAudioEvent;
+        
         public void PlayBonkSound()
         {
-            if (!bonkedAudioEvent)
+            if (!_bonkedAudioEvent)
             {
                 Debug.LogWarning("Bonked audio event not set up!");
                 return;
@@ -22,17 +25,42 @@ namespace Bonkers.Audio.Runtime
                 Debug.LogWarning("Audio source not set up!");
                 return;
             }
-            bonkedAudioEvent.Play(audioSource);
+            _bonkedAudioEvent.Play(audioSource);
         }
 
-        public void PlayBreakSound()
+        public void PlayDestroySound()
         {
-            
+            if (!_blokDestroyedAudioEvent)
+            {
+                Debug.LogWarning("Blok destroyed audio event not set up!");
+                return;
+            }
+            if (!audioSource)
+            {
+                Debug.LogWarning("Audio source not set up!");
+                return;
+            }
+            _blokDestroyedAudioEvent.Play(audioSource);
+        }
+        
+        public void PlaySpawnAudioEvent()
+        {
+            if (!_blokSpawnAudioEvent)
+            {
+                Debug.LogWarning("Blok spawned audio event not set up!");
+                return;
+            }
+            if (!audioSource)
+            {
+                Debug.LogWarning("Audio source not set up!");
+                return;
+            }
+            _blokSpawnAudioEvent.Play(audioSource);
         }
 
         public void PlayImpactSound()
         {
-            if (!blokImpactAudioEvent)
+            if (!_blokImpactAudioEvent)
             {
                 Debug.LogWarning("Blok impact audio event not set up!");
                 return;
@@ -42,7 +70,7 @@ namespace Bonkers.Audio.Runtime
                 Debug.LogWarning("Audio source not set up!");
                 return;
             }
-            blokImpactAudioEvent.Play(audioSource);
+            _blokImpactAudioEvent.Play(audioSource);
         }
     }
 }
