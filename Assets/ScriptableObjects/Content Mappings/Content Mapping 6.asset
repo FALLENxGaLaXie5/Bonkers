@@ -19169,4 +19169,4 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  spawnerBlokData: {fileID: 0}
+  spawnerBlokData: {fileID: 11400000, guid: 38b1b5a0661be364293b36a8ac21c2bf, type: 2}
