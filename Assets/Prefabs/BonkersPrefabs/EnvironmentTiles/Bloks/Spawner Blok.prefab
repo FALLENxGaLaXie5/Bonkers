@@ -400,7 +400,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -583,8 +583,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 5989199668567464191}
-  bonkedAudioEvent: {fileID: 11400000, guid: 026bafffce2137248b803c9784761452, type: 2}
-  blokImpactAudioEvent: {fileID: 11400000, guid: 673f380789375df4e83af291b55e45bf, type: 2}
+  _bonkedAudioEvent: {fileID: 0}
+  _blokImpactAudioEvent: {fileID: 0}
+  _blokDestroyedAudioEvent: {fileID: 0}
+  _blokSpawnAudioEvent: {fileID: 0}
 --- !u!114 &5536662913521604984
 MonoBehaviour:
   m_ObjectHideFlags: 0

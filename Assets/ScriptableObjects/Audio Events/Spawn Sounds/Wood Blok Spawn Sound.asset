@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Wood Blok Spawn Sound
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: a0a0b6371bd3e5b4c8db22f76b82b76b, type: 3}
-  - {fileID: 8300000, guid: cb088338acb5bdc45ad87d5c5794e39c, type: 3}
-  - {fileID: 8300000, guid: 437abe56eb4620848b55b2487cbebb17, type: 3}
+  - {fileID: 8300000, guid: 83a946058b591664585ba28f9678e262, type: 3}
+  - {fileID: 8300000, guid: a61462fca5487554ba4f97a453188598, type: 3}
+  - {fileID: 8300000, guid: 5cd0adbba5e2f694e85c72e9e9555f49, type: 3}
   volume:
     minValue: 0.16467495
     maxValue: 0.32766616
