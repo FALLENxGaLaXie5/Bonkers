@@ -87,7 +87,7 @@ namespace Bonkers.BlokControl
 
         }
         
-        protected virtual void OnBlokImpact()
+        protected virtual void OnBlokImpact(bool destroyInImpact)
         {
             
         }

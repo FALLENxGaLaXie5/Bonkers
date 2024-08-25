@@ -1,3 +1,4 @@
 {
-	"name": "Bonkers.Effects"
+	"name": "Bonkers.Effects",
+	"references":[ "GUID:ff3faa9380ba60143969f7b50316c373" ]
 }

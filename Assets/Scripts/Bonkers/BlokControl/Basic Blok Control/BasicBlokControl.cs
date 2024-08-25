@@ -24,14 +24,16 @@ namespace Bonkers.BlokControl
                 else
                 {
                     SetMoving(false, Vector3.zero);
-                    blokInteraction.TriggerBlokImpact();
+                    blokInteraction.TriggerBlokImpact(false);
                 }
             }
         }       
         
-        protected override void OnBlokImpact()
+        protected override void OnBlokImpact(bool destroyInImpact)
         {
-            base.OnBlokImpact();
+            base.OnBlokImpact(destroyInImpact);
+            //Do not execute impact effects if the blok is being destroyed
+            if (destroyInImpact) return; 
             blokEffects.ExecuteImpactEffects(transform, BlokEffects.TypeEffects.Primary);
         }
 

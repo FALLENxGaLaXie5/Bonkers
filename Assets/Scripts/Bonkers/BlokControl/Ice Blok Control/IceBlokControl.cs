@@ -79,7 +79,7 @@ namespace Bonkers.BlokControl
                         {
                             //switch the movement dir, and also decrease the speed if bonked a wall
                             SwitchMoveDir(true);
-                            blokInteraction.TriggerBlokImpact();
+                            blokInteraction.TriggerBlokImpact(false);
                         }
                     }
                 }
@@ -191,9 +191,10 @@ namespace Bonkers.BlokControl
             }
         }
         
-        protected override void OnBlokImpact()
+        protected override void OnBlokImpact(bool destroyInImpact)
         {
-            base.OnBlokImpact();
+            base.OnBlokImpact(destroyInImpact);
+            if (destroyInImpact) return;
             if (moveDir == Vector3.left || moveDir == Vector3.right)
                 blokEffects.ExecuteImpactEffects(transform, BlokEffects.TypeEffects.Primary);
             if (moveDir == Vector3.up || moveDir == Vector3.down)

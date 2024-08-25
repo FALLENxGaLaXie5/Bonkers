@@ -14,6 +14,7 @@ namespace Bonkers.Combat
                 OnBlokHit?.Invoke();
                 //Invokes our event for destroying the blok, so any listeners can run their logic
                 InvokeOnBlokDestroyInImpact();
+                TriggerBlokImpact(true);
             }
             else
             {

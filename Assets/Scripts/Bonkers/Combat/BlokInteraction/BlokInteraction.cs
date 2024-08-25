@@ -22,13 +22,13 @@ namespace Bonkers.Combat
         public Action OnBlokHit;
         public Action<Vector3, Vector3> OnBlokBumped;
         public Action OnTriggerBonkAudio;
-        public event Action OnBlokImpact;
+        public event Action<bool> OnBlokImpact;
         //This will be connected to actually destroying the blok
         public event Action OnBlokDestroyInImpact;
 
-        public void TriggerBlokImpact()
+        public void TriggerBlokImpact(bool destroyInImpact)
         {
-            OnBlokImpact?.Invoke();
+            OnBlokImpact?.Invoke(destroyInImpact);
         }
 
         protected virtual void InvokeOnBlokDestroyInImpact()

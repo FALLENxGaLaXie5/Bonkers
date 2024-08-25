@@ -1,13 +1,20 @@
+using System;
 using System.Collections.Generic;
+using Bonkers.Audio.Runtime;
 using UnityEngine;
 
 namespace  Bonkers.Effects
 {
+    [RequireComponent(typeof(BlokAudio))]
     public class BlokEffects : MonoBehaviour
     {
         [SerializeField] List<TweenEffect> primaryImpactEffects;
         [SerializeField] List<TweenEffect> alternateImpactEffects;
 
+        private BlokAudio blokAudio;
+
+        private void Awake() => blokAudio = GetComponent<BlokAudio>();
+        
         public enum TypeEffects
         {
             Primary,
@@ -30,6 +37,16 @@ namespace  Bonkers.Effects
             {
                 effect.ExecuteEffect(transform);
             }
+        }
+
+        public void PlayBonkSound() => blokAudio.PlayBonkSound();
+        public void PlayRespawnSoundEffects() => blokAudio.PlaySpawnAudioEvent();
+        public void PlayImpactBlokSoundEffects(bool destroyInImpact)
+        {
+            if (destroyInImpact)
+                blokAudio.PlayDestroySound();
+            else
+                blokAudio.PlayImpactSound();
         }
     }
 }
