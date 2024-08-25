@@ -47,7 +47,7 @@ namespace Bonkers.BlokControl
 
         #region Class Functions
 
-        void Destroy() => health.BreakBlok();
+        void Destroy() => blokHealth.BreakBlok();
 
         #endregion
     }

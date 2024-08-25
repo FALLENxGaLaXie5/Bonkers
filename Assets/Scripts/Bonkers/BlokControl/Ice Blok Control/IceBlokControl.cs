@@ -42,15 +42,15 @@ namespace Bonkers.BlokControl
         protected override void OnEnable()
         {
             base.OnEnable();
-            health.OnBreakBlok += ResetIceBlokMovementLogic;
-            health.OnRespawnBlok += RestartTimingHits;
+            blokHealth.OnBreakBlok += ResetIceBlokMovementLogic;
+            blokHealth.OnRespawnBlok += RestartTimingHits;
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            health.OnBreakBlok -= ResetIceBlokMovementLogic;
-            health.OnRespawnBlok -= RestartTimingHits;
+            blokHealth.OnBreakBlok -= ResetIceBlokMovementLogic;
+            blokHealth.OnRespawnBlok -= RestartTimingHits;
         }
 
         // Update is called once per frame
@@ -120,7 +120,7 @@ namespace Bonkers.BlokControl
             currentHitsByTimer++;
             if (currentHitsByTimer >= maxHitsByTimer)
             {
-                health.BreakBlok();
+                blokHealth.BreakBlok();
             }
         }
 

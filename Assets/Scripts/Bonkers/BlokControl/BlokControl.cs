@@ -11,7 +11,7 @@ namespace Bonkers.BlokControl
     [RequireComponent(typeof(BlokAudio))]
     public class BlokControl : MonoBehaviour
     {
-        protected BlokHealth health;
+        protected BlokHealth blokHealth;
         protected BlokEffects blokEffects;
         protected BlokInteraction blokInteraction;
 
@@ -19,7 +19,7 @@ namespace Bonkers.BlokControl
 
         protected virtual void Awake()
         {
-            health = GetComponent<BlokHealth>();
+            blokHealth = GetComponent<BlokHealth>();
             blokEffects = GetComponent<BlokEffects>();
             blokInteraction = GetComponent<BlokInteraction>();
             blokAudio = GetComponent<BlokAudio>();
@@ -29,15 +29,18 @@ namespace Bonkers.BlokControl
         {
             blokInteraction.OnTriggerBonkAudio += blokAudio.PlayBonkSound;
             blokInteraction.OnBlokImpact += blokAudio.PlayImpactSound;
+            blokHealth.OnRespawnBlok += RespawnBlokEffects;
         }
 
         protected virtual void OnDisable()
         {
             blokInteraction.OnTriggerBonkAudio -= blokAudio.PlayBonkSound;
             blokInteraction.OnBlokImpact -= blokAudio.PlayImpactSound;
+            blokHealth.OnRespawnBlok -= RespawnBlokEffects;
         }
 
 
-        protected virtual void DestroyBlok() => health.BreakBlok();
+        protected virtual void DestroyBlok() => blokHealth.BreakBlok();
+        protected virtual void RespawnBlokEffects() => blokAudio.PlaySpawnAudioEvent();
     }
 }

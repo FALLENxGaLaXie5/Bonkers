@@ -59,8 +59,8 @@ namespace Bonkers.BlokControl
         {
             base.OnEnable();
             blokInteraction.OnSetMoving += SetMoving;
-            health.OnBreakBlok += SetNotMoving;
-            health.OnRespawnBlok += ResetMovePoint;
+            blokHealth.OnBreakBlok += SetNotMoving;
+            blokHealth.OnRespawnBlok += ResetMovePoint;
             blokInteraction.OnBlokBumped += BlokBumped;
             blokInteraction.OnBlokImpact += OnBlokImpact;
             blokInteraction.OnBlokDestroyInImpact += DestroyBlok;
@@ -70,8 +70,8 @@ namespace Bonkers.BlokControl
         {
             base.OnDisable();
             blokInteraction.OnSetMoving -= SetMoving;
-            health.OnBreakBlok -= SetNotMoving;
-            health.OnRespawnBlok -= ResetMovePoint;
+            blokHealth.OnBreakBlok -= SetNotMoving;
+            blokHealth.OnRespawnBlok -= ResetMovePoint;
             blokInteraction.OnBlokBumped -= BlokBumped;
             blokInteraction.OnBlokImpact -= OnBlokImpact;
             blokInteraction.OnBlokDestroyInImpact -= DestroyBlok;

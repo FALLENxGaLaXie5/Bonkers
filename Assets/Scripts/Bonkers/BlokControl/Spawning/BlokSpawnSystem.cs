@@ -101,13 +101,8 @@ namespace Bonkers.BlokControl
             blokToSpawn.transform.parent = parent;
             blokToSpawn.SetActive(true);
             
-            if (enemyCheck && enemyCheck.transform.tag == "Enemy")
-            {
-                if (blokToSpawn.TryGetComponent<MoveableBlokControl>(out MoveableBlokControl blokControl))
-                {
-                    blokControl.HitEnemy(enemyCheck.transform);
-                }
-            }
+            if (enemyCheck && enemyCheck.transform.CompareTag("Enemy") && blokToSpawn.TryGetComponent(out MoveableBlokControl blokControl))
+                blokControl.HitEnemy(enemyCheck.transform);
             
             //Notify any listeners on blok that it is respawning
             blokToSpawn.GetComponent<BlokHealth>().InvokeRespawnBlok();

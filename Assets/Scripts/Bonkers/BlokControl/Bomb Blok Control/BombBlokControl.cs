@@ -108,7 +108,7 @@ namespace Bonkers.BlokControl
         {
             explosionObjectControl.transform.parent = null;
             explosionObjectControl.gameObject.SetActive(true);
-            health.BreakBlok();
+            blokHealth.BreakBlok();
         }
 
         void BlokExplodeMoving(Collider2D impactCollider, Vector3 moveDirCopy)

@@ -26,7 +26,7 @@ namespace Bonkers.BlokControl
             base.OnEnable();
             blokInteraction.OnBlokHit += WoodenBlokHit;
             blokInteraction.OnBlokHit += AttemptHitEffect;
-            health.OnRespawnBlok += woodenBlokBonksComponent.ResetNumberTimesBonked;
+            blokHealth.OnRespawnBlok += woodenBlokBonksComponent.ResetNumberTimesBonked;
         }
 
         protected override void OnDisable()
@@ -34,7 +34,7 @@ namespace Bonkers.BlokControl
             base.OnDisable();
             blokInteraction.OnBlokHit -= WoodenBlokHit;
             blokInteraction.OnBlokHit -= AttemptHitEffect;
-            health.OnRespawnBlok -= woodenBlokBonksComponent.ResetNumberTimesBonked;
+            blokHealth.OnRespawnBlok -= woodenBlokBonksComponent.ResetNumberTimesBonked;
         }
 
         void WoodenBlokHit()
@@ -42,7 +42,7 @@ namespace Bonkers.BlokControl
             woodenBlokBonksComponent.IncrementNumTimesBonked();
             if (woodenBlokBonksComponent.NumTimesBonked >= woodenBlokBonksComponent.NumberBonksToBreak)
             {
-                health.BreakBlok();
+                blokHealth.BreakBlok();
             }
         }
         
