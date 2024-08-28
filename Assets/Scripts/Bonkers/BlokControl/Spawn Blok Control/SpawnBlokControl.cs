@@ -145,10 +145,7 @@ namespace Bonkers.BlokControl
             }
         }
 
-        private void PlaySpawningAnimation()
-        {
-            blokAnimationControl.PlayAnimation();
-        }
+        private void PlaySpawningAnimation() => blokAnimationControl.PlayAnimation();
 
         /// <summary>
         /// Called by animation event. Will actually spawn the object.

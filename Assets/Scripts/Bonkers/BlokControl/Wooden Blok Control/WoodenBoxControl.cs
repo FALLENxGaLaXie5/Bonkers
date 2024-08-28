@@ -40,10 +40,7 @@ namespace Bonkers.BlokControl
         void WoodenBlokHit()
         {
             woodenBlokBonksComponent.IncrementNumTimesBonked();
-            if (woodenBlokBonksComponent.NumTimesBonked >= woodenBlokBonksComponent.NumberBonksToBreak)
-            {
-                blokHealth.BreakBlok();
-            }
+            if (woodenBlokBonksComponent.IsBroken) blokHealth.BreakBlok();
         }
         
         void AttemptHitEffect()

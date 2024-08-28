@@ -26,6 +26,10 @@ namespace Bonkers.Combat
         //This will be connected to actually destroying the blok
         public event Action OnBlokDestroyInImpact;
 
+        /// <summary>
+        /// Used to trigger bloks impacting with other environment items that will stop the blok.
+        /// </summary>
+        /// <param name="destroyInImpact"></param>
         public void TriggerBlokImpact(bool destroyInImpact)
         {
             OnBlokImpact?.Invoke(destroyInImpact);

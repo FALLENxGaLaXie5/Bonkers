@@ -20,6 +20,7 @@ namespace Bonkers.Combat
 
         public int NumTimesBonked => numTimesBonked;
         public void IncrementNumTimesBonked() => numTimesBonked++;
+        public bool IsBroken => NumTimesBonked >= NumberBonksToBreak;
         public int NumberBonksToBreak => numBonksToBreak;
         public void ResetNumberTimesBonked() => numTimesBonked = 0;
 

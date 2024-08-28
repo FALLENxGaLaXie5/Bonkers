@@ -12,6 +12,7 @@ namespace Bonkers.Combat
             if (nextOverBlokCollider)
             {
                 OnBlokHit?.Invoke();
+                TriggerBlokImpact(true);
             }
             else
             {

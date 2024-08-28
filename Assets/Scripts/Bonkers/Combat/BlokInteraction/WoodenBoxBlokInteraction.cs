@@ -9,22 +9,19 @@ namespace Bonkers.Combat
     {
         WoodenBlokBonks bonksInstance;
         
-        void Awake()
-        {
-            bonksInstance = GetComponent<WoodenBlokBonks>();
-        }
+        void Awake() => bonksInstance = GetComponent<WoodenBlokBonks>();
 
         public void BlokHit(Vector3 playerFacingDirection)
         {
             OnBlokHit?.Invoke();
-            bonksInstance.IncrementNumTimesBonked();
-            if (bonksInstance.NumTimesBonked >= bonksInstance.NumberBonksToBreak)
+            if (bonksInstance.IsBroken)
             {
-
+                TriggerBlokImpact(true);
             }
             else
             {
-                OnTriggerBonkAudio?.Invoke();
+                TriggerBlokImpact(false);
+                //OnTriggerBonkAudio?.Invoke();
             }
         }
 

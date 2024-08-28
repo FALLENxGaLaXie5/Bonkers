@@ -26,21 +26,21 @@ namespace Bonkers.BlokControl
         void Update()
         {
             if (!isMoving) return;
-            
             transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
-            if (Vector3.Distance(transform.position, movePoint.position) <= .05f)
+            if (Vector3.Distance(transform.position, movePoint.position) > .05f) return;
+            
+            Collider2D blokCollider = Physics2D.OverlapCircle(transform.position + moveDir, 0.2f, wallBonkMask);
+            if (!blokCollider)
             {
-                Collider2D blokCollider = Physics2D.OverlapCircle(transform.position + moveDir, 0.2f, wallBonkMask);
-                if (!blokCollider)
-                {
-                    movePoint.position += moveDir;
-                }
-                else
-                {
-                    //explode!!
-                    Destroy();
-                }
+                movePoint.position += moveDir;
             }
+            else
+            {
+                blokInteraction.TriggerBlokImpact(false);
+                //explode!!
+                Destroy();
+            }
+            
         }
 
         #endregion

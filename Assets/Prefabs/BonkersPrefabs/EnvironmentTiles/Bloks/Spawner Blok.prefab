@@ -583,10 +583,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 5989199668567464191}
-  _bonkedAudioEvent: {fileID: 0}
-  _blokImpactAudioEvent: {fileID: 0}
-  _blokDestroyedAudioEvent: {fileID: 0}
-  _blokSpawnAudioEvent: {fileID: 0}
+  _bonkedAudioEvent: {fileID: 11400000, guid: e916b3d4eb3d3e5429a174d79a8a8260, type: 2}
+  _blokImpactAudioEvent: {fileID: 11400000, guid: a7d8752535ddbb8498579767c3a58ffc, type: 2}
+  _blokDestroyedAudioEvent: {fileID: 11400000, guid: f5b737df56642ef4c8ef814b7687f3db, type: 2}
+  _blokSpawnAudioEvent: {fileID: 11400000, guid: ed72c7be837101148832bf745cc4eb88, type: 2}
 --- !u!114 &5536662913521604984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -606,25 +606,25 @@ MonoBehaviour:
     m_Bits: 4608
   turbPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 48891236e7459e14fb1cde9c8e00f98a, type: 3}
-    spawnPrefab: 0
+    spawnPrefab: 1
   grubberPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 0cfb55fbc59a37d469ca5fa0080339b2, type: 3}
-    spawnPrefab: 0
+    spawnPrefab: 1
   tarSlimoPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: c291d341e57380b4d8704e9fbcba0340, type: 3}
-    spawnPrefab: 0
+    spawnPrefab: 1
   toxicSlimoPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 326a764d73662c04782c5a68d824972f, type: 3}
-    spawnPrefab: 0
+    spawnPrefab: 1
   ghostlyGrubberPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 0cfb55fbc59a37d469ca5fa0080339b2, type: 3}
-    spawnPrefab: 0
+    spawnPrefab: 1
   cannotSpawnMask:
     serializedVersion: 2
     m_Bits: 5632
   minSpawnWaitTime: 2
-  maxSpawnWaitTime: 4
-  maxEnemies: 20
+  maxSpawnWaitTime: 8
+  maxEnemies: 10
   blokAnimationControl: {fileID: 7100567662159219437}
   rotateSpeed:
     UseConstant: 0

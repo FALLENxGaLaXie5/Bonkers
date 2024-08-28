@@ -56,34 +56,32 @@ namespace Bonkers.BlokControl
         // Update is called once per frame
         void Update()
         {
-            if (isMoving)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, movePoint.position, currentSpeed * Time.deltaTime);
+            if (!isMoving) return;
+            transform.position = Vector3.MoveTowards(transform.position, movePoint.position, currentSpeed * Time.deltaTime);
 
-                if (Vector3.Distance(transform.position, movePoint.position) <= .05f)
+            if (Vector3.Distance(transform.position, movePoint.position) > .05f) return;
+            
+            Collider2D blokCollider = Physics2D.OverlapCircle(transform.position + moveDir, 0.2f, wallBonkMask);
+            if (!blokCollider)
+            {
+                movePoint.position += moveDir;
+            }
+            else
+            {
+                IncrementCurrentHitsByTimer();
+                if (currentSpeed <= stoppingSpeed)
                 {
-                    Collider2D blokCollider = Physics2D.OverlapCircle(transform.position + moveDir, 0.2f, wallBonkMask);
-                    if (!blokCollider)
-                    {
-                        movePoint.position += moveDir;
-                    }
-                    else
-                    {
-                        IncrementCurrentHitsByTimer();
-                        if (currentSpeed <= stoppingSpeed)
-                        {
-                            SetMoving(false, Vector3.zero);
-                            currentSpeed = moveSpeed;
-                        }
-                        else
-                        {
-                            //switch the movement dir, and also decrease the speed if bonked a wall
-                            SwitchMoveDir(true);
-                            blokInteraction.TriggerBlokImpact(false);
-                        }
-                    }
+                    SetMoving(false, Vector3.zero);
+                    currentSpeed = moveSpeed;
+                }
+                else
+                {
+                    //switch the movement dir, and also decrease the speed if bonked a wall
+                    SwitchMoveDir(true);
+                    blokInteraction.TriggerBlokImpact(false);
                 }
             }
+            
         }
 
         protected override void OnTriggerEnter2D(Collider2D collision)

@@ -13,6 +13,7 @@ namespace Bonkers.Combat
             {
                 OnBlokHit?.Invoke();
                 InvokeOnBlokDestroyInImpact();
+                TriggerBlokImpact(true);
             }
             else
             {
