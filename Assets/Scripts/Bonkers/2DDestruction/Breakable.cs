@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bonkers._2DDestruction;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 
 public class Breakable : MonoBehaviour
@@ -25,7 +26,7 @@ public class Breakable : MonoBehaviour
         Voronoi
     };
     public ShatterType shatterType;
-    public List<GameObject> fragments = new List<GameObject>();
+    [SerializeField] private List<GameObject> fragments = new List<GameObject>();
     private List<List<Vector2>> polygons = new List<List<Vector2>>();
 
     void Start()
@@ -182,6 +183,7 @@ public class Breakable : MonoBehaviour
     /// </summary>
     void GenerateFragments()
     {
+        Undo.RecordObject(this, "Add all fragments to list after generating them");
         fragments = new List<GameObject>();
         switch (shatterType)
         {
@@ -213,6 +215,7 @@ public class Breakable : MonoBehaviour
                 addon.OnFragmentsGenerated(fragments);
             }
         }
+        EditorUtility.SetDirty(this);
     }
     void SetPolygonsForDrawing()
     {
