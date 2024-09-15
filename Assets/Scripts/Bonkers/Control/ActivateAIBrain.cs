@@ -17,9 +17,10 @@ namespace Bonkers.Control
         void ActivateAI()
         {
             transform.parent.GetComponent<AIControl>().enabled = true;
-            transform.parent.GetComponent<TurbCombat>().enabled = true;
+            transform.parent.GetComponent<EnemyCombat>().enabled = true;
             bodySensorComponent.isEnabled = true;
         }
+        
     }
 
 }

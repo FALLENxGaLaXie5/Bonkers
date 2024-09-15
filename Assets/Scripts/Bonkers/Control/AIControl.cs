@@ -19,6 +19,8 @@ namespace Bonkers.Control
         protected SpriteRenderer spriteRenderer;
         protected IEnemyCombat combat;
         protected EnemyHealth health;
+
+        private ActivateDumbAIBrain aiBrainActivationObject;
         
         #endregion
 
@@ -28,6 +30,9 @@ namespace Bonkers.Control
             aiMovement = GetComponent<IAIMovement>();
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             health = GetComponent<EnemyHealth>();
+            aiBrainActivationObject = GetComponentInChildren<ActivateDumbAIBrain>();
+            
+            health.OnDisableFunctionality += OnDisableAllControl;
         }
 
         #region Unity Events/Functions
@@ -42,20 +47,16 @@ namespace Bonkers.Control
         {
             aiMovement.Patrol();
         }
-
-        protected void OnEnable() => health.onDisableFunctionality += OnDisableAllControl;
-
-        protected void OnDisable() => health.onDisableFunctionality -= OnDisableAllControl;
+        
+        protected void OnDisable() => health.OnDisableFunctionality -= OnDisableAllControl;
 
         #endregion
 
-        public void DisableControl()
-        {
-            enabled = false;
-        }
+        public void DisableControl() => enabled = false;
 
         void OnDisableAllControl()
         {
+            aiBrainActivationObject.DisableControlActivation();
             combat.DisableCombat();
             aiMovement.DisableMovement();
             DisableControl();

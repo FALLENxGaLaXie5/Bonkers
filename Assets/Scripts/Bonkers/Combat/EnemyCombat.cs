@@ -3,24 +3,17 @@
 namespace Bonkers.Combat
 {
     [DisallowMultipleComponent]
-    public class TurbCombat : MonoBehaviour, IEnemyCombat
+    public class EnemyCombat : MonoBehaviour, IEnemyCombat
     {
         [SerializeField] [Range(1, 10)] int damageAmount = 5;
 
         IHealth health;
 
-        void Awake()
-        {
-            health = GetComponent<IHealth>();
-        }
-
-        void Start()
-        {
-            //enabled = false;
-        }
+        void Awake() => health = GetComponent<IHealth>();
+        
         public void HitPlayer(Transform playerTransform)
         {
-            if (playerTransform.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
+            if (playerTransform.TryGetComponent(out PlayerHealth playerHealth))
             {
                 //If the player is not currently invincible and AI combat component is enabled, have the player take damage
                 // else if the player is invincible 
@@ -36,10 +29,7 @@ namespace Bonkers.Combat
             }
         }
 
-        public void DisableCombat()
-        {
-            enabled = false;
-        }
+        public void DisableCombat() => enabled = false;
     }
 }
 

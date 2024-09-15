@@ -9,6 +9,7 @@ namespace Bonkers.Control
         [InlineEditor]
         [SerializeField] private PlayerConfigurationSystem playerConfigurationSystem;
         
+        
         private void OnApplicationQuit() => playerConfigurationSystem.ClearPlayerConfigs();
 
         private void Start() => playerConfigurationSystem.Initialize();

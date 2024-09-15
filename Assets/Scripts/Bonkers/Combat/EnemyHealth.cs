@@ -20,7 +20,7 @@ namespace Bonkers.Combat
         [SerializeField] float dissolveSpeed = 2f;
 
 
-        public event Action onDisableFunctionality;
+        public event Action OnDisableFunctionality;
 
         #endregion
 
@@ -97,7 +97,7 @@ namespace Bonkers.Combat
 
         void DisableAllAIFunctionality()
         {
-            onDisableFunctionality?.Invoke();
+            OnDisableFunctionality?.Invoke();
 
             //this will disable any forces acting on rigidBody (blok's exploding were exuding force on it on death)
             rigidBody.isKinematic = true;
@@ -118,15 +118,9 @@ namespace Bonkers.Combat
 
         public int GetHealth() => health;
 
-        public void SetHealth(int newHealth)
-        {
-            this.health = newHealth;
-        }
+        public void SetHealth(int health) => this.health = health;
 
-        public int GetScoreValue()
-        {
-            return scoreValue;
-        }
+        public int GetScoreValue() => scoreValue;
 
         #endregion
     }

@@ -8,29 +8,29 @@ public class TurbBodySensor : MonoBehaviour
 {
 
     public bool isEnabled = false;
-    TurbCombat turbCombat;
+    EnemyCombat _enemyCombat;
 
     public event Action<Transform> eatFoodAction;
 
     void Start()
     {
-        turbCombat = transform.parent.GetComponent<TurbCombat>();
+        _enemyCombat = transform.parent.GetComponent<EnemyCombat>();
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         //sense if enemy hit the player
         if (collision.tag == "Player" && isEnabled)
         {
-            if (!turbCombat)
+            if (!_enemyCombat)
             {
-                if(transform.parent.TryGetComponent<TurbCombat>(out TurbCombat combat))
+                if(transform.parent.TryGetComponent<EnemyCombat>(out EnemyCombat combat))
                     combat.HitPlayer(collision.transform);
                 else
-                    turbCombat.HitPlayer(collision.transform);
+                    _enemyCombat.HitPlayer(collision.transform);
             }
             else
             {
-                turbCombat.HitPlayer(collision.transform);
+                _enemyCombat.HitPlayer(collision.transform);
             }
         }
         if (collision.tag == "Food")
