@@ -606,19 +606,19 @@ MonoBehaviour:
     m_Bits: 4608
   turbPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 48891236e7459e14fb1cde9c8e00f98a, type: 3}
-    spawnPrefab: 1
+    spawnPrefab: 0
   grubberPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 0cfb55fbc59a37d469ca5fa0080339b2, type: 3}
-    spawnPrefab: 1
+    spawnPrefab: 0
   tarSlimoPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: c291d341e57380b4d8704e9fbcba0340, type: 3}
-    spawnPrefab: 1
+    spawnPrefab: 0
   toxicSlimoPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 326a764d73662c04782c5a68d824972f, type: 3}
     spawnPrefab: 1
   ghostlyGrubberPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 0cfb55fbc59a37d469ca5fa0080339b2, type: 3}
-    spawnPrefab: 1
+    spawnPrefab: 0
   cannotSpawnMask:
     serializedVersion: 2
     m_Bits: 5632

@@ -38,7 +38,9 @@ namespace Bonkers.Movement
         float rotateWaitTime = 1.0f;
 
         #endregion
-
+        
+        public event Action<Vector2> OnChangeDirection;
+        
         #region Unity Event Functions
 
         void Start()
@@ -167,7 +169,8 @@ namespace Bonkers.Movement
         void SetFacingDir(Vector3 newFacingDir)
         {
             facingDir = newFacingDir;
-            transform.DORotate(new Vector3(0, 0, directionsToZEulerDict[facingDir]), rotationTime);
+            OnChangeDirection?.Invoke(new Vector2(facingDir.x, facingDir.y));
+            //transform.DORotate(new Vector3(0, 0, directionsToZEulerDict[facingDir]), rotationTime);
             StartCoroutine(TimeToNextAbleRotate());
         }
 

@@ -6,7 +6,7 @@ using Bonkers.Movement;
 
 namespace Bonkers.Control
 {
-    public class ToxicSlimoControl : AIControl
+    public class ToxicSlimoControl : AISingleSpaceMovementControl
     {
         [SerializeField] PuddleDrop toxicPuddleDrop;
         [SerializeField] [Range(1f, 15f)] float minPuddleDropTime = 3f;

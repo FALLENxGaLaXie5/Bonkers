@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Bonkers.Animation;
 using UnityEngine;
 using Bonkers.Combat;
 using Bonkers.Movement;
@@ -11,7 +12,8 @@ namespace Bonkers.Control
     [RequireComponent(typeof(IAIMovement))]
     [RequireComponent(typeof(IEnemyCombat))]
     [RequireComponent(typeof(EnemyHealth))]
-    public class AIControl : MonoBehaviour
+    [RequireComponent(typeof(EnemyAnimation))]
+    public abstract class AIControl : MonoBehaviour
     {
 
         #region Private/Class Variables
@@ -19,8 +21,8 @@ namespace Bonkers.Control
         protected SpriteRenderer spriteRenderer;
         protected IEnemyCombat combat;
         protected EnemyHealth health;
-
-        private ActivateDumbAIBrain aiBrainActivationObject;
+        protected EnemyAnimation animation;
+        protected ActivateDumbAIBrain aiBrainActivationObject;
         
         #endregion
 
@@ -31,7 +33,7 @@ namespace Bonkers.Control
             spriteRenderer = GetComponentInChildren<SpriteRenderer>();
             health = GetComponent<EnemyHealth>();
             aiBrainActivationObject = GetComponentInChildren<ActivateDumbAIBrain>();
-            
+            animation = GetComponent<EnemyAnimation>();
             health.OnDisableFunctionality += OnDisableAllControl;
         }
 
@@ -43,12 +45,12 @@ namespace Bonkers.Control
         }
 
         // Update is called once per frame
-        protected void Update()
+        protected virtual void Update()
         {
             aiMovement.Patrol();
         }
         
-        protected void OnDisable() => health.OnDisableFunctionality -= OnDisableAllControl;
+        protected virtual void OnDisable() => health.OnDisableFunctionality -= OnDisableAllControl;
 
         #endregion
 
