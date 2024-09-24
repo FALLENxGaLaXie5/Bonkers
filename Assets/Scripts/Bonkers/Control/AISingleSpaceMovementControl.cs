@@ -16,14 +16,8 @@ namespace Bonkers.Control
             _singleSpaceMovement.OnChangeDirection += ChangeDirection;
         }
 
-        private void ChangeDirection(Vector2 newDirection)
-        {
-            animation.SetFacingDirection(newDirection);
-        }
+        private void ChangeDirection(Vector2 newDirection) => animation.SetFacingDirection(newDirection);
 
-        protected override void OnDisable()
-        {
-            _singleSpaceMovement.OnChangeDirection -= ChangeDirection;
-        }
+        protected override void OnDisable() => _singleSpaceMovement.OnChangeDirection -= ChangeDirection;
     }
 }
