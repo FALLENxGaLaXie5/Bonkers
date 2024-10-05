@@ -1,18 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-using Bonkers.Events;
 
-namespace Bonkers.Drops
+namespace Bonkers.ItemDrops
 {
-    public class ToxicPuddleBehavior : MonoBehaviour, IEnvironmentEffector
+    public class TarPuddleBehavior : MonoBehaviour, IEnvironmentEffector
     {
         #region Inspector/Public Variables
 
         [SerializeField] PuddleDrop puddle = null;
-        [SerializeField] float chanceOfPuddleSpawn = 20f;
 
-        [SerializeField] UnityEvent<Vector3> AttemptSpawnEvent; 
         #endregion
 
         #region Class/Private Variables
@@ -22,6 +18,7 @@ namespace Bonkers.Drops
         #endregion
 
         #region Unity Events 
+        
         void Start() => animator = GetComponent<Animator>();
 
         #endregion
@@ -31,17 +28,8 @@ namespace Bonkers.Drops
         IEnumerator WaitToDestroy()
         {
             yield return new WaitForSeconds(puddle.GetLife());
-            //try to spawn new toxicccc life!
-            AttemptSpawnNewToxicSlimo();
+            
             animator.SetTrigger("destroy");
-        }
-
-        void AttemptSpawnNewToxicSlimo()
-        {
-            //if random generator does not favor spawning one, return
-            if (UnityEngine.Random.Range(0, 100) >= chanceOfPuddleSpawn) return;
-
-            AttemptSpawnEvent?.Invoke(transform.position);
         }
 
         //animation event
@@ -53,7 +41,7 @@ namespace Bonkers.Drops
         //animation event
         void Destroy()
         {
-            Destroy(gameObject);
+            Destroy(gameObject);    
         }
         
         public ScriptableObject AttemptGetEffector() => puddle;
@@ -61,4 +49,3 @@ namespace Bonkers.Drops
         #endregion
     }
 }
-

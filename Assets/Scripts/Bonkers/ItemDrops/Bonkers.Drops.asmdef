@@ -2,7 +2,8 @@
     "name": "Bonkers.Drops",
     "rootNamespace": "",
     "references": [
-        "GUID:d8e7d1dfbb2b06e478720988a37207b8"
+        "GUID:d8e7d1dfbb2b06e478720988a37207b8",
+        "GUID:a91c7a2dcc8f61341b632dfd4c26db55"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

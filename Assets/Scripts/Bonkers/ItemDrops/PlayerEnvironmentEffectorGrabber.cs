@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace  Bonkers.Drops
+namespace  Bonkers.ItemDrops
 {
     public class PlayerEnvironmentEffectorGrabber : MonoBehaviour
     {

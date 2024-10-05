@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Bonkers.Combat;
 using UnityEngine;
 
 namespace Bonkers.Control
@@ -25,20 +26,20 @@ namespace Bonkers.Control
         void OnEnable()
         {
             //listen for a collision with food
-            bodySensor.eatFoodAction += EatFood;
+            bodySensor.OnEatFood += OnEatFood;
         }
 
         void OnDisable()
         {
             //stop listening for a collision with food
-            bodySensor.eatFoodAction -= EatFood;
+            bodySensor.OnEatFood -= OnEatFood;
         }
 
         #endregion
 
         #region Class Functions
 
-        void EatFood(Transform food)
+        void OnEatFood(Transform food)
         {
             //already checked for tag in the "Turb Body Sensor", so just eat the food!
             grubberControl.SetChasingFood(false);

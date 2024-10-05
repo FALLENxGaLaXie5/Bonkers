@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using Bonkers.Drops;
 using Bonkers.Movement;
 
 namespace Bonkers.Control

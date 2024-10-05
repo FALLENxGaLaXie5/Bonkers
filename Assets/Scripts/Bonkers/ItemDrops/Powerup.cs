@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
-namespace Bonkers.Drops
+namespace Bonkers.ItemDrops
 {
     [CreateAssetMenu(fileName = "Powerup", menuName = "Drops/Make New Powerup", order = 2)]
     public class Powerup : ScriptableObject, IDroppableObject

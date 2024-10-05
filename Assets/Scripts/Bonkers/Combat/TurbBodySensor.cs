@@ -1,42 +1,22 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Bonkers.Combat;
+using UnityEngine.Serialization;
 
-public class TurbBodySensor : MonoBehaviour
+namespace Bonkers.Combat
 {
-
-    public bool isEnabled = false;
-    EnemyCombat _enemyCombat;
-
-    public event Action<Transform> eatFoodAction;
-
-    void Start()
+    public class TurbBodySensor : MonoBehaviour
     {
-        _enemyCombat = transform.parent.GetComponent<EnemyCombat>();
-    }
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        //sense if enemy hit the player
-        if (collision.tag == "Player" && isEnabled)
+        [SerializeField] private EnemyCombat enemyCombat;
+        public event Action<Transform> OnEatFood;
+        public bool isEnabled;
+
+        void OnTriggerEnter2D(Collider2D collision)
         {
-            if (!_enemyCombat)
-            {
-                if(transform.parent.TryGetComponent<EnemyCombat>(out EnemyCombat combat))
-                    combat.HitPlayer(collision.transform);
-                else
-                    _enemyCombat.HitPlayer(collision.transform);
-            }
-            else
-            {
-                _enemyCombat.HitPlayer(collision.transform);
-            }
-        }
-        if (collision.tag == "Food")
-        {
-            //invoke the eating food action
-            eatFoodAction?.Invoke(collision.transform);
+            //sense if enemy hit the player
+            if (collision.CompareTag("Player") && isEnabled)
+                enemyCombat.HitPlayer(collision.transform);
+            if (collision.CompareTag("Food"))
+                OnEatFood?.Invoke(collision.transform);
         }
     }
 }

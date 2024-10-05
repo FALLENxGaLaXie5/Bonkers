@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using Sirenix.OdinInspector;
 
-namespace Bonkers.Drops
+namespace Bonkers.ItemDrops
 {
     [CreateAssetMenu(fileName = "FoodDrop", menuName = "Drops/Make New Droppable Food", order = 0)]
     public class FoodDrop : ScriptableObject, IDroppableObject

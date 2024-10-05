@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using Bonkers.Drops;
 using Bonkers.Combat;
+using Bonkers.ItemDrops;
 using Bonkers.Movement;
 
 namespace Bonkers.Control
@@ -54,12 +54,12 @@ namespace Bonkers.Control
 
         void OnEnable()
         {
-            playerPickupGrabber.onPickup += OnPickupObject;
+            playerPickupGrabber.OnPickup += OnPickupObject;
         }
         
         void OnDisable()
         {
-            playerPickupGrabber.onPickup -= OnPickupObject;
+            playerPickupGrabber.OnPickup -= OnPickupObject;
         }
 
         #endregion

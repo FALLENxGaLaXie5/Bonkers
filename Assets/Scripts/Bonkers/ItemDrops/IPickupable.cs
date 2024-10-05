@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace  Bonkers.Drops
+namespace  Bonkers.ItemDrops
 {
     public interface IPickupable
     {

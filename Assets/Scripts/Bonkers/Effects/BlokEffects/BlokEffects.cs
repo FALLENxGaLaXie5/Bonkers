@@ -11,9 +11,9 @@ namespace  Bonkers.Effects
         [SerializeField] List<TweenEffect> primaryImpactEffects;
         [SerializeField] List<TweenEffect> alternateImpactEffects;
 
-        private BlokAudio blokAudio;
+        private BlokAudio _blokAudio;
 
-        private void Awake() => blokAudio = GetComponent<BlokAudio>();
+        private void Awake() => _blokAudio = GetComponent<BlokAudio>();
         
         public enum TypeEffects
         {
@@ -39,14 +39,14 @@ namespace  Bonkers.Effects
             }
         }
 
-        public void PlayBonkSound() => blokAudio.PlayBonkSound();
-        public void PlayRespawnSoundEffects() => blokAudio.PlaySpawnAudioEvent();
+        public void PlayBonkSound() => _blokAudio.PlayBonkSound();
+        public void PlayRespawnSoundEffects() => _blokAudio.PlaySpawnAudioEvent();
         public void PlayImpactBlokSoundEffects(bool destroyInImpact)
         {
             if (destroyInImpact)
-                blokAudio.PlayDestroySound();
+                _blokAudio.PlayDestroySound();
             else
-                blokAudio.PlayImpactSound();
+                _blokAudio.PlayImpactSound();
         }
     }
 }

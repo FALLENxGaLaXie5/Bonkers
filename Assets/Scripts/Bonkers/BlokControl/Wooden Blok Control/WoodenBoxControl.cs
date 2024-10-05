@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Bonkers.Combat;
-using Bonkers.Drops;
 using Bonkers.Effects;
+using Bonkers.ItemDrops;
 
 namespace Bonkers.BlokControl
 {

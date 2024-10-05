@@ -1,4 +1,4 @@
-﻿using Bonkers.Drops;
+﻿using Bonkers.ItemDrops;
 
 namespace Bonkers.BlokControl
 {

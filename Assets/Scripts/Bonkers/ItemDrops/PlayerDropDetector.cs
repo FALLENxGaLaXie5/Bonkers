@@ -1,38 +1,38 @@
 using UnityEngine;
 
-namespace  Bonkers.Drops
+namespace  Bonkers.ItemDrops
 {
     [RequireComponent(typeof(PlayerPickupGrabber))]
     [RequireComponent(typeof(PlayerEnvironmentEffectorGrabber))]
     public class PlayerDropDetector : MonoBehaviour
     {
-        PlayerPickupGrabber playerPickupGrabber;
-        PlayerEnvironmentEffectorGrabber playerEnvironmentEffectorGrabber;
+        private PlayerPickupGrabber _playerPickupGrabber;
+        private PlayerEnvironmentEffectorGrabber _playerEnvironmentEffectorGrabber;
         
         void Awake()
         {
-            playerPickupGrabber = GetComponent<PlayerPickupGrabber>();
-            playerEnvironmentEffectorGrabber = GetComponent<PlayerEnvironmentEffectorGrabber>();
+            _playerPickupGrabber = GetComponent<PlayerPickupGrabber>();
+            _playerEnvironmentEffectorGrabber = GetComponent<PlayerEnvironmentEffectorGrabber>();
         }
         
         void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.TryGetComponent<IPickupable>(out IPickupable pickupable))
+            if (other.TryGetComponent(out IPickupable pickupable))
             {
-                playerPickupGrabber.AttemptPickup(pickupable);
+                _playerPickupGrabber.AttemptPickup(pickupable);
             }
 
-            if (other.TryGetComponent<IEnvironmentEffector>(out IEnvironmentEffector environmentEffector))
+            if (other.TryGetComponent(out IEnvironmentEffector environmentEffector))
             {
-                playerEnvironmentEffectorGrabber.AttemptApplyEffector(environmentEffector);
+                _playerEnvironmentEffectorGrabber.AttemptApplyEffector(environmentEffector);
             }
         }
 
         void OnTriggerExit2D(Collider2D other)
         {
-            if (other.TryGetComponent<IEnvironmentEffector>(out IEnvironmentEffector environmentEffector))
+            if (other.TryGetComponent(out IEnvironmentEffector environmentEffector))
             {
-                playerEnvironmentEffectorGrabber.AttemptUnapplyEffector(environmentEffector);
+                _playerEnvironmentEffectorGrabber.AttemptUnapplyEffector(environmentEffector);
             }
         }
     }

@@ -1,12 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-/// <summary>
-/// Designed to be applied to any scriptable object droppable objects (food, powerups, etc.)
-/// - NOT THE ACTUAL PREFABS
-/// </summary>
-namespace Bonkers.Drops
+namespace Bonkers.ItemDrops
 {
     public interface IDroppableObject
     {

@@ -1,6 +1,7 @@
 ﻿using Bonkers.Movement;
 using System.Collections;
 using System.Collections.Generic;
+using Bonkers.Combat;
 using UnityEngine;
 
 namespace Bonkers.Control
