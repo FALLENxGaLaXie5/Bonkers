@@ -8,8 +8,8 @@ namespace  Bonkers.Effects
     [RequireComponent(typeof(BlokAudio))]
     public class BlokEffects : MonoBehaviour
     {
-        [SerializeField] List<TweenEffect> primaryImpactEffects;
-        [SerializeField] List<TweenEffect> alternateImpactEffects;
+        [SerializeField] List<TweenEffect<Transform>> primaryImpactEffects;
+        [SerializeField] List<TweenEffect<Transform>> alternateImpactEffects;
 
         private BlokAudio _blokAudio;
 
@@ -29,13 +29,13 @@ namespace  Bonkers.Effects
                 Execute(alternateImpactEffects);
         }
 
-        void Execute(List<TweenEffect> effects)
+        void Execute(List<TweenEffect<Transform>> effects)
         {
             if (effects.Count <= 0) return;
             
-            foreach (TweenEffect effect in effects)
+            foreach (TweenEffect<Transform> effect in effects)
             {
-                effect.ExecuteEffect(transform);
+                effect.ExecuteEffect(transform, () => { });
             }
         }
 

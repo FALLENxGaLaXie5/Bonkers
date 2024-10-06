@@ -612,7 +612,7 @@ MonoBehaviour:
     spawnPrefab: 0
   tarSlimoPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: c291d341e57380b4d8704e9fbcba0340, type: 3}
-    spawnPrefab: 0
+    spawnPrefab: 1
   toxicSlimoPrefabSpawning:
     prefab: {fileID: 4093535004827596593, guid: 326a764d73662c04782c5a68d824972f, type: 3}
     spawnPrefab: 1

@@ -1,5 +1,7 @@
 ﻿using Bonkers.Effects;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Bonkers.ItemDrops
 {
@@ -7,17 +9,33 @@ namespace Bonkers.ItemDrops
     public class PuddleDrop : ScriptableObject
     {
         [SerializeField] private GameObject puddlePrefab;
-        [SerializeField] private TweenEffect puddleGrowEffect;
-        [SerializeField] private float effect = 5;
+        [InlineEditor][SerializeField] private TweenEffect<Transform> puddleGrowEffect;
+        [InlineEditor][SerializeField] private TweenEffect<Transform> puddleShrinkEffect;
+        [InlineEditor][SerializeField] private TweenEffect<SpriteRenderer> puddleFadeInEffect;
+        [InlineEditor][SerializeField] private TweenEffect<SpriteRenderer> puddleFadeOutEffect;
+
+        [FormerlySerializedAs("effectStrengthStrength")] [SerializeField] private float effectStrength = 5;
+
         [SerializeField] [Range(1, 30)] private float puddleLife = 10f;
+
+        public float EffectStrength => effectStrength;
+        public float PuddleLife => puddleLife;
+
 
         public void Spawn(Vector3 position)
         {
-            if (puddlePrefab) Instantiate(puddlePrefab, position, Quaternion.identity);
+            GameObject puddle = Instantiate(puddlePrefab, position, Quaternion.identity);
+            PuddleBehavior puddleBehavior = puddle.GetComponent<PuddleBehavior>();
+            puddleGrowEffect.ExecuteEffect(puddle.transform);
+
+            //This will start the puddle's life counter after it's fully faded in
+            puddleFadeInEffect.ExecuteEffect(puddle.GetComponent<SpriteRenderer>(), puddleBehavior.StartWaitingToDestroy);
         }
 
-        public float GetEffect() => effect;
-
-        public float GetLife() => puddleLife;
+        public void DestroyPuddle(Transform transform, SpriteRenderer spriteRenderer)
+        {
+            puddleShrinkEffect.ExecuteEffect(transform, () => { Destroy(transform.gameObject); });
+            //puddleFadeOutEffect.ExecuteEffect(spriteRenderer);
+        }
     }
 }

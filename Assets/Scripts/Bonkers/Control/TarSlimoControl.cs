@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Bonkers.ItemDrops;
+using Sirenix.OdinInspector;
 
 namespace Bonkers.Control
 {
     public class TarSlimoControl : AIControl
     {
+        [InlineEditor]
         [SerializeField] PuddleDrop tarDrop;
         [SerializeField] [Range(1f, 15f)] float minPuddleDropTime = 3f;
         [SerializeField] [Range(3f, 30f)]float maxPuddleDropTime = 7f;
@@ -18,10 +20,7 @@ namespace Bonkers.Control
             StartCoroutine(DropPuddles());
         }
 
-        new void Update()
-        {
-            base.Update();
-        }
+        private new void Update() => base.Update();
 
         IEnumerator DropPuddles()
         {

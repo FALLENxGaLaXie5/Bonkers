@@ -2,62 +2,41 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Bonkers.ItemDrops
 {
-    public class ToxicPuddleBehavior : MonoBehaviour, IEnvironmentEffector
+    public class ToxicPuddleBehavior : PuddleBehavior, IEnvironmentEffector
     {
         #region Inspector/Public Variables
 
+        [FormerlySerializedAs("puddle")]
         [InlineEditor]
-        [SerializeField] PuddleDrop puddle;
+        [SerializeField] PuddleDrop puddleDrop;
         [SerializeField] float chanceOfPuddleSpawn = 20f;
 
         [SerializeField] private UnityEvent<Vector3> AttemptSpawnEvent;
         #endregion
 
-        #region Class/Private Variables
-
-        private Animator _animator;
-
-        #endregion
-
-        #region Unity Events
-
-        private void Awake() => _animator = GetComponent<Animator>();
-
-        private void Start()
-        {
-
-        }
-
-        #endregion
-
         #region Class functions
 
-        IEnumerator WaitToDestroy()
+        protected override IEnumerator WaitToDestroy()
         {
-            yield return new WaitForSeconds(puddle.GetLife());
+            yield return new WaitForSeconds(puddleDrop.PuddleLife);
             //try to spawn new toxicccc life!
             AttemptSpawnNewToxicSlimo();
-            //_animator.SetTrigger("destroy");
+            puddleDrop.DestroyPuddle(transform, GetComponent<SpriteRenderer>());
         }
 
         void AttemptSpawnNewToxicSlimo()
         {
             //if random generator does not favor spawning one, return
-            if (UnityEngine.Random.Range(0, 100) >= chanceOfPuddleSpawn) return;
+            if (Random.Range(0, 100) >= chanceOfPuddleSpawn) return;
 
             AttemptSpawnEvent?.Invoke(transform.position);
         }
 
-        //animation event
-        void StartWaitingToDestroy() => StartCoroutine(WaitToDestroy());
-
-        //animation event
-        void Destroy() => Destroy(gameObject);
-
-        public ScriptableObject AttemptGetEffector() => puddle;
+        public ScriptableObject AttemptGetEffector() => puddleDrop;
 
         #endregion
     }

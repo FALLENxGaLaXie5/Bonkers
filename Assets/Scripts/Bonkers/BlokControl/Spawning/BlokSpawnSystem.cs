@@ -21,7 +21,7 @@ namespace Bonkers.BlokControl
         public LayerMask wallLayers;
         public LayerMask enemyLayers;
 
-        [SerializeField] private TweenEffect tweenEffect;
+        [SerializeField] private TweenEffect<Transform> tweenEffect;
 
         #region Properties
         
@@ -32,7 +32,7 @@ namespace Bonkers.BlokControl
         public LayerMask EnemyLayers => enemyLayers;
         public Vector2Int MinPosition => minPosition;
         public Vector2Int MaxPosition => maxPosition;
-        public TweenEffect TweenEffect => tweenEffect;
+        public TweenEffect<Transform> TweenEffect => tweenEffect;
 
         #endregion
         
@@ -51,7 +51,7 @@ namespace Bonkers.BlokControl
         public static BlokSpawnSystem CreateInstance(List<IndividualBlokPoolingData> possibleBloksToSpawn,
             Vector2Int minPosition, Vector2Int maxPosition,
             float minTimeBetweenSpawn, float maxTimeBetweenSpawn, LayerMask wallLayers, LayerMask enemyLayers,
-            TweenEffect tweenEffect)
+            TweenEffect<Transform> tweenEffect)
         {
             var data = ScriptableObject.CreateInstance<BlokSpawnSystem>();
             data.Init(possibleBloksToSpawn, minPosition, maxPosition, minTimeBetweenSpawn, maxTimeBetweenSpawn, wallLayers, enemyLayers, tweenEffect);
@@ -69,7 +69,7 @@ namespace Bonkers.BlokControl
         /// <param name="wallLayers"></param>
         /// <param name="enemyLayers"></param>
         /// <param name="tweenEffect"></param>
-        private void Init(List<IndividualBlokPoolingData> possibleBloksToSpawn, Vector2Int minPosition, Vector2Int maxPosition, float minTimeBetweenSpawn, float maxTimeBetweenSpawn, LayerMask wallLayers, LayerMask enemyLayers, TweenEffect tweenEffect)
+        private void Init(List<IndividualBlokPoolingData> possibleBloksToSpawn, Vector2Int minPosition, Vector2Int maxPosition, float minTimeBetweenSpawn, float maxTimeBetweenSpawn, LayerMask wallLayers, LayerMask enemyLayers, TweenEffect<Transform> tweenEffect)
         {
             this.possibleBloksToSpawn = possibleBloksToSpawn;
             this.minPosition = minPosition;
@@ -107,7 +107,7 @@ namespace Bonkers.BlokControl
             //Notify any listeners on blok that it is respawning
             blokToSpawn.GetComponent<BlokHealth>().InvokeRespawnBlok();
             
-            if (tweenEffect) tweenEffect.ExecuteEffect(blokToSpawn.transform);
+            if (tweenEffect) tweenEffect.ExecuteEffect(blokToSpawn.transform, () => { });
         }
 
         public IndividualBlokPoolingData GetRandomBlokTypeToSpawn()

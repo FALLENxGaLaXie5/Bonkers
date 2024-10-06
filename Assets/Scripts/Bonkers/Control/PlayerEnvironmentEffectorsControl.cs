@@ -38,7 +38,7 @@ namespace  Bonkers.Control
             if (!puddle) return;
 
             Debug.Log("Setting move speed slower!");
-            playerMovement.SetMoveSpeed(playerMovement.GetMoveSpeed() - puddle.GetEffect());
+            playerMovement.SetMoveSpeed(playerMovement.GetMoveSpeed() - puddle.EffectStrength);
         }
         
         void PlayerExitEnvironmentalEffector(ScriptableObject effector)

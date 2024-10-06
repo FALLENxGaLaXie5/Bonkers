@@ -1,49 +1,26 @@
 ﻿using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Bonkers.ItemDrops
 {
-    public class TarPuddleBehavior : MonoBehaviour, IEnvironmentEffector
+    public class TarPuddleBehavior : PuddleBehavior, IEnvironmentEffector
     {
         #region Inspector/Public Variables
 
-        [SerializeField] PuddleDrop puddle = null;
-
-        #endregion
-
-        #region Class/Private Variables
-
-        Animator animator;
-
-        #endregion
-
-        #region Unity Events 
-        
-        void Start() => animator = GetComponent<Animator>();
+        [InlineEditor]
+        [SerializeField] PuddleDrop puddle;
 
         #endregion
 
         #region Class functions
 
-        IEnumerator WaitToDestroy()
+        protected override IEnumerator WaitToDestroy()
         {
-            yield return new WaitForSeconds(puddle.GetLife());
-            
-            animator.SetTrigger("destroy");
+            yield return new WaitForSeconds(puddle.PuddleLife);
+            puddle.DestroyPuddle(transform, GetComponent<SpriteRenderer>());
         }
 
-        //animation event
-        void StartWaitingToDestroy()
-        {
-            StartCoroutine(WaitToDestroy());
-        }
-
-        //animation event
-        void Destroy()
-        {
-            Destroy(gameObject);    
-        }
-        
         public ScriptableObject AttemptGetEffector() => puddle;
 
         #endregion
