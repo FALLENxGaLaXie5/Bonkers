@@ -35,7 +35,7 @@ namespace Bonkers.ItemDrops
         public void DestroyPuddle(Transform transform, SpriteRenderer spriteRenderer)
         {
             puddleShrinkEffect.ExecuteEffect(transform, () => { Destroy(transform.gameObject); });
-            //puddleFadeOutEffect.ExecuteEffect(spriteRenderer);
+            puddleFadeOutEffect.ExecuteEffect(spriteRenderer);
         }
     }
 }

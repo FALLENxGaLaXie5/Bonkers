@@ -13,7 +13,7 @@ namespace  Bonkers.Effects
         [SerializeField] float randomness = 90f;
         [SerializeField] bool fadeOut = true;
         
-        public override void ExecuteEffect(Transform transform, Action action)
+        public override void ExecuteEffect(Transform transform, Action action = null)
         {
             if (!transform) return;
             //link will automatically kill the tween when the gameobject is destroyed
