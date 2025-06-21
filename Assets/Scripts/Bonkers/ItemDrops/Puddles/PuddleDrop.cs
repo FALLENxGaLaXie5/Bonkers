@@ -14,11 +14,13 @@ namespace Bonkers.ItemDrops
         [InlineEditor][SerializeField] private TweenEffect<SpriteRenderer> puddleFadeInEffect;
         [InlineEditor][SerializeField] private TweenEffect<SpriteRenderer> puddleFadeOutEffect;
 
+        [Header("Speed Effect Settings")]
+        [SerializeField] [Range(0.1f, 3f)] private float effectTransitionDuration = 0.5f;
         [FormerlySerializedAs("effectStrengthStrength")] [SerializeField] private float effectStrength = 5;
-
         [SerializeField] [Range(1, 30)] private float puddleLife = 10f;
 
         public float EffectStrength => effectStrength;
+        public float EffectTransitionDuration => effectTransitionDuration;
         public float PuddleLife => puddleLife;
 
 

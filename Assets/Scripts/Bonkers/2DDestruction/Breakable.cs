@@ -70,7 +70,7 @@ public class Breakable : MonoBehaviour
             foreach (GameObject fragment in fragments)
             {
                 fragment.transform.GetComponent<Rigidbody2D>().gravityScale = 0f;
-                fragment.transform.GetComponent<Rigidbody2D>().drag = dragCoefficient;
+                fragment.transform.GetComponent<Rigidbody2D>().linearDamping = dragCoefficient;
                 AnimateFragmentOut animateFragmentOut = fragment.GetComponent<AnimateFragmentOut>();
                 if (!animateFragmentOut)
                 {

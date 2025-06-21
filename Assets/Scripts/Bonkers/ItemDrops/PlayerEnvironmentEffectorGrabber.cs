@@ -5,8 +5,8 @@ namespace  Bonkers.ItemDrops
 {
     public class PlayerEnvironmentEffectorGrabber : MonoBehaviour
     {
-        public event Action<ScriptableObject> onEnterEnvironmentEffector;
-        public event Action<ScriptableObject> onExitEnvironmentEffector; 
+        public event Action<ScriptableObject> OnEnterEnvironmentEffector;
+        public event Action<ScriptableObject> OnExitEnvironmentEffector;
 
         public void AttemptApplyEffector(IEnvironmentEffector effector)
         {
@@ -15,7 +15,7 @@ namespace  Bonkers.ItemDrops
             //if an environment effector was successfully returned, notify listeners and give them the effector scriptable object
             if (environmentEffectorObject)
             {
-                onEnterEnvironmentEffector?.Invoke(environmentEffectorObject);
+                OnEnterEnvironmentEffector?.Invoke(environmentEffectorObject);
             }
         }
 
@@ -24,7 +24,7 @@ namespace  Bonkers.ItemDrops
             ScriptableObject environmentEffectorObject = effector.AttemptGetEffector();
             
             //if an environment effector was successfully returned, notify listeners and give them the effector scriptable object
-            if (environmentEffectorObject) onExitEnvironmentEffector?.Invoke(environmentEffectorObject);
+            if (environmentEffectorObject) OnExitEnvironmentEffector?.Invoke(environmentEffectorObject);
         }
     }
 }

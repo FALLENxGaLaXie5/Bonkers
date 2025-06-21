@@ -17,5 +17,5 @@ MonoBehaviour:
   puddleShrinkEffect: {fileID: 11400000, guid: 6e612fcbffcefc14ba32886440995787, type: 2}
   puddleFadeInEffect: {fileID: 11400000, guid: 5c32764f72178d947b88750d2feff9c8, type: 2}
   puddleFadeOutEffect: {fileID: 11400000, guid: 5d5d32c9a7e265f4c8f2de8d3069e4e8, type: 2}
-  effectStrengthStrength: 5
+  effectStrength: 3
   puddleLife: 10

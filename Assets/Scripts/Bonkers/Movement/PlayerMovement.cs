@@ -145,46 +145,25 @@ namespace Bonkers.Movement
             
         }
 
-        public Vector3 GetFacingDir()
-        {
-            return facingDir;
-        }
+        public Vector3 GetFacingDir() => facingDir;
 
-        public void SetFacingDir(Vector3 newFacingDir)
+        private void SetFacingDir(Vector3 newFacingDir)
         {
             onFacingDirectionChanged?.Invoke(newFacingDir);
             facingDir = newFacingDir;
         }
 
-        public float GetMoveSpeed()
-        {
-            return speed;
-        }        
+        public float GetMoveSpeed() => speed;
 
-        public void SetMoveSpeed(float newSpeed)
-        {
-            speed = Mathf.Clamp(newSpeed, 0, baseSpeed + boostEffectSpeed);
-        }
+        public void SetMoveSpeed(float newSpeed) => speed = Mathf.Clamp(newSpeed, 0, baseSpeed + boostEffectSpeed);
 
-        public float GetBoostSpeed()
-        {
-            return boostEffectSpeed;
-        }
+        public float GetBoostSpeed() => boostEffectSpeed;
 
-        public void ResetMoveSpeed()
-        {
-            speed = baseSpeed;
-        }
+        public void ResetMoveSpeed() => speed = baseSpeed;
 
-        public Transform GetMovePoint()
-        {
-            return movePoint;
-        }
+        public Transform GetMovePoint() => movePoint;
 
-        public float GetCheckDistance()
-        {
-            return moverCheckDistance;
-        }
+        public float GetCheckDistance() => moverCheckDistance;
 
         public void StartBoostEffect()
         {
@@ -199,15 +178,9 @@ namespace Bonkers.Movement
             StartCoroutine(coolBoostCoroutine);                   
         }
 
-        public void StaminaEffect(float effectIncrease)
-        {
-            boostCoolPerInterval += effectIncrease;
-        }
+        public void StaminaEffect(float effectIncrease) => boostCoolPerInterval += effectIncrease;
 
-        public void StopStaminaEffect(float effectDecrease)
-        {
-            boostCoolPerInterval -= effectDecrease;
-        }
+        public void StopStaminaEffect(float effectDecrease) => boostCoolPerInterval -= effectDecrease;
 
         public void DestroyBoostBar() => Destroy(boostBar.transform.parent.gameObject);
 

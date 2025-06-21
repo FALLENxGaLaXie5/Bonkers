@@ -82,7 +82,7 @@ namespace Bonkers.Content_Generation
             }
 
             float moveSpeed = 5f;
-            agentRigidBody.velocity = addForce * moveSpeed + new Vector3(0, agentRigidBody.velocity.y, 0);
+            agentRigidBody.linearVelocity = addForce * moveSpeed + new Vector3(0, agentRigidBody.linearVelocity.y, 0);
 
             bool isUseButtonDown = actions.DiscreteActions[2] == 1;
             if (isUseButtonDown)
