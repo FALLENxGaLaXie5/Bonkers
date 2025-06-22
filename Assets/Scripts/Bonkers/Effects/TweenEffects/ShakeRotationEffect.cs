@@ -20,7 +20,7 @@ namespace  Bonkers.Effects
             transform.DOShakeRotation(duration, strength, vibrato, randomness, fadeOut).SetLink(transform.gameObject).OnComplete(() =>
             {
                 action?.Invoke();
-            });;;
+            });
         }
     }
 }

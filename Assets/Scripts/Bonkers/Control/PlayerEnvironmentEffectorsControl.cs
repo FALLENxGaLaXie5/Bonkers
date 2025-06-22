@@ -10,18 +10,19 @@ namespace Bonkers.Control
     {
         private PlayerEnvironmentEffectorGrabber _playerEnvironmentEffectorGrabber;
         private PlayerMovement _playerMovement;
+        private SpriteRenderer _playerSpriteRenderer;
 
         private Tween _currentSpeedTween;
         private float _originalSpeed;
         private bool _isSpeedModified;
 
-
-        #region  Unity Events/Callbacks
+        #region Unity Events/Callbacks
 
         private void Awake()
         {
             _playerEnvironmentEffectorGrabber = GetComponent<PlayerEnvironmentEffectorGrabber>();
             _playerMovement = GetComponent<PlayerMovement>();
+            _playerSpriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void Start() => _originalSpeed = _playerMovement.GetMoveSpeed();
@@ -66,6 +67,9 @@ namespace Bonkers.Control
                 puddle.EffectTransitionDuration
             ).SetEase(Ease.OutQuad);
 
+            // Apply visual effects to the player
+            puddle.ApplyPlayerVisualEffects(_playerSpriteRenderer);
+
             _isSpeedModified = true;
         }
 
@@ -89,6 +93,8 @@ namespace Bonkers.Control
                 ).SetEase(Ease.OutQuad)
                 .OnComplete(() => _isSpeedModified = false);
 
+            // Stop visual effects on the player
+            puddle.StopPlayerVisualEffects(_playerSpriteRenderer);
         }
     }
 }

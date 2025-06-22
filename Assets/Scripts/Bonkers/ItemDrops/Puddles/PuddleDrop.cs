@@ -1,4 +1,5 @@
-﻿using Bonkers.Effects;
+﻿using System.Collections.Generic;
+using Bonkers.Effects;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,13 +17,16 @@ namespace Bonkers.ItemDrops
 
         [Header("Speed Effect Settings")]
         [SerializeField] [Range(0.1f, 3f)] private float effectTransitionDuration = 0.5f;
-        [FormerlySerializedAs("effectStrengthStrength")] [SerializeField] private float effectStrength = 5;
+        [FormerlySerializedAs("effectStrengthStrength")] [SerializeField] private float effectStrength = 3;
         [SerializeField] [Range(1, 30)] private float puddleLife = 10f;
+
+        [Header("Puddle Caused Player Visual Effects")]
+        [InlineEditor][SerializeField] private List<TweenEffect<SpriteRenderer>> playerVisualEffects = new List<TweenEffect<SpriteRenderer>>();
 
         public float EffectStrength => effectStrength;
         public float EffectTransitionDuration => effectTransitionDuration;
         public float PuddleLife => puddleLife;
-
+        public List<TweenEffect<SpriteRenderer>> PlayerVisualEffects => playerVisualEffects;
 
         public void Spawn(Vector3 position)
         {
@@ -38,6 +42,22 @@ namespace Bonkers.ItemDrops
         {
             puddleShrinkEffect.ExecuteEffect(transform, () => { Destroy(transform.gameObject); });
             puddleFadeOutEffect.ExecuteEffect(spriteRenderer);
+        }
+
+        public void ApplyPlayerVisualEffects(SpriteRenderer playerSpriteRenderer)
+        {
+            foreach (TweenEffect<SpriteRenderer> effect in playerVisualEffects)
+            {
+                effect.ExecuteEffect(playerSpriteRenderer);
+            }
+        }
+
+        public void StopPlayerVisualEffects(SpriteRenderer playerSpriteRenderer)
+        {
+            foreach (TweenEffect<SpriteRenderer> effect in playerVisualEffects)
+            {
+                effect.StopEffect(playerSpriteRenderer);
+            }
         }
     }
 }
