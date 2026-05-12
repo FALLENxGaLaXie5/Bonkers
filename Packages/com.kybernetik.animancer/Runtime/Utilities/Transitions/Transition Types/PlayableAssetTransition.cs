@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using Animancer.Units;
 using System;
@@ -81,7 +81,7 @@ namespace Animancer
         /************************************************************************************************************************/
 
         /// <inheritdoc/>
-        public override float MaximumDuration
+        public override float MaximumLength
             => _Asset != null
             ? (float)_Asset.duration
             : 0;
@@ -109,8 +109,8 @@ namespace Animancer
         /// <inheritdoc/>
         public override void Apply(AnimancerState state)
         {
-            ApplyNormalizedStartTime(state, _NormalizedStartTime);
             base.Apply(state);
+            ApplyNormalizedStartTime(state, _NormalizedStartTime);
         }
 
         /************************************************************************************************************************/
@@ -123,7 +123,11 @@ namespace Animancer
 
         /// <inheritdoc/>
         public override Transition<PlayableAssetState> Clone(CloneContext context)
-            => new PlayableAssetTransition();
+        {
+            var clone = new PlayableAssetTransition();
+            clone.CopyFrom(this, context);
+            return clone;
+        }
 
         /// <inheritdoc/>
         public sealed override void CopyFrom(Transition<PlayableAssetState> copyFrom, CloneContext context)
@@ -134,17 +138,9 @@ namespace Animancer
         {
             base.CopyFrom(copyFrom, context);
 
-            if (copyFrom == null)
-            {
-                _Asset = default;
-                _NormalizedStartTime = float.NaN;
-                _Bindings = default;
-                return;
-            }
-
-            _Asset = copyFrom._Asset;
+            _Asset = context.GetCloneOrOriginal(copyFrom._Asset);
             _NormalizedStartTime = copyFrom._NormalizedStartTime;
-            AnimancerUtilities.CopyExactArray(copyFrom._Bindings, ref _Bindings);
+            context.CloneArray(copyFrom._Bindings, ref _Bindings);
         }
 
         /************************************************************************************************************************/
@@ -154,7 +150,7 @@ namespace Animancer
         /// if the `target` is an <see cref="PlayableAsset"/>.
         /// </summary>
         [TryCreateTransition(typeof(PlayableAsset))]
-        public static ITransitionDetailed TryCreateTransition(Object target)
+        public static ITransition TryCreateTransition(Object target)
             => target is not PlayableAsset asset
             ? null
             : new PlayableAssetTransition()

@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using UnityEngine;
@@ -168,6 +168,33 @@ namespace Animancer
         /// <inheritdoc/>
         public override Vector2 GetDirection(int direction)
             => ((Direction4)direction).ToVector2();
+
+        /************************************************************************************************************************/
+
+        /// <inheritdoc/>
+        public override int GetDirection(string name)
+        {
+            var direction = AnimancerUtilities.GetDirection(name);
+
+            if (direction.x == 0)
+            {
+                if (direction.y > 0)
+                    return (int)Direction4.Up;
+                else if (direction.y < 0)
+                    return (int)Direction4.Down;
+                else
+                    return -1;
+            }
+            else
+            {
+                if (direction.x > 0)
+                    return (int)Direction4.Right;
+                else if (direction.x < 0)
+                    return (int)Direction4.Left;
+                else
+                    return -1;
+            }
+        }
 
         /************************************************************************************************************************/
 

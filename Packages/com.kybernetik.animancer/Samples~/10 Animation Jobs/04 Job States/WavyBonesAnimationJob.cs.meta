@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 7c4d5f991f9766e44889c5d7f59f8eed
+labels:
+- Sample
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 293524
+  packageName: Animancer Lite v8
+  packageVersion: 8.3.1
+  assetPath: Packages/com.kybernetik.animancer/Samples~/10 Animation Jobs/04 Job
+    States/WavyBonesAnimationJob.cs
+  uploadId: 895130

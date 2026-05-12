@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using System.Collections.Generic;
@@ -80,15 +80,17 @@ namespace Animancer
         /************************************************************************************************************************/
 
         /// <inheritdoc/>
+        public override Transition<ClipState> Clone(CloneContext context)
+        {
+            var clone = new DirectionalClipTransition();
+            clone.CopyFrom(this, context);
+            return clone;
+        }
+
+        /// <inheritdoc/>
         public virtual void CopyFrom(DirectionalClipTransition copyFrom, CloneContext context)
         {
             base.CopyFrom(copyFrom, context);
-
-            if (copyFrom == null)
-            {
-                _AnimationSet = default;
-                return;
-            }
 
             _AnimationSet = copyFrom._AnimationSet;
         }

@@ -1,6 +1,6 @@
 using UnityEngine;
 using Pathfinding.Util;
-using UnityEngine.Tilemaps;
+using Unity.Mathematics;
 
 namespace Pathfinding.Graphs.Navmesh {
 	/// <summary>
@@ -64,6 +64,19 @@ namespace Pathfinding.Graphs.Navmesh {
 			return new IntRect(Mathf.FloorToInt((bounds.min.x - margin) / TileWorldSizeX), Mathf.FloorToInt((bounds.min.z - margin) / TileWorldSizeZ), Mathf.FloorToInt((bounds.max.x + margin) / TileWorldSizeX), Mathf.FloorToInt((bounds.max.z + margin) / TileWorldSizeZ));
 		}
 
+		/// <summary>
+		/// Returns a rect containing the indices of all tiles touching the specified bounds.
+		/// If a margin is passed, the bounding box in graph space is expanded by that amount in every direction.
+		/// </summary>
+		public static IntRect GetTouchingTiles (ref float4x4 worldToGraphTransform, float2 tileSize, Bounds bounds, float margin = 0) {
+			bounds = MathExtensions.BoundsOfTransformedBounds(worldToGraphTransform, bounds);
+
+			// Calculate world bounds of all affected tiles
+			var min = (int2)math.floor((new float2(bounds.min.x, bounds.min.z) - margin) / tileSize);
+			var max = (int2)math.floor((new float2(bounds.max.x, bounds.max.z) + margin) / tileSize);
+			return new IntRect(min.x, min.y, max.x, max.y);
+		}
+
 		/// <summary>Returns a rect containing the indices of all tiles touching the specified bounds.</summary>
 		/// <param name="rect">Graph space rectangle (in graph space all tiles are on the XZ plane regardless of graph rotation and other transformations, the first tile has a corner at the origin)</param>
 		public IntRect GetTouchingTilesInGraphSpace (Rect rect) {
@@ -75,10 +88,10 @@ namespace Pathfinding.Graphs.Navmesh {
 			return r;
 		}
 
-		public TileLayout(RecastGraph graph) : this(new Bounds(graph.forcedBoundsCenter, graph.forcedBoundsSize), Quaternion.Euler(graph.rotation), graph.cellSize, graph.editorTileSize, graph.useTiles) {
-		}
-
-		public TileLayout(NavMeshGraph graph) : this(new Bounds(graph.transform.Transform(graph.forcedBoundsSize*0.5f), graph.forcedBoundsSize), Quaternion.Euler(graph.rotation), 0.001f, 0, false) {
+		public static TileLayout FromGraph (NavmeshBase graph) {
+			if (graph is RecastGraph rg) return new TileLayout(new Bounds(rg.forcedBoundsCenter, rg.forcedBoundsSize), Quaternion.Euler(rg.rotation), rg.cellSize, rg.editorTileSize, rg.useTiles);
+			else if (graph is NavMeshGraph ng) return new TileLayout(new Bounds(ng.transform.Transform(ng.forcedBoundsSize*0.5f), ng.forcedBoundsSize), Quaternion.Euler(ng.rotation), 0.001f, 0, false);
+			else throw new System.ArgumentException("The graph must be a RecastGraph or NavMeshGraph");
 		}
 
 		public TileLayout(Bounds bounds, Quaternion rotation, float cellSize, int tileSizeInVoxels, bool useTiles) {

@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using Unity.Collections;
@@ -33,6 +33,9 @@ namespace Animancer
         protected virtual void OnValidate()
         {
             gameObject.GetComponentInParentOrChildren(ref _Animancer);
+
+            if (LayerCount < 2)
+                LayerCount = 2;
         }
 
         /************************************************************************************************************************/
@@ -47,12 +50,13 @@ namespace Animancer
             if (_Animancer == null)
                 TryGetComponent(out _Animancer);
 
-            Layers = WeightedMaskLayerList.Create(_Animancer.Animator);
+            Layers = WeightedMaskLayerList.Create(_Animancer.Animator, LayerCount);
             _Animancer.InitializeGraph(Layers.Graph);
 
             Indices = Definition.CalculateIndices(Layers);
 
-            SetWeights(0);
+            for (int i = 1; i < LayerCount; i++)// Start at 1.
+                SetWeights(i, 0);
         }
 
         /************************************************************************************************************************/

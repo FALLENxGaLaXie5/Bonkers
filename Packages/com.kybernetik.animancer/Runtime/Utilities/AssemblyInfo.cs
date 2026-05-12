@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -7,8 +7,8 @@ using System.Reflection;
 [assembly: AssemblyDescription("An animation system for Unity which is based on the Playables API.")]
 [assembly: AssemblyProduct("Animancer Lite")]
 [assembly: AssemblyCompany("Kybernetik")]
-[assembly: AssemblyCopyright("Copyright © Kybernetik 2018-2025")]
-[assembly: AssemblyVersion("8.1.1.31")]
+[assembly: AssemblyCopyright("Copyright © Kybernetik 2018-2026")]
+[assembly: AssemblyVersion("8.3.1.37")]
 
 #if UNITY_EDITOR
 

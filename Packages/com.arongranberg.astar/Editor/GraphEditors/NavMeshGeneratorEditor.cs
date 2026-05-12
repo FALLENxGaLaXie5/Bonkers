@@ -9,6 +9,22 @@ namespace Pathfinding {
 
 			graph.sourceMesh = ObjectField("Source Mesh", graph.sourceMesh, typeof(Mesh), false, true) as Mesh;
 
+			if (graph.sourceMesh != null && !graph.sourceMesh.isReadable) {
+				if (FixLabel("The selected mesh is not readable. Scanning the graph at runtime will fail. Please enable read/write in the model import settings.")) {
+					// Try to enable Read/Write on the mesh import settings automatically
+					var path = AssetDatabase.GetAssetPath(graph.sourceMesh);
+					if (!string.IsNullOrEmpty(path)) {
+						var importer = AssetImporter.GetAtPath(path) as ModelImporter;
+						if (importer != null) {
+							importer.isReadable = true;
+							importer.SaveAndReimport();
+						} else {
+							Debug.LogWarning("Could not find a ModelImporter for the selected mesh: " + path);
+						}
+					}
+				}
+			}
+
 			graph.offset = EditorGUILayout.Vector3Field("Offset", graph.offset);
 
 			graph.rotation = EditorGUILayout.Vector3Field("Rotation", graph.rotation);
@@ -21,7 +37,7 @@ namespace Pathfinding {
 				graph.nearestSearchOnlyXZ = EditorGUILayout.Toggle(new GUIContent("Nearest node queries in XZ space",
 					"Recomended for single-layered environments.\nFaster but can be inacurate esp. in multilayered contexts."), graph.nearestSearchOnlyXZ);
 
-				EditorGUILayout.HelpBox("The global toggle for node queries in XZ space has been deprecated. Use the NNConstraint settings instead.", MessageType.Warning);
+				EditorGUILayout.HelpBox("The global toggle for node queries in XZ space has been deprecated. Use the NearestNodeConstraint settings instead.", MessageType.Warning);
 			}
 			#pragma warning restore 618
 

@@ -17913,7 +17913,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 1073741824
-  desiredSimulationFPS: 20
   workerThreads: 2
   doubleBuffering: 0
   hardCollisions: 1
@@ -17941,6 +17940,7 @@ MonoBehaviour:
   showNavGraphs: 1
   showUnwalkableNodes: 1
   debugMode: 0
+  graphUpdateDebugMode: 0
   debugFloor: 0
   debugRoof: 1
   manualDebugFloorRoof: 0
@@ -17958,7 +17958,6 @@ MonoBehaviour:
     _BoundsHandles: {r: 0.29, g: 0.454, b: 0.741, a: 0.9}
     _ConnectionLowLerp: {r: 0, g: 1, b: 0, a: 0.5}
     _ConnectionHighLerp: {r: 1, g: 0, b: 0, a: 0.5}
-    _MeshEdgeColor: {r: 0, g: 0, b: 0, a: 0.5}
     _AreaColors:
     - {r: 0.33962262, g: 0.33962262, b: 0.33962262, a: 1}
     - {r: 0.25, g: 0.25, b: 0.5, a: 1}
@@ -18011,6 +18010,7 @@ MonoBehaviour:
     pivotPointRoot: {fileID: 0}
     spreadOutCount: 1
   showGraphs: 1
+  showGraphsInStandalonePlayer: 0
 --- !u!4 &579273921
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 #if ! UNITY_EDITOR
 #pragma warning disable CS0618 // Type or member is obsolete (for TransitionLibraries in Animancer Lite).
@@ -211,8 +211,8 @@ namespace Animancer
             Continue,
 
             /// <summary>
-            /// Stop all animations, rewind them, and force the object back into its original state (often called the
-            /// bind pose).
+            /// Stop all animations, rewind them, and force the object back into its original state
+            /// (often called the bind pose).
             /// </summary>
             /// <remarks>
             /// The <see cref="AnimancerComponent"/> must be either above the <see cref="UnityEngine.Animator"/> in
@@ -235,11 +235,11 @@ namespace Animancer
         #region Update Mode
         /************************************************************************************************************************/
 
-        /// <summary>
-        /// Determines when animations are updated and which time source is used. This property is mainly a wrapper
-        /// around the <see cref="Animator.updateMode"/>.
-        /// </summary>
-        /// <remarks>Note that changing to or from <see cref="AnimatorUpdateMode.AnimatePhysics"/> at runtime has no effect.</remarks>
+        /// <summary>Determines when animations are updated and which time source is used.</summary>
+        /// <remarks>
+        /// Note that changing to or from <see cref="AnimatorUpdateMode.AnimatePhysics"/>
+        /// at runtime has no effect due to limitations in the Playables API.
+        /// </remarks>
         /// <exception cref="NullReferenceException">No <see cref="Animator"/> is assigned.</exception>
         public AnimatorUpdateMode UpdateMode
         {
@@ -470,7 +470,8 @@ namespace Animancer
                     OptionalWarning.NativeControllerHumanoid.Log(
                         $"An Animator Controller is assigned to the {nameof(Animator)} component" +
                         $" but the Rig is Humanoid so it can't be blended with Animancer." +
-                        $" See the documentation for more information: {Strings.DocsURLs.AnimatorControllersNative}",
+                        $" See the documentation for more information:" +
+                        $" {Strings.DocsURLs.AnimatorControllersNative.AsHtmlLink()}",
                         this);
             }
         }
@@ -646,8 +647,7 @@ namespace Animancer
         /// <para></para>
         /// This method is safe to call repeatedly without checking whether the animation was already playing.
         /// </remarks>
-        public AnimancerState TryPlay(
-            IHasKey hasKey)
+        public AnimancerState TryPlay(IHasKey hasKey)
             => TryPlay(hasKey.Key);
 
         /// <summary>

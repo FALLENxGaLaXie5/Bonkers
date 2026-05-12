@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 
@@ -27,7 +27,11 @@ namespace Animancer
 
         /// <inheritdoc/>
         public override Transition<ManualMixerState> Clone(CloneContext context)
-            => new ManualMixerTransition();
+        {
+            var clone = new ManualMixerTransition();
+            clone.CopyFrom(this, context);
+            return clone;
+        }
 
         /// <inheritdoc/>
         public sealed override void CopyFrom(ManualMixerTransition<ManualMixerState> copyFrom, CloneContext context)

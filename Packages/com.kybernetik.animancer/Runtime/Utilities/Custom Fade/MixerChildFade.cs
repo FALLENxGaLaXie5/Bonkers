@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using System.Collections.Generic;
@@ -6,8 +6,8 @@ using System.Collections.Generic;
 namespace Animancer
 {
     /// <summary>
-    /// Fades the child weights of a <see cref="MixerState{TParameter}"/> to a new parameter value
-    /// instead of fading the actual parameter.
+    /// Fades the child weights of a <see cref="MixerState{TParameter}"/>
+    /// to a new parameter value instead of fading the actual parameter.
     /// </summary>
     /// 
     /// <remarks>
@@ -18,7 +18,7 @@ namespace Animancer
     /// <para></para>
     /// <strong>Example:</strong>
     /// Imagine a Linear Mixer with thresholds 0, 1, 2 and child states A, B, C.
-    /// If you fade its Parameter from 0 to 1 the states would go from A to B to C.
+    /// If you fade its Parameter from 0 to 2 the states would go from A to B to C.
     /// But if you use this system instead, the states would go directly from A to C.
     /// <h2>Usage</h2>
     /// <code>
@@ -46,8 +46,8 @@ namespace Animancer
         /************************************************************************************************************************/
 
         /// <summary>
-        /// Fades the child weights of a <see cref="MixerState{TParameter}"/> to a new parameter value instead of fading
-        /// the actual parameter.
+        /// Fades the child weights of a <see cref="MixerState{TParameter}"/>
+        /// to a new parameter value instead of fading the actual parameter.
         /// </summary>
         /// <remarks>See <see cref="MixerChildFade"/> for a usage example.</remarks>
         public static void FadeChildWeights<TParameter>(

@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 // Uncomment this #define to apply this custom editor to all ScriptableObjects.
 // If you have another plugin with a custom ScriptableObject editor, you will probably want that one instead.

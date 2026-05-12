@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -66,13 +66,6 @@ namespace Animancer
         public virtual void CopyFrom(MixerTransition<TMixer, TParameter> copyFrom, CloneContext context)
         {
             base.CopyFrom(copyFrom, context);
-
-            if (copyFrom == null)
-            {
-                _DefaultParameter = default;
-                _Thresholds = default;
-                return;
-            }
 
             _DefaultParameter = copyFrom._DefaultParameter;
             AnimancerUtilities.CopyExactArray(copyFrom._Thresholds, ref _Thresholds);

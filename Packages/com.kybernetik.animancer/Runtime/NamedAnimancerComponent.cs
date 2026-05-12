@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using System.Collections.Generic;
@@ -36,6 +36,14 @@ namespace Animancer
         #region Fields and Properties
         /************************************************************************************************************************/
 
+        /// <summary>[Internal] Field names for the custom Inspector.</summary>
+        public const string
+            PlayAutomaticallyField = nameof(_PlayAutomatically),
+            NamesField = nameof(_Names),
+            AnimationsField = nameof(_Animations);
+
+        /************************************************************************************************************************/
+
         [SerializeField, Tooltip("If true, the 'Default Animation' will be automatically played by " + nameof(OnEnable))]
         private bool _PlayAutomatically = true;
 
@@ -44,6 +52,37 @@ namespace Animancer
         /// <see cref="OnEnable"/>.
         /// </summary>
         public ref bool PlayAutomatically => ref _PlayAutomatically;
+
+        /************************************************************************************************************************/
+
+        [SerializeField, Tooltip(
+            "Optional names for the Animations." +
+            " If not set, they will use their Animation Clip names.")]
+        private StringAsset[] _Names;
+
+        /// <summary>[<see cref="SerializeField"/>]
+        /// Optional names for the <see cref="Animations"/>.
+        /// If not set, they will use their <see cref="Object.name"/>.
+        /// </summary>
+        public StringAsset[] Names
+        {
+            get => _Names;
+            set
+            {
+                _Names = value;
+
+                Debug.Assert(
+                    !IsGraphInitialized,
+                    $"{nameof(NamedAnimancerComponent)}.{nameof(Names)}" +
+                    $" doesn't support being changed after it has already initialized." +
+                    $"\nIf any names aren't specified, they will use their Animation Clip name.",
+                    this);
+
+                // This could potentially be supported by trying to look up the states based on their old names
+                // and changing their keys, but that doesn't seem like a common use case
+                // so it's probably not worth the effort.
+            }
+        }
 
         /************************************************************************************************************************/
 
@@ -132,7 +171,26 @@ namespace Animancer
             if (!TryGetAnimator())
                 return;
 
-            States.CreateIfNew(_Animations);
+            if (_Names == null || _Names.Length == 0)
+            {
+                States.CreateIfNew(_Animations);
+            }
+            else
+            {
+                var nameCount = _Names.Length;
+                var clipCount = _Animations.Length;
+                for (int i = 0; i < clipCount; i++)
+                {
+                    var clip = _Animations[i];
+                    if (clip != null)
+                    {
+                        var key = i < nameCount ? (object)(StringReference)_Names[i] : null;
+                        key ??= GetKey(clip);
+                        States.GetOrCreate(key, clip);
+                    }
+                }
+            }
+
         }
 
         /************************************************************************************************************************/

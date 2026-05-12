@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Animancer.Samples.Jobs
 {
     /// <summary>
-    /// An sample component that calls <see cref="HitReceiver.Hit"/>
+    /// A sample component that calls <see cref="HitReceiver.Hit"/>
     /// when the user clicks on the ground.
     /// </summary>
     /// 

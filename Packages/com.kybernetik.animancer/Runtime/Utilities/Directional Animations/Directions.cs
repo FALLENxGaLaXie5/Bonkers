@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using UnityEngine;
@@ -94,7 +94,9 @@ namespace Animancer
 
     /************************************************************************************************************************/
 
-    /// <summary>Utilities relating to <see cref="Direction4"/> and <see cref="Direction8"/>.</summary>
+    /// <summary>
+    /// Utilities relating to <see cref="Direction2"/>, <see cref="Direction4"/> and <see cref="Direction8"/>.
+    /// </summary>
     /// <remarks>
     /// <strong>Documentation:</strong>
     /// <see href="https://kybernetik.com.au/animancer/docs/manual/playing/directional-sets">
@@ -107,23 +109,23 @@ namespace Animancer
         /************************************************************************************************************************/
 
         /// <summary>1 / (Square Root of 2).</summary>
-        public const float OneOverSqrt2 = 0.70710678118f;
+        public const float InverseSqrt2 = 0.70710678118f;
 
         /// <summary>A vector with a magnitude of 1 pointing up to the right.</summary>
         /// <remarks>The value is approximately (0.7, 0.7).</remarks>
-        public static Vector2 UpRight => new(OneOverSqrt2, OneOverSqrt2);
+        public static Vector2 UpRight => new(InverseSqrt2, InverseSqrt2);
 
         /// <summary>A vector with a magnitude of 1 pointing down to the right.</summary>
         /// <remarks>The value is approximately (0.7, -0.7).</remarks>
-        public static Vector2 DownRight => new(OneOverSqrt2, -OneOverSqrt2);
+        public static Vector2 DownRight => new(InverseSqrt2, -InverseSqrt2);
 
         /// <summary>A vector with a magnitude of 1 pointing down to the left.</summary>
         /// <remarks>The value is approximately (-0.7, -0.7).</remarks>
-        public static Vector2 DownLeft => new(-OneOverSqrt2, -OneOverSqrt2);
+        public static Vector2 DownLeft => new(-InverseSqrt2, -InverseSqrt2);
 
         /// <summary>A vector with a magnitude of 1 pointing up to the left.</summary>
         /// <remarks>The value is approximately (-0.707, 0.707).</remarks>
-        public static Vector2 UpLeft => new(-OneOverSqrt2, OneOverSqrt2);
+        public static Vector2 UpLeft => new(-InverseSqrt2, InverseSqrt2);
 
         /************************************************************************************************************************/
 

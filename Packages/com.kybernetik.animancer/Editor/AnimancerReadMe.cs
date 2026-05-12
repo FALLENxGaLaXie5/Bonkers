@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value.
 
@@ -52,8 +52,14 @@ namespace Animancer.Editor
         /// <item>[29] = v8.0.2: 2024-11-02.</item>
         /// <item>[30] = v8.1.0: 2025-02-26.</item>
         /// <item>[31] = v8.1.1: 2025-05-26.</item>
+        /// <item>[32] = v8.2.0: 2025-09-17.</item>
+        /// <item>[33] = v8.2.1: 2025-09-18.</item>
+        /// <item>[34] = v8.2.2: 2025-09-27.</item>
+        /// <item>[35] = v8.2.3: 2025-10-12.</item>
+        /// <item>[36] = v8.3.0: 2026-03-28.</item>
+        /// <item>[37] = v8.3.1: 2026-04-06.</item>
         /// </list></example>
-        public override int ReleaseNumber => 31;
+        public override int ReleaseNumber => 37;
 
         /// <inheritdoc/>
         public override string VersionName => Strings.DocsURLs.VersionName;

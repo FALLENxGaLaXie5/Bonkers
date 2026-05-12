@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using System.Collections.Generic;
@@ -90,7 +90,7 @@ namespace Animancer
         /************************************************************************************************************************/
 
         /// <inheritdoc/>
-        public override float MaximumDuration
+        public override float MaximumLength
         {
             get
             {
@@ -158,14 +158,7 @@ namespace Animancer
         {
             base.CopyFrom(copyFrom, context);
 
-            if (copyFrom == null)
-            {
-                _Controller = default;
-                _ActionsOnStop = Array.Empty<ControllerState.ActionOnStop>();
-                return;
-            }
-
-            _Controller = copyFrom._Controller;
+            _Controller = context.GetCloneOrOriginal(copyFrom._Controller);
             _ActionsOnStop = copyFrom._ActionsOnStop;
             _ParameterBindings = context.GetOrCreateClone(copyFrom._ParameterBindings);
         }
@@ -221,7 +214,11 @@ namespace Animancer
 
         /// <inheritdoc/>
         public override Transition<ControllerState> Clone(CloneContext context)
-            => new ControllerTransition();
+        {
+            var clone = new ControllerTransition();
+            clone.CopyFrom(this, context);
+            return clone;
+        }
 
         /// <inheritdoc/>
         public sealed override void CopyFrom(ControllerTransition<ControllerState> copyFrom, CloneContext context)
@@ -238,7 +235,7 @@ namespace Animancer
         /// if the `target` is an <see cref="RuntimeAnimatorController"/>.
         /// </summary>
         [TryCreateTransition(typeof(RuntimeAnimatorController))]
-        public static ITransitionDetailed TryCreateTransition(Object target)
+        public static ITransition TryCreateTransition(Object target)
             => target is not RuntimeAnimatorController controller
             ? null
             : new ControllerTransition()

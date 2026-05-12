@@ -44,6 +44,7 @@ namespace Pathfinding.Serialization {
 		/// <summary>Metadata about graphs being deserialized</summary>
 		public readonly GraphMeta meta;
 
+		/// <summary>True if a graph should be persisted. Indexed by graph index</summary>
 		public bool[] persistentGraphs;
 
 		public GraphSerializationContext (BinaryReader reader, GraphNode[] id2NodeMapping, uint graphIndex, GraphMeta meta) {
@@ -93,20 +94,25 @@ namespace Pathfinding.Serialization {
 					var cost = reader.ReadUInt32();
 					if (deserializeMetadata) {
 						byte shapeEdgeInfo = Connection.NoSharedEdge;
-						if (meta.version < AstarSerializer.V4_1_0) {
-							// Read nothing
-						} else if (meta.version < AstarSerializer.V4_3_68) {
-							// Read, but discard data
-							reader.ReadByte();
+						// Keep all compatibility checks behind a single check for performance
+						if (meta.version < AstarSerializer.V4_3_87) {
+							if (meta.version < AstarSerializer.V4_1_0) {
+								// Read nothing
+							} else if (meta.version < AstarSerializer.V4_3_68) {
+								// Read, but discard data
+								reader.ReadByte();
+							} else {
+								shapeEdgeInfo = reader.ReadByte();
+							}
+							if (meta.version < AstarSerializer.V4_3_85) {
+								// Previously some additional bits were set to 1
+								shapeEdgeInfo &= 0b1111 | (1 << 6);
+							}
+							if (meta.version < AstarSerializer.V4_3_87) {
+								shapeEdgeInfo |= Connection.IncomingConnection | Connection.OutgoingConnection;
+							}
 						} else {
 							shapeEdgeInfo = reader.ReadByte();
-						}
-						if (meta.version < AstarSerializer.V4_3_85) {
-							// Previously some additional bits were set to 1
-							shapeEdgeInfo &= 0b1111 | (1 << 6);
-						}
-						if (meta.version < AstarSerializer.V4_3_87) {
-							shapeEdgeInfo |= Connection.IncomingConnection | Connection.OutgoingConnection;
 						}
 
 						connections[i] = new Connection(
@@ -161,9 +167,11 @@ namespace Pathfinding.Serialization {
 
 		public UnsafeSpan<T> ReadSpan<T>(Allocator allocator) where T : unmanaged {
 			var res = new UnsafeSpan<T>(allocator, reader.ReadInt32());
-			if (UnsafeUtility.SizeOf<T>() % sizeof(int) != 0) throw new Exception("Cannot read data of type "+typeof(T)+" because it has a size which is not a multiple of 4 bytes");
-			var s = res.Reinterpret<int>(UnsafeUtility.SizeOf<T>());
-			for (int i = 0; i < s.Length; i++) s[i] = reader.ReadInt32();
+			var s = res.Reinterpret<byte>(UnsafeUtility.SizeOf<T>());
+			unsafe {
+				var n = reader.Read(new System.Span<byte>(s.ptr, s.Length));
+				if (n != s.Length) throw new Exception("Unexpected end of stream");
+			}
 			return res;
 		}
 	}
@@ -199,6 +207,8 @@ namespace Pathfinding.Serialization {
 
 		/// <summary>Graphs that are being serialized or deserialized</summary>
 		private NavGraph[] graphs;
+
+		/// <summary>True if the graph should be serialized, indexed by graph index</summary>
 		bool[] persistentGraphs;
 
 		/// <summary>
@@ -361,12 +371,14 @@ namespace Pathfinding.Serialization {
 
 			if (graphs == null) graphs = new NavGraph[0];
 
-			persistentGraphs = new bool[graphs.Length];
+			persistentGraphs = new bool[data.graphs.Length];
 			for (int i = 0; i < graphs.Length; i++) {
-				//Ignore graph if null or if it should not persist
-				persistentGraphs[i] = graphs[i] != null && graphs[i].persistent;
+				if (graphs[i] == null) continue;
 
-				if (!persistentGraphs[i]) continue;
+				// Ignore graph if null or if it should not persist
+				persistentGraphs[graphs[i].graphIndex] = graphs[i] != null && graphs[i].persistent;
+
+				if (!persistentGraphs[graphs[i].graphIndex]) continue;
 
 				// Serialize the graph to a byte array
 				byte[] bytes = Serialize(graphs[i]);
@@ -388,7 +400,7 @@ namespace Pathfinding.Serialization {
 			// For each graph, save the guid
 			// of the graph and the type of it
 			for (int i = 0; i < graphs.Length; i++) {
-				if (persistentGraphs[i]) {
+				if (graphs[i] != null && persistentGraphs[graphs[i].graphIndex]) {
 					meta.guids.Add(graphs[i].guid.ToString());
 					meta.typeNames.Add(graphs[i].GetType().FullName);
 				} else {
@@ -417,12 +429,12 @@ namespace Pathfinding.Serialization {
 
 			for (int i = 0; i < graphs.Length; i++) {
 				if (graphs[i] == null || !graphs[i].persistent) continue;
-				graphs[i].GetNodes(node => {
+				graphs[i].GetNodes((GraphNode node, ref int maxIndex) => {
 					maxIndex = Math.Max((int)node.NodeIndex, maxIndex);
 					if (node.Destroyed) {
 						Debug.LogError("Graph contains destroyed nodes. This is a bug.");
 					}
-				});
+				}, ref maxIndex);
 			}
 			return maxIndex;
 		}
@@ -586,7 +598,7 @@ namespace Pathfinding.Serialization {
 
 			// Create a new graph of the right type
 			NavGraph graph = data.CreateGraph(graphType);
-			graph.graphIndex = (uint)(graphIndex);
+			graph.graphIndex = (uint)graphIndex;
 
 			var jsonName = "graph" + zipIndex + jsonExt;
 
@@ -702,7 +714,7 @@ namespace Pathfinding.Serialization {
 			var reader = GetBinaryReader(entry);
 			var ctx = new GraphSerializationContext(reader, int2Node, graph.graphIndex, meta);
 
-			graph.GetNodes(node => node.DeserializeReferences(ctx));
+			graph.GetNodes((GraphNode node, ref GraphSerializationContext ctx) => node.DeserializeReferences(ctx), ref ctx);
 		}
 
 		void DeserializeAndRemoveOldNodeLinks (GraphSerializationContext ctx) {
@@ -834,7 +846,7 @@ namespace Pathfinding.Serialization {
 #if NETFX_CORE
 			return new BinaryReader(entry.Open());
 #else
-			var stream = new System.IO.MemoryStream();
+			var stream = new MemoryStream((int)entry.UncompressedSize);
 
 			entry.Extract(stream);
 			stream.Position = 0;
@@ -847,7 +859,7 @@ namespace Pathfinding.Serialization {
 #if NETFX_CORE
 			var reader = new StreamReader(entry.Open());
 #else
-			var buffer = new MemoryStream();
+			var buffer = new MemoryStream((int)entry.UncompressedSize);
 
 			entry.Extract(buffer);
 			buffer.Position = 0;

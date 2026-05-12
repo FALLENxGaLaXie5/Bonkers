@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using UnityEngine;
 
@@ -36,18 +36,7 @@ namespace Animancer.FSM
         /// </summary>
         public virtual void OnEnterState()
         {
-#if UNITY_ASSERTIONS
-            if (enabled)
-                Debug.LogError(
-                    $"{nameof(StateBehaviour)} was already enabled before {nameof(OnEnterState)}: {this}",
-                    this);
-#endif
-#if UNITY_EDITOR
-            // Unity doesn't constantly repaint the Inspector if all the components are collapsed.
-            // So we can simply force it here to ensure that it shows the correct state being enabled.
-            else
-                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
-#endif
+            AssertEnabledAndRepaintIfSelected(false, nameof(OnEnterState));
 
             enabled = true;
         }
@@ -62,14 +51,44 @@ namespace Animancer.FSM
             if (this == null)
                 return;
 
-#if UNITY_ASSERTIONS
-            if (!enabled)
-                Debug.LogError(
-                    $"{nameof(StateBehaviour)} was already disabled before {nameof(OnExitState)}: {this}",
-                    this);
-#endif
+            AssertEnabledAndRepaintIfSelected(true, nameof(OnExitState));
 
             enabled = false;
+        }
+
+        /************************************************************************************************************************/
+
+#if UNITY_EDITOR
+        /// <summary>[Editor-Only]
+        /// Should the Inspector be repainted when a <see cref="StateBehaviour"/>
+        /// is enabled or disabled while it is selected?
+        /// </summary>
+        /// <remarks>Default is true.</remarks>
+        public static bool ForceRepaintOnEnableDisable { get; set; } = true;
+
+        private static double _LastRepaintTime;
+#endif
+
+        /// <summary>[Assert-Conditional]
+        /// Asserts this <see cref="Behaviour.enabled"/>
+        /// and instructs the Unity Editor to repaint if this object is selected so the Inspector updates properly.
+        /// </summary>
+        [System.Diagnostics.Conditional("UNITY_ASSERTIONS")]
+        private void AssertEnabledAndRepaintIfSelected(bool expectEnabled, string callerName)
+        {
+#if UNITY_ASSERTIONS
+            if (enabled != expectEnabled)
+                Debug.LogError(
+                    $"{nameof(StateBehaviour)} was already {(expectEnabled ? "disabled" : "enabled")}" +
+                    $" before {callerName}: {this}",
+                    this);
+#endif
+#if UNITY_EDITOR
+            // Unity doesn't constantly repaint the Inspector if all the components are collapsed.
+            // So we can simply force it here to ensure that it shows the correct state being enabled.
+            if (ForceRepaintOnEnableDisable && UnityEditor.Selection.Contains(gameObject))
+                UnityEditorInternal.InternalEditorUtility.RepaintAllViews();
+#endif
         }
 
         /************************************************************************************************************************/

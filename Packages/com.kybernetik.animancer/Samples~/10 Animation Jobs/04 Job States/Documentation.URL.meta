@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3f4325ef6dc2a444da5d5cb2bada7a22
+labels:
+- Documentation
+- Sample
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 293524
+  packageName: Animancer Lite v8
+  packageVersion: 8.3.1
+  assetPath: Packages/com.kybernetik.animancer/Samples~/10 Animation Jobs/04 Job
+    States/Documentation.URL
+  uploadId: 895130

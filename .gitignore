@@ -76,4 +76,27 @@ venv/
 
 Assets/ML-Agents/MLAgents_FlappyBird/
 Assets/Plugins/CodeMonkey/Assets
+
+#Builds
 _Builds/
+
+# JetBrains (Rider / IDEA)
+.idea/
+**/.idea/
+*.iml
+atlassian-ide-plugin.xml
+
+# Visual Studio Code
+.vscode/
+
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+desktop.ini

@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 #if UNITY_EDITOR
 
@@ -172,7 +172,8 @@ namespace Animancer.Editor
                 Debug.Log(
                     $"Data Migration Complete." +
                     $" Modified {modifiedFileCount} files in {timer}." +
-                    $" Please check the modified files and report any issues to {Strings.DocsURLs.DeveloperEmail}");
+                    $" Please check the modified files and report any issues to" +
+                    $" {Strings.DocsURLs.DeveloperEmail}");
 
                 WarnAboutUnSharedChanges();
 

@@ -43,6 +43,11 @@
             "name": "com.unity.ugui",
             "expression": "",
             "define": "UNITY_UGUI"
+        },
+        {
+            "name": "com.unity.modules.imgui",
+            "expression": "",
+            "define": "UNITY_IMGUI"
         }
     ],
     "noEngineReferences": false

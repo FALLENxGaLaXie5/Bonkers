@@ -1,4 +1,4 @@
-// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2025 Kybernetik //
+// Animancer // https://kybernetik.com.au/animancer // Copyright 2018-2026 Kybernetik //
 
 using System;
 using System.Collections.Generic;
@@ -19,9 +19,10 @@ namespace Animancer
     [Serializable]
     public class TransitionAssetReference :
         IAnimationClipSource,
+        ICloneable<TransitionAssetReference>,
         ICopyable<TransitionAssetReference>,
         IPolymorphic,
-        ITransitionDetailed,
+        ITransition,
         IWrapper
     {
         /************************************************************************************************************************/
@@ -89,9 +90,9 @@ namespace Animancer
         }
 
         /// <inheritdoc/>
-        public float MaximumDuration
+        public float MaximumLength
             => _Asset != null
-            ? _Asset.MaximumDuration
+            ? _Asset.MaximumLength
             : 0;
 
         /// <inheritdoc/>
@@ -114,8 +115,11 @@ namespace Animancer
 
         /// <inheritdoc/>
         [Obsolete(TransitionAssetBase.ObsoleteEventsMessage)]
-        public ref AnimancerEvent.Sequence.Serializable SerializedEvents
-            => ref _Asset.SerializedEvents;
+        public AnimancerEvent.Sequence.Serializable SerializedEvents
+        {
+            get => _Asset.SerializedEvents;
+            set => _Asset.SerializedEvents = value;
+        }
 
         /************************************************************************************************************************/
 
@@ -138,15 +142,17 @@ namespace Animancer
         /************************************************************************************************************************/
 
         /// <inheritdoc/>
+        public virtual TransitionAssetReference Clone(CloneContext context)
+        {
+            var clone = new TransitionAssetReference();
+            clone.CopyFrom(this, context);
+            return clone;
+        }
+
+        /// <inheritdoc/>
         public void CopyFrom(TransitionAssetReference copyFrom, CloneContext context)
         {
-            if (copyFrom == null)
-            {
-                _Asset = default;
-                return;
-            }
-
-            _Asset = copyFrom._Asset;
+            _Asset = context.GetCloneOrOriginal(copyFrom._Asset);
         }
 
         /************************************************************************************************************************/

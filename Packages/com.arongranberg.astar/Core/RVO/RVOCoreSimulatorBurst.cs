@@ -83,13 +83,18 @@ namespace Pathfinding.RVO {
 	[System.Flags]
 	public enum AgentDebugFlags : byte {
 		Nothing = 0,
-		ObstacleVOs = 1 << 0,
-		AgentVOs = 1 << 1,
+		ObstacleVelocityObstacles = 1 << 0,
+		AgentVelocityObstacles = 1 << 1,
 		ReachedState = 1 << 2,
 		DesiredVelocity = 1 << 3,
 		ChosenVelocity = 1 << 4,
 		Obstacles = 1 << 5,
 		ForwardClearance = 1 << 6,
+
+		[System.Obsolete("Renamed to ObstacleVelocityObstacles")]
+		ObstacleVOs = ObstacleVelocityObstacles,
+		[System.Obsolete("Renamed to AgentVelocityObstacles")]
+		AgentVOs = AgentVelocityObstacles,
 	}
 
 	/// <summary>
@@ -441,12 +446,6 @@ namespace Pathfinding.RVO {
 	/// You will most likely mostly use the wrapper class <see cref="RVOSimulator"/>.
 	/// </summary>
 	public class SimulatorBurst {
-		/// <summary>
-		/// Inverse desired simulation fps.
-		/// See: DesiredDeltaTime
-		/// </summary>
-		private float desiredDeltaTime = 0.05f;
-
 		/// <summary>Number of agents in this simulation</summary>
 		int numAgents = 0;
 
@@ -814,13 +813,6 @@ namespace Pathfinding.RVO {
 		}
 
 		/// <summary>
-		/// Time in seconds between each simulation step.
-		/// This is the desired delta time, the simulation will never run at a higher fps than
-		/// the rate at which the Update function is called.
-		/// </summary>
-		public float DesiredDeltaTime { get { return desiredDeltaTime; } set { desiredDeltaTime = System.Math.Max(value, 0.0f); } }
-
-		/// <summary>
 		/// Bias agents to pass each other on the right side.
 		/// If the desired velocity of an agent puts it on a collision course with another agent or an obstacle
 		/// its desired velocity will be rotated this number of radians (1 radian is approximately 57°) to the right.
@@ -865,7 +857,6 @@ namespace Pathfinding.RVO {
 		/// <summary>Create a new simulator.</summary>
 		/// <param name="movementPlane">The plane that the movement happens in. XZ for 3D games, XY for 2D games.</param>
 		public SimulatorBurst (MovementPlane movementPlane) {
-			this.DesiredDeltaTime = 1;
 			this.movementPlane = movementPlane;
 
 			AllocateAgentSpace();
@@ -1003,10 +994,13 @@ namespace Pathfinding.RVO {
 			RemoveAgent(realAgent.agentIndex);
 		}
 
-		public void RemoveAgent (AgentIndex agent) {
+		public void RemoveAgent (AgentIndex agent, bool okIfMissing = false) {
 			BlockUntilSimulationStepDone();
 
-			if (!agent.TryGetIndex(ref simulationData, out var index)) throw new System.InvalidOperationException("Trying to remove agent which does not exist");
+			if (!agent.TryGetIndex(ref simulationData, out var index)) {
+				if (okIfMissing) return;
+				else throw new System.InvalidOperationException("Trying to remove agent which does not exist");
+			}
 
 			// Increment version and set deleted bit
 			simulationData.version[index] = simulationData.version[index].WithIncrementedVersion().WithDeleted();
@@ -1156,15 +1150,19 @@ namespace Pathfinding.RVO {
 
 			var combinedJob = JobHandle.CombineDependencies(preprocessJob, neighboursJob);
 
+#if UNITY_EDITOR
 			debugDrawingScope.Rewind();
 			var draw = DrawingManager.GetBuilder(debugDrawingScope);
+#endif
 
 			var horizonJob1 = new JobHorizonAvoidancePhase1<T> {
 				agentData = simulationData,
 				neighbours = temporaryAgentData.neighbours,
 				desiredTargetPointInVelocitySpace = temporaryAgentData.desiredTargetPointInVelocitySpace,
 				horizonAgentData = horizonAgentData,
+#if UNITY_EDITOR
 				draw = draw,
+#endif
 			}.ScheduleBatch(numAgents, batchSize, combinedJob);
 
 			var horizonJob2 = new JobHorizonAvoidancePhase2<T> {
@@ -1200,7 +1198,9 @@ namespace Pathfinding.RVO {
 				output = outputData,
 				deltaTime = deltaTime,
 				symmetryBreakingBias = Mathf.Max(0, SymmetryBreakingBias),
+#if UNITY_EDITOR
 				draw = draw,
+#endif
 				useNavmeshAsObstacle = UseNavmeshAsObstacle,
 				priorityMultiplier = 1f,
 				// priorityMultiplier = 0.1f,
@@ -1239,7 +1239,9 @@ namespace Pathfinding.RVO {
 				agentData = simulationData,
 				temporaryAgentData = temporaryAgentData,
 				output = outputData,
+#if UNITY_EDITOR
 				draw = draw,
+#endif
 				numAgents = numAgents,
 			}.Schedule(rvoJob);
 
@@ -1251,6 +1253,7 @@ namespace Pathfinding.RVO {
 			dependency = JobHandle.CombineDependencies(reachedJob, clearJob, clearJob2);
 			dependency = JobHandle.CombineDependencies(dependency, clearJob3);
 
+#if UNITY_EDITOR
 			if (drawQuadtree && drawGizmos) {
 				dependency = JobHandle.CombineDependencies(dependency, new RVOQuadtreeBurst.DebugDrawJob {
 					draw = draw,
@@ -1259,6 +1262,7 @@ namespace Pathfinding.RVO {
 			}
 
 			draw.DisposeAfter(dependency);
+#endif
 
 			writeLock.UnlockAfter(dependency);
 			return dependency;

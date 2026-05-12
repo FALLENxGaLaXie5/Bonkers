@@ -1,8 +1,137 @@
-## 5.3.8 (2025-06-13)
-- Fixed an incompatibility with an older version of the unity collections package, which could cause an exception to be thrown when exiting the scene (introduced in 5.3.7).
-- Fixed scanning very large layered grid graphs could throw an exception.
-- Got rid of some small GC allocations in the example scenes relating to OnGUI calls.
-- Fixed the update checker throwing exceptions in some rare cases. This was a regression in 5.3.5.
+## 5.4.6 (2026-01-22)
+- Added \reflink{FollowerEntity.nextOffMeshLink}, to get information about the next off-mesh link in the agent's path.
+- Fixed some compilation warnings in Unity 6.4.
+- Added support for the Input System Package to the example scenes. They now work both with the legacy input system and the new Input System package.
+- Fixed an exception that could happen if an off-mesh link was disabled on the frame before an agent was about to traverse it.
+- Fixed paths on grid graphs could in rare cases be calculated incorrectly if the end point was right in the middle between two nodes (regression in 5.4).
+- Fixed GetNearest on grid graphs could fail to return a node if it was almost, but not quite, outside the search radius.
+- Fixed gizmos would sometimes not be drawn for objects loaded in using async or additive scene loading (regression in 5.4.5).
+- Fixed ProceduralGraphMover throwing an exception if target is destroyed in the middle of an update.
+- Exposed \reflink{RandomPath.rnd} so that you can set a custom random number generator for the path.
+		This allows for reproducible random paths by using a fixed seed.
+- Fixed A* Inspector -> Settings -> Colors -> Opacity settings did not work.
+- Fixed occasional "Diagonal Connections Not Supported" error when using \reflink{FollowerEntity} on a grid graph.
+- Avoid "The RecastNavmeshModifier has been moved or resized since it was enabled" error in some cases when the object's collider was destroyed before the \reflink{RecastNavmeshModifier}.
+
+## 5.4.5 (2025-11-21)
+- Breaking changes
+		- Some tree colliders that were previously included in recast graph scans may now be excluded, in accordance with the layer and tag filtering settings on the recast graph. See below for more details.
+			This is a bug fix, but you may have been relying on the previous (incorrect) behavior.
+- Fixed having many FollowerEntity agents with local avoidance enabled in the exact same position, could cause significant performance issues in some rare cases.
+- Fixed recast graphs would not take the layers, tags nor collider isTrigger state of tree prefabs into account when scanning. This could result in tree collider being included in the scan even if they should be excluded.
+- Fixed \reflink{NavmeshBase.ReplaceTiles} not applying tags to the new tiles.
+- Fixed a small memory leak caused by prefabs sometimes being kept in memory longer than they should, in the Unity editor.
+- The navmesh graph will now show a "Fix" button if the input mesh is not readable.
+		Clicking the button will try to enable read/write on the mesh import settings automatically.
+- Fixed an exception that could be thrown when scanning a navmesh graph twice in a row with a null source mesh.
+- Fixed example code not being updated for 5.4 changes in the \ref multiple-agent-types tutorial.
+- Fixed a regression in 5.4 that \reflink{FollowerEntity.Move} would not move the Transform immediately, but only the agent's internal position.
+- Improved performance and reduced allocations when destroying navmesh/recast graphs.
+- Reduced allocations when loading graphs.
+- Add \reflink{NavmeshBase.ToTileMeshes} method to export tiles of the graph to the portable \reflink{TileMeshes} representation.
+- Improve performance of serializing and deserializing \reflink{TileMeshes}.
+- Fixed calling \reflink{NavmeshBase.ClearTiles} and then \reflink{NavmeshBase.ReplaceTiles} could skip applying navmesh cuts.
+- Reduce memory usage of recast/navmesh graphs.
+- Fixed \reflink{FollowerEntity} sometimes instantly stopping after a nearby graph update caused the navmesh underneath it to be destroyed.
+- The FollowerEntity will now refresh the endpoints of any pending path every frame, to ensure it is as up-to-date as possible when the path is calculated. This is important primarily when you have lots of agents calculating paths at the same time, or the game is running at a low framerate.
+
+
+## 5.4.4 (2025-10-06)
+- Note
+		- This stable release contains the features of all beta releases 5.4.0 through 5.4.3.
+- Breaking changes
+		- This release contains several breaking changes, check \ref v5_4 for more info.
+		- There's compatibility code in place to keep the old APIs working for almost all use cases, but for best performance and accuracy, you should update your code to use the new APIs.
+- New features and improvements
+		- Added an \reflink{example_ecs;ECS example scene}.
+			\video{generated/scenes/ECS/overviewvideo.webm}
+		- Added how-to page about ECS: \ref ecs.
+		- The \reflink{FollowerEntity} movement script can now be used in %ECS subscenes, in which it will be baked into a pure entity.
+		- The \reflink{AIDestinationSetter} component now also works in %ECS subscenes, being baked into a \reflink{DestinationEntity} component.
+		- The \reflink{MoveInCircle} component now also works in %ECS subscenes, being baked into a \reflink{DestinationMoveInCircle} component.
+		- Added \reflink{FollowerEntityProxy} which allows you to use a high-level API to interact with a baked \reflink{FollowerEntity}.
+		- Added \reflink{AstarData.SerializeGraph}, to serialize a single graph, instead of all of them.
+		- It is now possible to visualize graphs in standalone games.
+			Check the \reflink{AstarPath.showGraphsInStandalonePlayer} checkbox in A* Inspector → Settings → Debug.
+		- Added an option for visualizing the bounding boxes of graph updates in the scene view. A* Inspector → Settings → Debug → \reflink{AstarPath.graphUpdateDebugMode;Graph Update Debug Mode}.
+			\shadowimage{graph_update_debug_mode_inspector.png}
+			\shadowimage{graph_update_debug_mode.png}
+		- Added \reflink{RecastGraph.perTerrainLayerModifications; per terrain layer modifications} to recast graphs. You can use this to paint different tags on recast graphs.
+			For example to make an agent prefer to walk along a road, instead of on the grass next to it.
+			\shadowimage{recast/per_terrain_layer_modifications.png}
+			\shadowimage{generated/scenes/RecastTerrain/terraintagswithgraph.png}
+		- Making regions harder or easier to traverse has been made more intuitive and accurate. Instead of only allowing a cost for entering a node (which is not very accurate on navmesh/recast graphs as their nodes can vary so much in size), you can now set a cost multiplier which is scaled by the distance traversed inside the node.
+			\shadowimage{changelog/tagpopup.png}
+			\see \ref upgrade-traversalcosts for more details.
+		- Added a new \reflink{NearestNodeConstraint} struct, which replaces \reflink{NNConstraint}.
+			It works the same as the old NNConstraint, but is more efficient and has a few new features.
+			\see \ref upgrade-nnconstraint for more details.
+		- Added new \reflink{TraversalConstraint} and \reflink{TraversalCosts} structs to more easily set what nodes are traversable and what costs they have.
+			\see \ref upgrade-traversalconstraint for more details.
+		- The \reflink{ITraversalProvider} interface has received an overhaul, and can now block individual connections, and provide costs that scale with the distance traversed in a node.
+			\see \ref upgrade-itraversalprovider for more details.
+		- Due to the above updates, using tags to create areas with different traversal costs is now much better supported on recast and navmesh graphs.
+		- Added \reflink{AIMovementSystemGroup.CustomTimeScale}, to control the simulation speed of the \reflink{FollowerEntity} movement script separately from Unity's Time.timeScale.
+		- Added \reflink{FollowerEntity.localAvoidanceTemporarilyDisabled} to indicate if local avoidance has been temporarily disabled while traversing an off-mesh link.
+		- Improved performance of the \reflink{FollowerEntity} movement script.
+		- Added \reflink{AstarPath.GetNearestBorder} which finds the nearest navmesh border to a given position.
+		- Added \reflink{FollowerEntity.nearestNavmeshBorder} as a convenience property for getting the nearest navmesh border to the agent.
+			\video{generated/scenes/Linecasting/getnearestborder.webm}
+		- Added a nicer error message for the extremely unlikely case that the graphs are fragmented enough to run out of hierarchical nodes.
+		- Improved performance when scanning or updating recast graphs. In particular on the main thread and especially so when using terrains.
+		- Improved performance of linecasts on recast graphs, for many cases quite significantly.
+		- Added an overload of \reflink{NavGraph.GetNodes} that takes a ref parameter with custom data to be passed to the callback. This is useful for avoiding GC allocations when iterating over all nodes in a graph.
+		- The graph index is now displayed in the graph info box in the A* inspector.
+		- Added \reflink{PointGraph.Clear}, to remove all nodes from a point graph.
+		- Improved \reflink{GraphMask} so that it can now hold a limited number of large graph indices. Previously it was limited to only graph indices smaller than 31.
+		- Added \reflink{GraphMask.FromGraph}.
+		- Added \reflink{GraphMask.Contains(NavGraph)}.
+		- Added \reflink{GraphMask.containsAllGraphs}.
+		- Rewrote the \ref tags documentation page to be more clear and up-to-date.
+- Changes
+		- Made the new version popup a bit less obnoxious.
+		- Changed \reflink{FollowerEntity} to look for navmesh borders at the closest point on the navmesh to it, instead of close to its own pivot. This fixes the agent ignoring navmesh walls when being raised high up in the air, and having gravity disabled.
+		- Changed voxel size on recast graphs to be rounded to the nearest multiple of 0.001 (internal integer precision) to fix some issues with rounding errors.
+		- Renamed \reflink{IAstarAI.canMove} to \reflink{IAstarAI.simulateMovement}, to avoid confusion with the \reflink{IAstarAI.isStopped} property.
+		- Reduced pathfinding thread count on machines with more than 8 cores, when using the AutomaticHighLoad thread count mode.
+			These machines are likely using hyperthreading anyway, and the performance boost from using more threads is not large. However, reducing the thread count reduces the memory overhead quite a bit.
+		- Exposed \reflink{FollowerEntity.destinationFacingDirection}.
+		- Linecasts on grid graphs that go directly through a diagonal connection will now actually use that diagonal connection, instead of only using axis-aligned connections.
+			Axis-aligned connections are still possible to use as an automatic fallback, however.
+		- Deprecated GraphUpdateObject.nnConstraint and replaced it with \reflink{GraphUpdateObject.graphMask}.
+		- Changed linecasts on graphs to take a \reflink{TraversalConstraint} instead of a filter function, for more flexibility.
+		- Made \reflink{GraphMask.value} private.
+		- Removed implicit conversion from integers to \reflink{GraphMask}s, use e.g. \reflink{GraphMask.everything} or \reflink{GraphMask.FromGraphIndex} instead. Check \ref v5_4 for more info.
+- Fixes
+		- Fixed local avoidance agents could sometimes get stuck on ghost obstacles, due to hash collisions that were much more likely than they should have been.
+		- Fixed exception when scanning recast graphs on Unity 6.2+ when the new Mesh LOD feature was used.
+		- Fixed compilation warning in Unity 6.2+.
+		- Fixed compatibility with Unity 6.2+, which would otherwise cause baked FollowerEntities to fall through the ground.
+		- Improved error checking when scanning and updating recast graphs. Previously, if the tile contained too many vertices, it could lead to an invalid navmesh and potentially exceptions. Now it will log an error, with instructions for how to remedy the situation, and leave the tile empty.
+		- Fixed some edge cases where the graph visualizations would not show/hide when they should.
+		- Fixed RVO agents that are in the exact same position and have the same destination will now manage to untangle themselves, instead of getting stuck together.
+		- Fixed creating a \reflink{FollowerEntity} and immediately setting \reflink{FollowerEntity.simulateMovement} to false on the same frame, could cause an exception to be thrown.
+		- Fixed a \reflink{FollowerEntity} whose path calculations were failing, would try to recalculate its path basically every frame, instead of backing off after a little while.
+		- Fixed setting the rotation speed of a \reflink{FollowerEntity} to infinity would break movement. Now it will be allowed to rotate any amount instantly.
+		- Fixed a \reflink{FollowerEntity} whose path calculation failed would continue following its previous path indefinitely. Now the agent will slow down similarly to if \reflink{FollowerEntity.isStopped} is set.
+		- Fixed \reflink{FollowerEntity} could in some situations start sliding a tiny amount (around one millimeter per second) when it should be standing still, due to a floating point error.
+		- Fixed removing the \reflink{SimulateMovementFinalize} ECS component from a \reflink{FollowerEntity} would disable too many jobs, and not easily allow you to override how movement was handled.
+		- Fixed the \reflink{FollowerEntity} could, in some rare cases, end up endlessly spinning in place when a desired facing direction had been set for it.
+		- Fixed selecting a \reflink{FollowerEntity} in the unity editor could end up clearing \reflink{FollowerEntity.destinationFacingDirection} unintentionally.
+		- Fixed linecasts on grid graphs could produce a longer list of passed through nodes than expected, when the target point was exactly in the corner of a node.
+		- Fixed various issues with using the \reflink{FollowerEntity} on a grid graph, that could result in choppy movement.
+		- Fixed editing the points of a \reflink{GraphUpdateScene} could fail to save some changes, due to limitations in Unity's Undo system.
+		- Fixed scanning a recast graph in a world with a terrain that had a missing tree prefab could result in an exception.
+		- Fixed scanning a recast graph in a scene with multiple terrains that shared tree prefabs could throw an exception.
+		- Fixed a memory leak that could cause nodes to linger in memory long after they were removed from the graph.
+		- Fixed \reflink{FunnelModifier} could skip the first and last portal when \reflink{FunnelModifier.splitAtEveryPortal} was enabled.
+		- Fixed an incompatibility with an older version of the unity collections package, which could cause an exception to be thrown when exiting the scene (introduced in 5.3.7).
+		- Fixed scanning very large layered grid graphs could throw an exception.
+		- Got rid of some small but persistent GC allocations related to debug drawing.
+		- Got rid of some small GC allocations in the example scenes relating to OnGUI calls.
+		- Fixed the update checker throwing exceptions in some rare cases. This was a regression in 5.3.5.
+		- Fixed \reflink{ConstantPath.allNodes} could contain duplicate nodes when used on recast graphs. This was a regression in 5.0.
+
 
 ## 5.3.7 (2025-05-06)
 - Significantly improved performance when scanning grid graphs when using Unity 6000.1+.
@@ -2853,7 +2982,7 @@
 - Added custom inspector for the Simple Smooth Modifier. Hopefully it will now be easier to use (or at least get the hang on which fields you should change).
 - Added AIFollow.canSearch to disable or enable searching for paths due to popular request.
 - Added AIFollow.canMove to disable or enable moving due to popular request.
-- Changed behaviour of AIFollow.Stop, it will now set AIFollow.ccanSearch and AIFollow.ccanMove to false thus making it completely stop and stop searching for paths.
+- Changed behaviour of AIFollow.Stop, it will now set AIFollow.canSearch and AIFollow.canMove to false thus making it completely stop and stop searching for paths.
 - Removed Path.customData since it is a much better solution to create a new path class which inherits from Path.
 - Seeker.StartPath is now implemented with overloads instead of optional parameters to simplify usage for Javascript users
 - Added Curved Nonuniform spline as a smoothing option for the Simple Smooth modifier.

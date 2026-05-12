@@ -29,14 +29,14 @@ namespace Pathfinding {
 	/// \section navmeshgraph-inspector Inspector
 	/// [Open online documentation to see images]
 	///
-	/// \inspectorField{Source Mesh, sourceMesh}
-	/// \inspectorField{Offset, offset}
-	/// \inspectorField{Rotation, rotation}
-	/// \inspectorField{Scale, scale}
-	/// \inspectorField{Recalculate Normals, recalculateNormals}
-	/// \inspectorField{Affected By Navmesh Cuts, enableNavmeshCutting}
-	/// \inspectorField{Agent Radius, navmeshCuttingCharacterRadius}
-	/// \inspectorField{Initial Penalty, initialPenalty}
+	/// \inspectorField{sourceMesh; Source Mesh}
+	/// \inspectorField{offset; Offset}
+	/// \inspectorField{rotation; Rotation}
+	/// \inspectorField{scale; Scale}
+	/// \inspectorField{recalculateNormals; Recalculate Normals}
+	/// \inspectorField{enableNavmeshCutting; Affected By Navmesh Cuts}
+	/// \inspectorField{navmeshCuttingCharacterRadius; Agent Radius}
+	/// \inspectorField{initialPenalty; Initial Penalty}
 	///
 	/// See: <see cref="RecastGraph"/>
 	/// </summary>
@@ -357,6 +357,9 @@ namespace Pathfinding {
 			}
 
 			public void Apply (IGraphUpdateContext ctx) {
+				// Destroy all previous nodes (if any)
+				graph.DestroyAllNodes();
+
 				if (emptyGraph) {
 					graph.forcedBoundsSize = Vector3.zero;
 					graph.transform = transform;
@@ -366,9 +369,6 @@ namespace Pathfinding {
 					graph.navmeshUpdateData.Dispose();
 					return;
 				}
-
-				// Destroy all previous nodes (if any)
-				graph.DestroyAllNodes();
 
 				// Initialize all nodes that were created in the jobs
 				for (int j = 0; j < tiles.Length; j++) AstarPath.active.InitializeNodes(tiles[j].nodes);
