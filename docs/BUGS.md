@@ -27,8 +27,18 @@ Status: `[ ]` open · `[x]` fixed/verified-not-a-bug.
 | 15 | 🟡 | Combat | `PlayerHealth.Die` may deref null `audioSource` | `PlayerHealth.cs:52` |
 | 16 | 🟡 | Combat | New material instance per enemy (churn) | `EnemyHealth.cs:41` |
 | 17 | 🟡 | Control | Input routed via `*.current` not the event device | `PlayerConfigurationSystem.cs:77` |
+| 18 | 🔴 | Combat | `EnemyHealth.Die()` can re-enter → double score/VFX/dissolve | `EnemyHealth.cs:59` |
+| 19 | 🔴 | EnemySpawn | `SpawnLifeform` synchronous infinite loop → hard freeze | `EnemySpawnSystem.cs:157` |
+| 20 | 🟠 | Events | Listener `Awake` subscribe / `OnDisable` unsubscribe asymmetry drops handler | `AIControl.cs:37` |
+| 21 | 🟠 | EnemySpawn | Scene ref cached on serialized SO → stale after reload | `EnemySpawnSystem.cs:104` |
+| 22 | 🟠 | Spawning | Pooled spawn-blok init event tied to `Start` → tracking desync after pool cycle | `SpawnBlokReporter.cs:13` |
+| 23 | 🟠 | Events | SO `Action<T>` retains dead listeners across scene loads | `BaseGameEvent.cs:11` |
+| 24 | 🟠 | Drops | `Powerup`/`FoodDrop` deref `FindWithTag(...).transform` before null-guard | `Powerup.cs:30` |
+| 25 | 🟡 | Events | `BaseGameEventListener` is `[ExecuteInEditMode]` → edit-time subscriptions | `BaseGameEventListener.cs:6` |
 
 **Suggested first pass:** #1–#5 (one puddle/fade sweep) and #7 (ghost players). Detail below.
+
+> Items #18–#25 added 2026-06-10 from an adversarial correctness review (second autonomous pass). Same caveat: candidates from a static read, verify in Play mode. The review also **confirmed** #10, #11, #15 and **strengthened** #12 and #17 (see notes on those items).
 
 ---
 
@@ -134,6 +144,54 @@ Status: `[ ]` open · `[x]` fixed/verified-not-a-bug.
 - **Where:** `Control/PlayerConfigurationSystem.cs:77-92, 105-118, 131-139`.
 - **Why:** `OnCheckInput` receives the specific `inputDevice`, but the Check* methods use `Keyboard.current`/`Gamepad.current`. With multiple keyboards this misattributes join presses. Harmless with the typical one-keyboard-two-schemes setup.
 - **Fix sketch:** pass and use the `keyboard`/`gamepad` argument already in scope.
+
+---
+
+---
+
+## New findings (2026-06-10 adversarial review pass)
+
+### [ ] 🔴 18. `EnemyHealth.Die()` can re-enter → double score, double VFX, double dissolve
+- **Where:** `Combat/EnemyHealth.cs:59-96`.
+- **Why:** `TakeDamage` gates on `canBeHit`. `Die()` only sets `canBeHit=false` at :89, but the concurrent `PauseHittable()` coroutine (started :63) flips it back to `true` after `timeBetweenHits`. The enemy isn't destroyed until the dissolve tween finishes (`dissolveSpeed` s). If `timeBetweenHits < dissolveSpeed` and a blok hits the still-collidable corpse, `TakeDamage` passes (health already ≤0) and `Die()` re-enters: a second dissolve, a second score popup (`Instantiate` :85), a second explosion detach (:93-95).
+- **Fix sketch:** add a dedicated `bool isDying` set at the top of `Die()` and short-circuit; or set `canBeHit=false` first thing and don't let `PauseHittable` re-enable once dying.
+
+### [ ] 🔴 19. `EnemySpawnSystem.SpawnLifeform` can hard-freeze the game (synchronous infinite loop)
+- **Where:** `Enemy Spawn Management/EnemySpawnSystem.cs:157-161`.
+- **Why:** `while (Physics2D.OverlapCircle(possibleSpawnLocation.position, 0.2f, cannotSpawnMask))` retries a random patrol point with no attempt cap, **synchronously in-frame** (no `yield`). If every patrol point is blocked, this spins forever and hangs the editor/build — strictly worse than the coroutine leak (#12).
+- **Fix sketch:** cap attempts (N tries) and bail out of the spawn on failure.
+
+### [ ] 🟠 20. `AIControl` subscribe in `Awake` / unsubscribe in `OnDisable` (asymmetric)
+- **Where:** `Control/AIControl.cs:37` (`+=` in `Awake`), `:53` (`-=` in `OnDisable`).
+- **Why:** `Awake` fires once; `OnDisable`/`OnEnable` can fire repeatedly. No `OnEnable` re-subscribe → any disable→enable cycle (and enemies may be pooled later) permanently drops the death handler; a re-enabled enemy never disables its AI on death.
+- **Fix sketch:** move the `+=` into a matching `OnEnable`.
+
+### [ ] 🟠 21. `EnemySpawnSystem` caches a scene reference on a serialized SO
+- **Where:** `Enemy Spawn Management/EnemySpawnSystem.cs:104, 119-123, 156`.
+- **Why:** `spawnPoints` (a `PatrolPoints` found via `FindGameObjectWithTag("Grid")`) is stored on a `ScriptableObject` that survives scene loads (same hazard class as #7). If a coroutine references it before `InitializeSystem()` re-caches, or after a reload where `Grid` isn't found → `MissingReferenceException`.
+- **Fix sketch:** mark the runtime cache `[NonSerialized]`; re-fetch defensively; consider moving spawn state to a scene MonoBehaviour.
+
+### [ ] 🟠 22. Pooled spawn-blok init event fires only on `Start` → tracking desync
+- **Where:** `Events/ParameterizedEvents/SpawnBlokHealth/SpawnBlokReporter.cs:13`.
+- **Why:** `Start()` raises `spawnBlokInitializingEvent.Raise(this)` with no null guard (the sibling destroy method *does* guard). Spawn bloks are pooled, so `Start` fires only on first activation — when a spawn blok is returned to the pool and re-spawned, the init event never re-raises and the live-spawn-blok tracking (paired with the destroying event) silently desyncs after the first pool cycle.
+- **Fix sketch:** null-guard; raise the init event from `OnEnable`/the respawn hook, not `Start`.
+
+### [ ] 🟠 23. SO `Action<T>` retains dead listeners across scene loads
+- **Where:** `Events/ParameterizedEvents/BaseGameEvent.cs:11` + `BaseGameEventListener.cs:17-27`.
+- **Why:** Unsubscribe relies solely on `OnDisable`. The event lives on a `ScriptableObject` that outlives every scene, so any listener torn down without a clean `OnDisable` leaves a delegate pointing at a destroyed MonoBehaviour; a later `Raise` invokes into a dead object. No scene-load reset of the delegate.
+- **Fix sketch:** clear/rebuild `EventListeners` on a scene-load boundary, or null-check Unity-object targets in `Raise`.
+
+### [ ] 🟠 24. `Powerup.Spawn` / `FoodDrop.Spawn` deref `FindWithTag(...).transform` before the guard
+- **Where:** `ItemDrops/Powerup.cs:30`, `ItemDrops/FoodDrop.cs:18`.
+- **Why:** Both call `GameObject.FindWithTag("Drops"/"FoodDrops").transform` first and null-check afterward. If the tagged container is absent (very plausible in generated scenes), `FindWithTag` returns null → NRE on `.transform`, and the drop is lost.
+- **Fix sketch:** capture the `GameObject`, null-check, then read `.transform`.
+
+### [ ] 🟡 25. `BaseGameEventListener` is `[ExecuteInEditMode]`
+- **Where:** `Events/ParameterizedEvents/BaseGameEventListener.cs:6`.
+- **Why:** `OnEnable` runs in edit mode, subscribing the listener to the SO's delegate while editing; designer/inspector pokes can `Raise` outside Play mode and edit-mode subscriptions can linger into Play. Almost certainly unintended for a gameplay event bus.
+- **Fix sketch:** drop `[ExecuteInEditMode]` unless a concrete editor use needs it.
+
+> **Confirmed/strengthened existing items (2026-06-10):** #10 and #11 confirmed as written. #15 confirmed (`audioSource` set only in `Start`, used unguarded in `Die`). **#12 strengthened:** `BlokSpawner.cs:36-39` pulls the blok out of the pool (`GetPooledBlokToSpawn(null)`, parent `null`, inactive) *before* the `do/while` placement loop runs, so a spinning loop doesn't just leak the coroutine — it permanently strands a blok removed from the pool and never placed. **#17 strengthened:** it's worse than "harmless with one keyboard" — with two gamepads, `CheckGamepadInput` always inspects `Gamepad.current` and the de-dup keys off it too, so a second pad may fail to join or join as the wrong device.
 
 ---
 

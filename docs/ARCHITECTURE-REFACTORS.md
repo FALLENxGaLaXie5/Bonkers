@@ -13,6 +13,8 @@ Legend: 💎 high value · ⚖️ medium · 🧹 cleanup. Effort: S/M/L.
 
 **Sketch:** Introduce a `BlokTypeDefinition` ScriptableObject that references the interaction strategy, health profile, effect bundle, and pooling data for a type. Keep the strategy interfaces (`IBlokInteraction`, etc.) but let the definition compose them, so the prefab just holds a reference to its definition. Consider whether health/effects can be data-driven (HP, fade time, effect list) rather than a subclass per type — several `*BlokHealth` subclasses may differ only in values.
 
+> **Strengthened (2026-06-10 review):** the health axis is mostly empty ceremony — `BasicBlokHealth` is a *completely empty* subclass; `WoodBlokHealth` adds only a single `droppable.SpawnDrop()` before `base.BreakBlok()`. Bump this up: collapsing `*BlokHealth` into one `BlokHealth` reading an HP value + optional drop reference is a low-risk first slice that de-risks the bigger `BlokTypeDefinition` SO by proving the data-driven pattern on the cheapest axis.
+
 ---
 
 ## 💎 2. Stop storing runtime state on ScriptableObjects (M)
@@ -21,6 +23,8 @@ Legend: 💎 high value · ⚖️ medium · 🧹 cleanup. Effort: S/M/L.
 **Payoff:** Eliminates a whole class of "works on first Play, breaks on second" bugs.
 
 **Sketch:** Split each SO into **config (immutable, authored)** vs **runtime state (reset on enable / scene-scoped)**. Mark runtime collections `[NonSerialized]` and clear them in an explicit `Initialize()`. Or move join/session state to a scene-lifetime MonoBehaviour (a `SessionController`) and keep the SO as pure config.
+
+> **Strengthened (2026-06-10 review) — this is the keystone move.** `PlayerConfigurationSystem` fuses *three* responsibilities on one persisted asset: authored config, live device-join/registry state (`keyboardDevices`/`gamepadDevices`, subscribes `InputSystem.onEvent`), **and** scene transitions (`SceneManager.LoadScene`). Extracting a scene-lifetime **`SessionController`** that owns join/device state, player spawning, HUD-slot wiring, and scene loads — driven by one `PlayerConfiguration`-parameterized player prefab — simultaneously discharges this item, unblocks 4-player (#11/#12 below), and creates the dependency-injection seam that makes testing (#16 below) possible. See `docs/design/01-four-player.md`.
 
 ---
 
@@ -84,5 +88,51 @@ Legend: 💎 high value · ⚖️ medium · 🧹 cleanup. Effort: S/M/L.
 
 ---
 
+---
+
+# New items (2026-06-10 adversarial architecture review)
+
+A second autonomous pass attacked the assembly graph, content-generation path, 4-player blockers, and testability. None of these overlap #1–#9 above.
+
+## 💎 10. Extract a scene-lifetime `SessionController` (the keystone) — M
+Covered as a strengthening note on **#2** above, but called out here because it's the single highest-leverage move: it discharges #2, unblocks #11/#12, and creates the DI seam #16 needs. One move, three payoffs. See `docs/design/01-four-player.md`.
+
+## 💎 11. HUD/score wired by positional child index — caps player count — M
+**Smell:** `PlayerInputHandler.InitializePlayer` does `FindObjectOfType<PauseMenu>().transform.GetChild(playerNum-1)` to find the score text. Player count is implicitly bounded by hand-placed UI children, and identity is positional (fragile to reordering). A distinct 4-player blocker from the join-flow ones.
+**Payoff:** N-player HUD becomes data-driven instead of "add a 3rd/4th child by hand and hope the index lines up."
+**Sketch:** the join flow spawns a HUD slot per `PlayerConfiguration` and passes the slot reference directly to `PlayerScore.SetupScoreUI` — no `GetChild(index)`, no `FindObjectOfType`. (Intersects the UI Toolkit question — see `docs/design/05-ui-toolkit-migration.md`.)
+
+## 💎 12. Two incompatible input stacks on the live player path — M
+**Smell:** `PlayerControl` (P1) is event-driven off `PlayerInputHandler` (new Input System); `Player2Control` reads `Input.GetAxisRaw("Horizontal2")`/`KeyCode.Return` (legacy Input Manager) in `Update`. The join flow is new-Input-System-only, so `Player2Control` is an orphan path that can't be device-paired or scaled.
+**Payoff:** one input model is a hard prerequisite for N-player device pairing; collapses P1/P2 divergence.
+**Sketch:** make `PlayerControl` the single controller driven by `PlayerConfiguration`; delete `Player2Control` and the `"Horizontal2"/"Vertical2"` axes. (Concrete first cut of #6, scoped to players.)
+
+## 💎 13. Content generation is an **editor-only level baker**, not runtime generation — L (decision, not a quick fix)
+**Smell:** `GeneratedDataSystem` — the only caller of the `CoreLogic` handoff — is wrapped entirely in `#if UNITY_EDITOR` and uses `EditorSceneManager`/`PrefabUtility`/`AssetDatabase`. The ML brains author content in-editor and bake it to assets + a saved scene. There is **no runtime generation path**; the CONTEXT-MAP/CLAUDE framing ("ML-Agents procedurally generates level content") implies a runtime capability that doesn't exist.
+**Payoff:** reframes the module as a *tooling pipeline*, not a gameplay system — prevents wasted effort wiring it into runtime and grounds `docs/design/03-procedural-map-generation.md`.
+**Sketch:** rename the context to "Level Authoring / Baking", document the editor-only constraint in its `context.md`, separate the editor handoff from any future runtime intent. A "decide what this module *is*" conversation.
+
+## ⚖️ 14. `CoreLogic.SetupPathfinder` is a fully commented-out no-op — missing seam — S–M
+**Smell:** `CoreLogic.cs:42-54` body is entirely commented out, yet `GeneratedDataSystem` calls it expecting the A* graph to be re-centered/scanned for the baked map size. Architecturally this is a *missing binding* between data-driven level sizing (`mapSize` from `GeneratedContentData`) and the static authored pathfinding graph. (BUGS #9 tracks the symptom; this is the design gap.)
+**Payoff:** closes the gap between "generated map size" and "navigable map" — makes generated levels actually playable with AI.
+**Sketch:** implement the body — resize/recenter the `GridGraph` from `mapSize` and `AstarPath.Scan()` at bake time; track graph dimensions as data alongside `mapSize`.
+
+## ⚖️ 15. No test seams anywhere — gameplay logic welded to MonoBehaviour/scene/statics — M (ongoing)
+**Smell:** no test asmdefs exist (despite `com.unity.test-framework` installed), and the testable logic is unreachable from a test: ~40 `FindObjectOfType`/`GameObject.Find` calls, rules living in `Update()`/coroutines, spawn/pool math reading `transform.childCount`. Nothing is a plain POCO.
+**Payoff:** a few extracted POCOs make the highest-churn rules (movement redirect, score, spawn placement) regression-safe — directly de-risks the 4-player and pooling refactors.
+**Sketch:** add one EditMode test asmdef; extract 2–3 pure helpers (`MovementResolver`, `SpawnPlacement`, score math) and unit-test them. Replacing `FindObjectOfType` with injected refs is the same seam testing needs.
+
+## 🧹 16. `PluginsAssemby` god-wrapper (and its typo) is a hidden hard dependency — S
+**Smell:** `Assets/Plugins/PluginsAssemby.asmdef` (sic — misspelled, no namespace, no references list = "reference everything") is referenced directly by `Bonkers.Core`, `Bonkers.Control`, and `Bonkers.EnemySpawnManagement`. Three core assemblies take a hard dependency on a catch-all plugin bag.
+**Payoff:** restores the "leaf plugins, explicit deps" model; plugin churn stops recompiling Core/Control.
+**Sketch:** reference the specific plugin asmdefs directly; delete/scope `PluginsAssemby`. Fix the spelling in the same commit as the `RPG.Combat`→`Bonkers.Combat` rename (#9).
+
+## 🧹 17. Naming/structure traps: two "Misc" assemblies + a placeholder asmdef name — S–M
+**Smell:** (a) two Misc asmdefs — `Scripts/Bonkers/Misc/Runtime` (`Bonkers.Misc.Runtime`) **and** a separate `Scripts/Misc/Bonkers.Misc.asmdef` (`Bonkers.Misc`) sitting *outside* the Bonkers tree, the latter a junk-drawer (`CoinLogic`, `Grid.cs`, `TileOccupation`, `Waypoint`, a `PutIntoFolderLater/` folder, Unite-2017 examples) that's nonetheless a load-bearing hub referenced by BlokControl/Control/ContentGeneration/Core; (b) `Animation/Bonkers.Animation.asmdef` is literally named `"NewAssembly"`.
+**Payoff:** removes a navigation trap (two things named Misc; real domain types like `Grid`/`TileOccupation` buried in scratch) and a confusing DLL identity.
+**Sketch:** promote real types into `Bonkers.Grid`, move `CoinLogic` to `Drops`, delete the Unite examples + `PutIntoFolderLater`, collapse to one Misc; rename `NewAssembly`→`Bonkers.Animation` in a dedicated commit.
+
+---
+
 ## Cross-cutting note: 4-player readiness
-Several systems hardcode two players (`Player2Control`, `CheckKeyboard1Input`/`CheckKeyboard2Input`, fixed control schemes). Refactors #2 and #6 are prerequisites for clean 4-player support — see `docs/ideas/01-four-player-multiplayer.md`.
+Several systems hardcode two players (`Player2Control`, `CheckKeyboard1Input`/`CheckKeyboard2Input`, fixed control schemes, positional-child-index HUD). Refactors #2/#6 — and concretely the `SessionController` (#10), HUD slots (#11), and input-stack unification (#12) — are prerequisites for clean 4-player support. See `docs/ideas/01-four-player-multiplayer.md` and `docs/design/01-four-player.md`.

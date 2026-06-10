@@ -6,7 +6,11 @@ Brainstorm space for future Bonkers features and architecture. These are **spitb
 - [02 — Menu overhaul](./02-menu-overhaul.md)
 - [03 — Fully procedural map generation tool](./03-procedural-map-generation.md) ← the big one
 - [04 — Feature ideas grab-bag](./04-feature-ideas.md)
+- [05 — Migrate UI to UI Toolkit (USS/UXML)](./05-ui-toolkit-migration.md)
 
 Conventions:
 - Mark each idea with a rough **size** (S/M/L) and **confidence** (loose / promising / ready-to-plan).
 - Link to relevant `context.md` and `docs/ARCHITECTURE-REFACTORS.md` items.
+
+Each idea here has a matching **architecture sketch** (the *how*) under [`docs/design/`](../design/) —
+those are forward-looking proposals, **not** the current architecture.
