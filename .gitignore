@@ -100,3 +100,11 @@ Thumbs.db
 Thumbs.db:encryptable
 ehthumbs.db
 desktop.ini
+
+# Claude Code
+# Keep shared docs (CLAUDE.md and other .md files are tracked normally),
+# but ignore per-user/internal Claude working files.
+.claude/
+**/.claude/
+!CLAUDE.md
+!**/CLAUDE.md

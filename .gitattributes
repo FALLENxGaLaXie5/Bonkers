@@ -1,3 +1,37 @@
+# Auto-normalize line endings for text files so PC/Mac don't churn diffs.
+# Git stores LF in the repo and checks out the platform-native ending.
+* text=auto
+
+# Force LF for source/text files regardless of platform.
+*.cs text eol=lf
+*.shader text eol=lf
+*.cginc text eol=lf
+*.hlsl text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.uss text eol=lf
+*.uxml text eol=lf
+
+# Unity text assets: keep LF and let Unity's smart merge handle them.
+*.meta text eol=lf merge=unityyamlmerge
+*.unity text eol=lf merge=unityyamlmerge
+*.prefab text eol=lf merge=unityyamlmerge
+*.asset text eol=lf merge=unityyamlmerge
+*.controller text eol=lf merge=unityyamlmerge
+*.anim text eol=lf merge=unityyamlmerge
+*.mat text eol=lf merge=unityyamlmerge
+*.physicMaterial text eol=lf merge=unityyamlmerge
+*.physicsMaterial2D text eol=lf merge=unityyamlmerge
+*.asmdef text eol=lf
+
+# Windows batch/cmd scripts need CRLF.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
 # 3D models
 *.3dm filter=lfs diff=lfs merge=lfs -text
 *.3ds filter=lfs diff=lfs merge=lfs -text
