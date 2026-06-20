@@ -276,7 +276,12 @@
         </member>
         <member name="P:Sirenix.OdinInspector.Editor.GeneralDrawerConfig.ShowPrefabModifiedValueBar">
             <summary>
-            Specify whether or not the warning for properties that do not support prefab modifications should be shown in the inspector.
+            Specify whether or not a blue bar should be drawn next to modified prefab values.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.Editor.GeneralDrawerConfig.UseUnityContextMenuForModifications">
+            <summary>
+            Specify whether or not the Unity context menu options should be included when showing the context menu for a Unity-serialized value that has prefab modifications.
             </summary>
         </member>
         <member name="P:Sirenix.OdinInspector.Editor.GeneralDrawerConfig.MaxRecursiveDrawDepth">
@@ -2780,6 +2785,11 @@
             Whether this value entry has been changed from its prefab counterpart.
             </summary>
         </member>
+        <member name="P:Sirenix.OdinInspector.Editor.IPropertyValueEntry.ChildValueChangedFromPrefab">
+            <summary>
+            Whether a child of this value entry has been changed from its prefab counterpart.
+            </summary>
+        </member>
         <member name="P:Sirenix.OdinInspector.Editor.IPropertyValueEntry.ListLengthChangedFromPrefab">
             <summary>
             Whether this value entry has had its list length changed from its prefab counterpart.
@@ -3378,6 +3388,11 @@
             Whether this value entry has been changed from its prefab counterpart.
             </summary>
         </member>
+        <member name="P:Sirenix.OdinInspector.Editor.PropertyValueEntry.ChildValueChangedFromPrefab">
+            <summary>
+            Whether a child of this value entry has been changed from its prefab counterpart.
+            </summary>
+        </member>
         <member name="P:Sirenix.OdinInspector.Editor.PropertyValueEntry.ListLengthChangedFromPrefab">
             <summary>
             Whether this value entry has had its list length changed from its prefab counterpart.
@@ -3709,6 +3724,11 @@
             Whether this value entry has been changed from its prefab counterpart.
             </summary>
         </member>
+        <member name="P:Sirenix.OdinInspector.Editor.PropertyValueEntryAlias.ChildValueChangedFromPrefab">
+            <summary>
+            Whether a child of this value entry has been changed from its prefab counterpart.
+            </summary>
+        </member>
         <member name="P:Sirenix.OdinInspector.Editor.PropertyValueEntryAlias.ListLengthChangedFromPrefab">
             <summary>
             Whether this value entry has had its list length changed from its prefab counterpart.
@@ -3871,6 +3891,11 @@
         <member name="P:Sirenix.OdinInspector.Editor.PropertyValueEntryAlias`2.ValueChangedFromPrefab">
             <summary>
             Whether this value entry has been changed from its prefab counterpart.
+            </summary>
+        </member>
+        <member name="P:Sirenix.OdinInspector.Editor.PropertyValueEntryAlias`2.ChildValueChangedFromPrefab">
+            <summary>
+            Whether a child of this value entry has been changed from its prefab counterpart.
             </summary>
         </member>
         <member name="P:Sirenix.OdinInspector.Editor.PropertyValueEntryAlias`2.ListLengthChangedFromPrefab">
@@ -4473,6 +4498,16 @@
             <seealso cref="T:Sirenix.OdinInspector.GUIColorAttribute"/>
         </member>
         <member name="M:Sirenix.OdinInspector.Editor.Drawers.HideLabelAttributeDrawer.DrawPropertyLayout(UnityEngine.GUIContent)">
+            <summary>
+            Draws the property.
+            </summary>
+        </member>
+        <member name="T:Sirenix.OdinInspector.Editor.Drawers.ImageAttributeDrawer">
+            <summary>
+            Draws properties marked with <see cref="T:Sirenix.OdinInspector.ImageAttribute"/> as an image directly in the inspector.
+            </summary>
+        </member>
+        <member name="M:Sirenix.OdinInspector.Editor.Drawers.ImageAttributeDrawer.DrawPropertyLayout(UnityEngine.GUIContent)">
             <summary>
             Draws the property.
             </summary>

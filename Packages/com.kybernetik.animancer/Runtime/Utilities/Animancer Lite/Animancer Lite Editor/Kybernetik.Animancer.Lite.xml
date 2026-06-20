@@ -2367,6 +2367,9 @@
         <member name="M:Animancer.AnimancerEvent.Invoker.EnumerateInvocationQueue">
             <summary>Returns an enumerator for all invocations currently in the queue.</summary>
         </member>
+        <member name="M:Animancer.AnimancerEvent.Invoker.Clear">
+            <summary>Ensures that the invocation queue is cleared when entering Play Mode.</summary>
+        </member>
         <member name="M:Animancer.AnimancerEvent.Invoker.Awake">
             <summary>[Assert-Only] Registers this instance.</summary>
         </member>

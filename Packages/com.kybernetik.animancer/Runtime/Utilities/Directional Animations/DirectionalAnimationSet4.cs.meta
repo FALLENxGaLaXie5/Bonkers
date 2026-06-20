@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 93adab61c7355ac4a99d536a6fc00e51
+guid: fc5d7965d9c1d584397ab2e49982c746
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -13,6 +13,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 293524
   packageName: Animancer Lite v8
-  packageVersion: 8.3.1
+  packageVersion: 8.3.2
   assetPath: Packages/com.kybernetik.animancer/Runtime/Utilities/Directional Animations/DirectionalAnimationSet4.cs
-  uploadId: 895130
+  uploadId: 918084

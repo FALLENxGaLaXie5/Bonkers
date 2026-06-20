@@ -17,6 +17,6 @@ AssetOrigin:
   serializedVersion: 1
   productId: 293524
   packageName: Animancer Lite v8
-  packageVersion: 8.3.1
+  packageVersion: 8.3.2
   assetPath: Packages/com.kybernetik.animancer/Samples~/06 State Machines/03 Brains/MoveState.cs
-  uploadId: 895130
+  uploadId: 918084
