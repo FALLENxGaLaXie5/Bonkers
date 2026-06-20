@@ -15,13 +15,13 @@ public class EnemyMovement : MonoBehaviour
 
     PathfindingSearch pathfinder;
     // Use this for initialization
-    void Start()
+    private void Start()
     {
         pathfinder = GetComponent<PathfindingSearch>();
         StartCoroutine(FollowPath(pathfinder.SetNewRandomPath()));
     }
 
-    IEnumerator FollowPath(List<Waypoint> path)
+    private IEnumerator FollowPath(List<Waypoint> path)
     {
         while (true)
         {
